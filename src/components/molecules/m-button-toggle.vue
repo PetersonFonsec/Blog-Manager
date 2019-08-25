@@ -1,8 +1,8 @@
 <template>
 	<div 
         class="btn-toggle"
-        :class="{'close': isOpen}"
-         @click="isOpen = !isOpen">
+        :class="{'close': isMenuOpen}"
+         @click="toggle">
 		<span :style="style" class="pipe"></span>
 		<span :style="style" class="pipe"></span>
 		<span :style="style" class="pipe"></span>
@@ -10,17 +10,19 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
     name:'btnToggle',
     props: ['bg'],
-    computed:{
+    computed: {
         style(){
             return `background-color: ${this.bg};`
-        }
-    },    
-    data(){
-        return {
-            isOpen: false
+        },
+        ...mapState(['isMenuOpen'])
+    },
+    methods:{
+        toggle(){
+            this.$store.commit('toggleMenu')
         }
     }
 }

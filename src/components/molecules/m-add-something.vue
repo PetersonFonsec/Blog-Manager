@@ -1,14 +1,17 @@
 <template>
-	<div class="add-something">
+	<cSomething>
 		<div class="btn">
-			<span class="plus-icon"></span>
+			<plusIcon/>
 		</div>
-	</div>  
+	</cSomething>  
 </template>
 
 <script>
+import plusIcon from '../atoms/a-pluss-icon'
+import cSomething from '../atoms/a-conteiner-something'
 export default {
-    name: 'add-something'
+    name: 'addSomething',
+    components:{ plusIcon, cSomething }
 }
 </script>
 
@@ -21,17 +24,6 @@ export default {
     border-radius: 50%;
     position: relative;
     cursor: pointer;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.add-something{
-    width: 130px;
-    height: 130px;
-    background-image: radial-gradient( rgba( 96,96,96, 0 ) , rgba( 96,96,96, .1 ) );
-    box-shadow: 0 0px 5px #606060;
-    border-radius: 20px;
 
     display: flex;
     align-items: center;

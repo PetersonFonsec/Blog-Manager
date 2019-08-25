@@ -1,6 +1,6 @@
 <template>
     <header>
-        <div class="header">
+        <div class="header" :style="bg" >
             <span class="left">
                 <slot name="left"></slot>
             </span>
@@ -13,12 +13,25 @@
                 <slot name="right"></slot>
             </span>
         </div>
+
+        <div class="sub-menu" :class="{'close': !isMenuOpen }" :style="bg" >
+            <slot name="sub-menu"></slot>
+        </div>
+
     </header>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
-    name: 'M-Header'
+    name: 'M-Header',
+    props: ['bg'],
+    computed: {
+        style(){
+            return `background-color: ${this.bg}`
+        },
+        ...mapState(['isMenuOpen'])
+    }
 }
 </script>
 
@@ -26,10 +39,9 @@ export default {
 .header {
     width: 100%;
     height: 45px;
-    transition: linear all .3s;
-    background-color: rgba( 0,0,0, 0.6 );
     display: flex;
     align-items: center;
+    padding: 0 10px 0 10px;
 }
 .left{
     justify-self: flex-end;
@@ -41,5 +53,14 @@ export default {
 }
 .right{
     justify-self: flex-start;
+}
+.sub-menu{
+    width: 100%;
+    height: 60px;
+    background-color: rgba( 0,0,0, 0.6 );
+    transition: linear all .3s;
+}
+.sub-menu.close{
+    height: 0px;
 }
 </style>
