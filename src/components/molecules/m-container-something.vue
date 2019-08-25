@@ -6,6 +6,12 @@
 	</div>  
 </template>
 
+<script>
+export default {
+    name: 'add-something'
+}
+</script>
+
 <style scoped>
 .btn{
     width: 50px;

@@ -2,6 +2,12 @@
     <span class="plus-icon"></span>
 </template>
 
+<script>
+export default {
+    name: 'plus-icon'
+}
+</script>
+
 <style scoped>
 .plus-icon:before{
 	content: '';

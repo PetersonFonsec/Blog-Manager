@@ -1,18 +1,19 @@
 <template>
   <div id="app">
-    
+    <Header />
   </div>
 </template>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<script>
+import Header from '@/components/organisms/o-header'
+export default {
+  components: { Header }
 }
-#nav {
-  padding: 30px;
+</script>
+
+<style>
+body{
+  padding: 0px;
+  margin:  0px;
 }
 </style>
