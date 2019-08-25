@@ -1,5 +1,6 @@
 # blog-manager
 https://ubiedigital.com/wp-content/uploads/2016/08/atomic-design.jpg
+https://medium.com/dex01/inteligenciaportrasatomicdesign-1e405464ff5d
 ## Project setup
 ```
 yarn install
