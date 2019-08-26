@@ -1,3 +1,4 @@
+import 'font-awesome/css/font-awesome.css'
 import '@babel/polyfill'
 import 'mutationobserver-shim'
 import './plugins/bootstrap-vue'
@@ -6,7 +7,6 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import './registerServiceWorker'
-import './config/bootstrap'
 
 Vue.config.productionTip = false
 

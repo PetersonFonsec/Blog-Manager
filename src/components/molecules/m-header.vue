@@ -1,6 +1,6 @@
 <template>
     <header>
-        <div class="header shadow" :style="bg" >
+        <div class="header shadow born" :style="bg" >
             <span class="left">
                 <slot name="left"></slot>
             </span>
@@ -14,14 +14,11 @@
             </span>
         </div>
 
-        <div class="sub-menu" :class="{'close': !isMenuOpen }" :style="bg" >
-            <!-- <slot name="sub-menu"></slot> -->
-            <ul>
-                <li>
-
-                </li>
-            </ul>
-        </div>
+        <template v-if="isMenuOpen">
+            <div class="sub-menu" :class="{'close': !isMenuOpen }" :style="bg" >
+                <slot name="subMenu"></slot>            
+            </div>
+        </template>
 
     </header>
 </template>
@@ -36,7 +33,7 @@ export default {
             return `background-color: ${this.bg}`
         },
         ...mapState(['isMenuOpen'])
-    }
+    },
 }
 </script>
 
@@ -62,11 +59,22 @@ export default {
 }
 .sub-menu{
     width: 100%;
-    height: 60px;
+    min-height: 60px;
     background-color: rgba( 0,0,0, 0.6 );
     transition: linear all .3s;
 }
-.sub-menu.close{
+.sub-menu.close {
     height: 0px;
+}
+@keyframes born {
+    0%{
+        transform: translateY( -45px );
+    }
+    100%{
+        transform: translateY( 0px );
+    }
+}
+.born{
+    animation: born .3s linear;
 }
 </style>

@@ -1,8 +1,8 @@
 <template>
   <div class="menu-item">
-      <router-link :to='path' tag="li">
-          <div class="conteiner-item">
-              <img :src="icon" :alt="alt"/>
+      <router-link :to='path'>
+          <div class="container-item">
+              <i :class="icon" aria-hidden="true"></i>
               
               {{ label }}
           </div>
@@ -35,8 +35,14 @@ export default {
 </script>
 
 <style>
-.conteiner-item{
-    display: flex;
-    align-items: center;
+.menu-item a{
+    text-decoration: none;
+    color: #fff;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, .5);
+    font-size: 18px;    
+}
+.menu-item a:hover {
+    text-decoration: none;
+    
 }
 </style>
