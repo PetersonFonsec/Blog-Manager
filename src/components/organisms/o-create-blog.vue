@@ -1,6 +1,11 @@
  <template>
   <div id="CreateBlog">
-    <Popover title="Criar um novo blog">
+    <Popover 
+      :title="title"
+      :target="target"
+      :container="container"
+      :ref="ref"
+      :refTarget="refTarget">
       
       <template v-slot:trigger>
         <addSomething/>
@@ -22,5 +27,14 @@
   export default {
     name: 'CreateBlog',
     components: { Popover, addSomething, formBlog },
+    data(){
+      return {
+          title: 'Criar novo Blog',
+          target: 'add',
+          container: 'box-create-blog',
+          ref: 'popover-creat',
+          refTarget: 'CreateBlog'
+      }
+    }
   }
 </script>

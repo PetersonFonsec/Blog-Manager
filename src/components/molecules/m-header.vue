@@ -15,7 +15,7 @@
         </div>
 
         <template v-if="isMenuOpen">
-            <div class="sub-menu" :class="{'close': !isMenuOpen }" :style="bg" >
+            <div class="sub-menu" :class="{'close': !isMenuOpen && userLogged }" :style="bg" >
                 <slot name="subMenu"></slot>            
             </div>
         </template>
@@ -32,7 +32,7 @@ export default {
         style(){
             return `background-color: ${this.bg}`
         },
-        ...mapState(['isMenuOpen'])
+        ...mapState(['isMenuOpen', 'userLogged'])
     },
 }
 </script>

@@ -1,19 +1,19 @@
  <template>
-  <div id="my-container">
+  <div :id="container">
 
     <div class="my-3">
-      <div id="popover-reactive-1" :disabled="popoverShow" variant="primary" ref="button">
+      <div :id="target" :disabled="popoverShow" variant="primary" :ref="refTarget">
         <slot name="trigger"></slot>
       </div>
     </div>
 
     <b-popover
-      target="popover-reactive-1"
-      triggers="click"
+      :target="target"
       :show.sync="popoverShow"
-      placement="auto"
-      container="my-container"
-      ref="popover">
+      :container="container"
+      :ref="ref"
+      triggers="click"
+      placement="auto">
 
       <template slot="title">
         
@@ -21,7 +21,7 @@
           <span class="d-inline-block" aria-hidden="true">&times;</span>
         </b-button>
 
-        {{ title }}
+        <span class="mr-3">{{ title }}</span>
       </template>
 
       <div>
@@ -36,13 +36,29 @@
   export default {
     props:{
         title:{
-            type: String,
-            required: true
+          type: String,
+          required: true,
+        },
+        target:{
+          type: String,
+          required: true,
+        },
+        container:{
+          type: String,
+          required: true,
+        },
+        ref:{
+          type: String,
+          required: true,          
+        },
+        refTarget:{
+          type: String,
+          required: true,          
         }
     },
     data() {
       return {
-        popoverShow: false
+        popoverShow: false,
       }
     },
     methods: {
@@ -52,3 +68,5 @@
     }
   }
 </script>
+<style scoped>
+</style>

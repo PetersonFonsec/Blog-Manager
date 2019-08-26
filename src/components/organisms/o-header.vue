@@ -28,7 +28,7 @@
 
 <script>
 import menuItem from '../atoms/a-menu-item'
-import btnToggle from '../molecules/m-button-toggle'
+import btnToggle from '../atoms/a-button-toggle'
 import Header from '../molecules/m-header'
 export default {
     name: 'O-Header',

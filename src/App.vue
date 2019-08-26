@@ -3,6 +3,7 @@
     <Header />
     
     <div class="content">
+      <blogs/>
     </div>
 
   </div>
@@ -10,8 +11,9 @@
 
 <script>
 import Header from '@/components/organisms/o-header'
+import blogs  from '@/components/templates/t-blogs'
 export default {
-  components: { Header },
+  components: { Header, blogs },
 }
 </script>
 

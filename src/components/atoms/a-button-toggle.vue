@@ -1,7 +1,8 @@
 <template>
 	<div 
+        v-if="userLogged"
         class="btn-toggle"
-        :class="{'close': isMenuOpen}"
+        :class="{'close': isMenuOpen }"
          @click="toggle">
 		<span :style="style" class="pipe"></span>
 		<span :style="style" class="pipe"></span>
@@ -18,7 +19,7 @@ export default {
         style(){
             return `background-color: ${this.bg};`
         },
-        ...mapState(['isMenuOpen'])
+        ...mapState(['isMenuOpen', 'userLogged'])
     },
     methods:{
         toggle(){
