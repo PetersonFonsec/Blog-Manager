@@ -2,18 +2,16 @@
   <div id="app">
     <Header />
     
-    <div class="content">
-      <blogs/>
-    </div>
+      <BoxPost title="Pet Script" author="Peterson F. Simião" data="26/08/19"/>
 
   </div>
 </template>
 
 <script>
 import Header from '@/components/organisms/o-header'
-import blogs  from '@/components/templates/t-blogs'
+import BoxPost  from './components/molecules/m-total-box-post'
 export default {
-  components: { Header, blogs },
+  components: { Header, BoxPost },
 }
 </script>
 

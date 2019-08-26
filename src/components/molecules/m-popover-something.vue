@@ -11,7 +11,7 @@
       :target="target"
       :show.sync="popoverShow"
       :container="container"
-      :ref="ref"
+      ref="something"
       triggers="click"
       placement="auto">
 
@@ -35,26 +35,26 @@
 <script>
   export default {
     props:{
-        title:{
-          type: String,
-          required: true,
-        },
-        target:{
-          type: String,
-          required: true,
-        },
-        container:{
-          type: String,
-          required: true,
-        },
-        ref:{
-          type: String,
-          required: true,          
-        },
-        refTarget:{
-          type: String,
-          required: true,          
-        }
+      title:{
+        type: String,
+        required: true,
+      },
+      target:{
+        type: String,
+        required: true,
+      },
+      container:{
+        type: String,
+        required: true,
+      },
+      ref:{
+        type: String,
+        required: true,          
+      },
+      refTarget:{
+        type: String,
+        required: true,          
+      }
     },
     data() {
       return {
@@ -68,5 +68,3 @@
     }
   }
 </script>
-<style scoped>
-</style>

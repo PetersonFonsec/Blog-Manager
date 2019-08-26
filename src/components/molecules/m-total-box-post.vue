@@ -1,8 +1,6 @@
 <template>
   <div class="profile-blog">
-    <div class="image-post">
-      <img src="@/assets/default-post.png" alt="picture default" />
-    </div>
+    <img src="@/assets/default-post.png" alt="picture default" />
 
     <div class="info">
       <strong>{{ title }}</strong>
@@ -23,7 +21,7 @@
 
 <script>
 export default {
-    name: 'totalBlog',
+    name: 'BoxPost',
     props:{
       title: {
         type: String,
@@ -41,29 +39,33 @@ export default {
 }
 </script>
 
-<style >
-.image-post img {
-  max-width: 150px;
-  border-radius: 5px;
-}
-.image-post {
-  margin-right: 20px;
-  padding-right: 20px;
-  border-right: 1px solid #AAA;
-}
-.profile-blog{
-  padding: 5px;
+<style scoped>
+.profile-blog {
   background-color: #fff;
   border: 1px solid rgba(0, 0, 0, 0.2);
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
   border-radius: 5px;
   display: flex;
+  flex-direction: column;
+  max-width: 310px;
+  padding: 10px;
+  margin: 5px;
 }
+
+.profile-blog img {
+  max-width: 300px;
+  border-radius: 5px;
+}
+
 .about{
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+.about strong {
+    margin: 5px auto;
+    font-size: 20px;
 }
 .info{
   display: flex;

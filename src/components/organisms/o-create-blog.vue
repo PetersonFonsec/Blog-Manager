@@ -5,7 +5,7 @@
       :target="target"
       :container="container"
       :ref="ref"
-      :refTarget="refTarget">
+      :refTarget="refTarget" >
       
       <template v-slot:trigger>
         <addSomething/>

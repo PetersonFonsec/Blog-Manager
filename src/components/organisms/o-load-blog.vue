@@ -1,5 +1,5 @@
  <template>
-  <div id="CreateBlog">
+  <div id="LoadBlog">
     <Popover 
       :title="title"
       :target="target"
@@ -39,7 +39,3 @@
     }
   }
 </script>
-
-<style scoped>
-
-</style>

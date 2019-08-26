@@ -1,14 +1,16 @@
 <template>
-    <ul class="list-action">
-        <li @click="edit"> Editar </li>
-        <li @click="drop"> exluir </li>
-    </ul>
+    <div class="list-action">
+        <ul>
+            <li @click="edit"> Editar </li>
+            <li @click="drop"> exluir </li>
+        </ul>
+    </div>
 </template>
 
 <script>
 export default {
     name: 'blogAction',
-    methods:{
+    methods: {
         edit(){},
         drop(){}
     }
@@ -16,10 +18,12 @@ export default {
 </script>
 
 <style scoped>
-.list-action {
+.list-action ul {
     padding: 0px;
+    list-style: none;
 }
 .list-action li{
+    list-style: none;
     text-decoration: none;
     width: 100%;
     padding: 5px 0px;
