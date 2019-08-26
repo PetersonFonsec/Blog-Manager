@@ -22,7 +22,7 @@ export default {
     components: { btnToggle, Header },
     data(){
         return{
-            bg : 'background-image: linear-gradient(to left,#283048,#859398);',
+            bg : 'background-image: linear-gradient(to right,#085078,#85D8CE);',
         }
     }
 }
@@ -31,5 +31,6 @@ export default {
 <style scoped>
 .title{
     color: #fff;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, .5)
 }
 </style>

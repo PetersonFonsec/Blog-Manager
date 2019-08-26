@@ -1,6 +1,6 @@
 <template>
     <header>
-        <div class="header" :style="bg" >
+        <div class="header shadow" :style="bg" >
             <span class="left">
                 <slot name="left"></slot>
             </span>
@@ -15,7 +15,12 @@
         </div>
 
         <div class="sub-menu" :class="{'close': !isMenuOpen }" :style="bg" >
-            <slot name="sub-menu"></slot>
+            <!-- <slot name="sub-menu"></slot> -->
+            <ul>
+                <li>
+
+                </li>
+            </ul>
         </div>
 
     </header>
@@ -42,6 +47,7 @@ export default {
     display: flex;
     align-items: center;
     padding: 0 10px 0 10px;
+    box-shadow: 0px 2px 1px rgba(0, 0, 0, 1);    
 }
 .left{
     justify-self: flex-end;

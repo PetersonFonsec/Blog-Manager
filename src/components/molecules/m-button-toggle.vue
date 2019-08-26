@@ -37,6 +37,7 @@ export default {
     margin: 3px 0px;
     border-radius: 5px;
     transition: .2s linear all;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 1);
 }
 .btn-toggle {
     height: 30px;
