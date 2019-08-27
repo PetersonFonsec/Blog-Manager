@@ -1,17 +1,14 @@
 <template>
   <div id="app">
     <Header />
-    
-      <BoxPost title="Pet Script" author="Peterson F. Simião" data="26/08/19"/>
-
   </div>
 </template>
 
 <script>
-import Header from '@/components/organisms/o-header'
-import BoxPost  from './components/molecules/m-total-box-post'
+import Header from '@/components/organisms/menu/o-header'
+
 export default {
-  components: { Header, BoxPost },
+  components: { Header },
 }
 </script>
 

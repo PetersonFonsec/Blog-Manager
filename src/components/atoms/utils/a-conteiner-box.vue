@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import '@/css/keyframes.css'
 export default {
     name: 'cSomething',
 }
@@ -27,18 +28,7 @@ export default {
 .add-something:hover{
     transform: scale(1.1);
 }
-@keyframes born {
-    0%{
-        transform: scale(0);
-    }
-    50%{
-        transform: scale(1.3);
-    }
-    100%{
-        transform: scale(1);
-    }
-}
 .hide{
-    animation: born .5s;
+    animation: bornBox .5s;
 }
 </style>

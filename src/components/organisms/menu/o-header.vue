@@ -27,9 +27,11 @@
 </template>
 
 <script>
-import menuItem from '../atoms/a-menu-item'
-import btnToggle from '../atoms/a-button-toggle'
-import Header from '../molecules/m-header'
+import '@/css/keyFrames.css'
+import menuItem from '@/components/atoms/menu/a-item'
+import btnToggle from '@/components/atoms/menu/a-toggle'
+import Header from '@/components/atoms/menu/a-header'
+
 export default {
     name: 'O-Header',
     components: { btnToggle, Header, menuItem },
@@ -97,19 +99,8 @@ export default {
     transform: translateY(-5px);
     background-color: rgba(255, 255, 255, .2); 
 }
-@keyframes born {
-    0%{
-        transform: scale(0);
-    }
-    50%{
-        transform: scale(1.1);
-    }
-    100%{
-        transform: scale(1);
-    }
-}
 .born li{
-    animation: born .8s;
+    animation: bornBox .8s;
 }
 
 @media only screen and ( max-width:  650px) {

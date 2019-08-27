@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import '@/css/keyFrames.css'
 import { mapState } from 'vuex'
 export default {
     name: 'M-Header',
@@ -66,15 +67,7 @@ export default {
 .sub-menu.close {
     height: 0px;
 }
-@keyframes born {
-    0%{
-        transform: translateY( -45px );
-    }
-    100%{
-        transform: translateY( 0px );
-    }
-}
 .born{
-    animation: born .3s linear;
+    animation: bornHeder .3s linear;
 }
 </style>
