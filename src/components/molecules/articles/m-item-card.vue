@@ -8,9 +8,7 @@
       <strong>{{ title }}</strong>
       
       <p>
-        Front-end CSS libraries let 
-        you rapidly prototype since 
-        you don’t have to worry about styles
+        {{ description }}
       </p>
 
       <div class="about">
@@ -24,7 +22,7 @@
 <script>
 export default {
     name: 'totalBlog',
-    props:{
+    props:{      
       title: {
         type: String,
         require: true
@@ -34,6 +32,10 @@ export default {
         require: true
       },
       data:{
+        type: String,
+        require: true
+      },
+      description:{
         type: String,
         require: true
       }

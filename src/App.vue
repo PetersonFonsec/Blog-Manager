@@ -1,14 +1,15 @@
 <template>
   <div id="app">
     <Header />
+    <Form/>
   </div>
 </template>
 
 <script>
 import Header from '@/components/organisms/menu/o-header'
-
+import Form   from '@/components/organisms/articles/o-form-view'
 export default {
-  components: { Header },
+  components: { Header, Form },
 }
 </script>
 
