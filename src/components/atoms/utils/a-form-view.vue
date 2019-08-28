@@ -1,27 +1,28 @@
 <template>
-  <div class="Form-article">
-    <FormAndView>
+  <div class="FormAndView">
 
-        <template v-slot:left>
-            <Form :preview="true" />
-        </template>
-        
-        <template v-slot:right>
-            <Preview />
-        </template>
+      <div class="left-side" :class="{ 'show' : showRightSide, 'hide' : !showRightSide }">
+        <slot name="left"></slot>
+      </div>
 
-    </FormAndView>
+      <div class="right-side" :class="{ 'show' : showRightSide, 'hide' : !showRightSide }">
+
+        <div class="centralizar" @click="showRightSide = !showRightSide">
+            <ButtonEye :show="showRightSide"/>
+        </div>
+
+        <slot name="right"></slot>
+      </div>
+
   </div>
 </template>
 
 <script>
-import FormAndView from '@/components/atoms/utils/a-form-view'
-import Form from '@/components/molecules/articles/m-form-create'
-import Preview from '@/components/molecules/articles/m-form-preview'
+import ButtonEye from '@/components/atoms/articles/a-button-eye'
 
 export default {
-    name: 'FormArticles',
-    components: { Form, Preview, FormAndView },
+    name: 'FormAndView',
+    components: { ButtonEye },
     data(){
         return {
             showRightSide: false

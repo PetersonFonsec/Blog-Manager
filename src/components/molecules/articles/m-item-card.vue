@@ -1,10 +1,13 @@
 <template>
-  <div class="profile-blog">
-    <div class="image-post">
-      <img src="@/assets/default-post.png" alt="picture default" />
+  <div class="article-item-bar" >
+
+    <div class="image-post">      
+      <img v-if="imagem" :src="imagem" alt="picture" />
+      <img v-else src="@/assets/default-post.png" alt="picture default" />
     </div>
 
     <div class="info">
+
       <strong>{{ title }}</strong>
       
       <p>
@@ -15,7 +18,9 @@
         <div>{{ author }}</div>
         <div>{{ data }}</div>
       </div>
+
     </div>
+
   </div>
 </template>
 
@@ -38,28 +43,32 @@ export default {
       description:{
         type: String,
         require: true
+      },
+      imagem:{
+        type: String,
+        require: true,
       }
     }
 }
 </script>
 
 <style >
-.image-post img {
-  max-width: 150px;
-  border-radius: 5px;
-}
-.image-post {
-  margin-right: 20px;
-  padding-right: 20px;
-  border-right: 1px solid #AAA;
-}
-.profile-blog{
+.article-item-bar{
   padding: 5px;
   background-color: #fff;
   border: 1px solid rgba(0, 0, 0, 0.2);
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
   border-radius: 5px;
   display: flex;
+}
+.article-item-bar .image-post {
+  margin-right: 20px;
+  padding-right: 20px;
+  border-right: 1px solid #AAA;
+}
+.article-item-bar .image-post img {
+  max-width: 150px;
+  border-radius: 5px;
 }
 .about{
   width: 100%;

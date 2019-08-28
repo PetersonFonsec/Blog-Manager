@@ -1,6 +1,7 @@
 <template>
-  <div class="profile-blog">
-    <img src="@/assets/default-post.png" alt="picture default" />
+  <div class="card-item-article">
+    <img v-if="imagem" :src="imagem" alt="picture default" />
+    <img v-else src="@/assets/default-post.png" alt="picture default" />
 
     <div class="info">
       <strong>{{ title }}</strong>
@@ -36,25 +37,29 @@ export default {
       description:{
         type: String,
         require: true
+      },
+      imagem:{
+        type: String,
+        require: true,
       }
     }
 }
 </script>
 
 <style scoped>
-.profile-blog {
+.card-item-article {
   background-color: #fff;
   border: 1px solid rgba(0, 0, 0, 0.2);
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
   border-radius: 5px;
   display: flex;
   flex-direction: column;
-  max-width: 310px;
+  max-width: -webkit-fill-available;
   padding: 10px;
   margin: 5px;
 }
 
-.profile-blog img {
+.card-item-article img {
   max-width: 300px;
   border-radius: 5px;
 }

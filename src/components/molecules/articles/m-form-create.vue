@@ -20,11 +20,11 @@
 
         <b-row>
           <b-col sm='12' md=6>
-            <b-form-group id="group-name" label="Nome" label-for="name">
+            <b-form-group id="group-title" label="Titulo" label-for="title">
               <b-form-input 
-                id="name"
-                :state="rules.name"
-                v-model="article.name"
+                id="title"
+                :state="rules.title"
+                v-model="article.title"
                 placeholder="Titulo do artigo" />
             </b-form-group>
           </b-col>
@@ -89,7 +89,15 @@ import { VueEditor } from 'vue2-editor'
 export default {
     name:'FormArticle',
     components: { VueEditor },
-    props:['mode'],
+    props:['mode', 'preview'],
+    watch:{
+      article:{
+        handler: function(article){
+          if(this.preview) this.$store.commit('updatePreview', article)
+        },
+        deep: true
+      }
+    },
     computed:{
       _mode(){
         return this.mode || 'save'
@@ -126,7 +134,6 @@ export default {
     padding: 10px;
     background: #fff;
     border-radius: 5px;
-    margin: 100px auto;
     box-shadow: 0 1px 3px rgba( 200, 200, 200, .8 );
     display: flex;
     justify-content: center;
