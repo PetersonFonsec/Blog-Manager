@@ -1,6 +1,11 @@
 .DS_Store
-node_modules
 /dist
+
+FrontEnd/node_modules
+FrontEnd/src/global.js
+
+BackEnd/node_modules
+BackEnd/.env
 
 # local env files
 .env.local

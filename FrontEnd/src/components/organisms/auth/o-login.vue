@@ -1,14 +1,18 @@
 <template>
   <div class="container-Login">
-
+    
     <template v-if="login">
         <h3>Entrar</h3>
-        <Form @userNotExist="login = false"/>
+        <Form 
+            @loging="welcome"
+            @userNotExist="login = false"/>
     </template>
 
     <template v-else>
         <h3>Criar Conta</h3>
-        <FormCreateUser @userExist="login = true"/>
+        <FormCreateUser
+            @create="creatUser"
+            @userExist="login = true"/>
     </template>
 
   </div>
@@ -20,8 +24,16 @@ import Form from '@/components/molecules/auth/m-form-login'
 import FormCreateUser from '@/components/molecules/auth/m-form-create'
 
 export default {
-    name:'Login',
+    name:'OrganismsLogin',
     components: { Form, FormCreateUser },
+    methods:{
+        creatUser(user){
+
+        },
+        welcome(user){
+
+        },
+    },
     data(){ 
         return{
             login: false

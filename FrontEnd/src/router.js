@@ -1,17 +1,17 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
+import auth from './views/login.vue'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
-      name: 'home',
-      component: Home
+      path: '/auth',
+      name: 'auth',
+      component: auth
     },
     /*{
       path: '/about',
@@ -20,3 +20,9 @@ export default new Router({
     } */
   ]
 })
+
+// router.beforeEach((to, from, next) => {
+
+// })
+
+export default router

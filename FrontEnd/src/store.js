@@ -6,7 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     isMenuOpen: false,
-    userLogged: true,
+    userLogged: false,
     ArticlePreview: {
       title: 'title default',
       description: 'description default',

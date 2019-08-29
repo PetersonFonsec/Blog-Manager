@@ -1,16 +1,23 @@
 <template>
   <div id="app">
     <Header />
-    <Form />
+    <router-view />
   </div>
 </template>
 
 <script>
+import { userKey } from './global'
 import Header from '@/components/organisms/menu/o-header'
-import Form  from '@/components/organisms/auth/o-login'
 
 export default {
-  components: { Header, Form },
+  components: { Header },
+  created(){
+    const user = localStorage.getItem(userKey)
+
+    if(!user) return this.$router.push({ path: '/auth' })
+    
+    this.$store.commit( 'login' )
+  }
 }
 </script>
 

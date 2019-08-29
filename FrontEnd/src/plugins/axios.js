@@ -2,14 +2,14 @@
 
 import Vue from 'vue';
 import axios from "axios";
-
+import { baseURL } from "@/global";
 // Full config:  https://github.com/axios/axios#request-config
 // axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || '';
 // axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 let config = {
-  // baseURL: process.env.baseURL || process.env.apiUrl || ""
+  baseURL
   // timeout: 60 * 1000, // Timeout
   // withCredentials: true, // Check cross-site Access-Control
 };
@@ -38,7 +38,7 @@ _axios.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
+// eslint-disable-next-line
 Plugin.install = function(Vue, options) {
   Vue.axios = _axios;
   window.axios = _axios;
