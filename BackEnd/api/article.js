@@ -1,4 +1,4 @@
-const UserDB = require('../model/user')
+const UserDB = require('../model/article')
 
 const create = async (req, res) =>{
     const { name, password, email } = req.body
