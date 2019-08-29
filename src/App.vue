@@ -1,13 +1,14 @@
 <template>
   <div id="app">
     <Header />
-    <Form/>
+    <Form />
   </div>
 </template>
 
 <script>
 import Header from '@/components/organisms/menu/o-header'
-import Form   from '@/components/organisms/articles/o-form-view'
+import Form  from '@/components/organisms/auth/o-login'
+
 export default {
   components: { Header, Form },
 }
