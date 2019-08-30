@@ -1,35 +1,15 @@
 # blog-manager
-https://ubiedigital.com/wp-content/uploads/2016/08/atomic-design.jpg
-https://medium.com/dex01/inteligenciaportrasatomicdesign-1e405464ff5d
-## Project setup
-```
-yarn install
-```
 
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
+**Front-End**  
 
-### Compiles and minifies for production
-```
-yarn run build
-```
+O front-end foi construído em Vue.js e usando a desing Atômico, onde quebramos os componentes em componentes menores até o ponto onde fica indivisível como o átomo (pelo menos a ideia original de átomo descrita por Demócrito ), comumente usado por designers na prototipação  
 
-### Run your tests
-```
-yarn run test
-```
+![ilustrção do desing atomico](https://ubiedigital.com/wp-content/uploads/2016/08/atomic-design.jpg)  
 
-### Lints and fixes files
-```
-yarn run lint
-```
+Segue Link que detalha melhor de como usar esse patter
 
-### Run your unit tests
-```
-yarn run test:unit
-```
+[inteligencia portras do atomic design](https://medium.com/dex01/inteligenciaportrasatomicdesign-1e405464ff5d)  
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Tambem um post intereçante sobre pontos ue
+
+[o elo perdido do design atomico](https://medium.com/@aureliojota/o-elo-perdido-do-design-at%C3%B4mico-5a623e8984fb)
