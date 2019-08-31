@@ -1,12 +1,12 @@
 const UserDB = require('../model/user')
 const bcrypt = require('bcrypt-nodejs')
+const { createToken } = require('../api/auth')
 
 const create = async (req, res) =>{
     const { name, password, email } = req.body
 
-    if( !name || !password || !email ){
+    if( !name || !password || !email )
         return res.status(401).send({ msg: 'Campo Name, Password ou Email estão inválidos'})
-    }
 
     try {
 
@@ -20,10 +20,14 @@ const create = async (req, res) =>{
                 name, 
                 email,
                 password: passwordEncripited,
-                admin: false 
+                admin: false
             })
 
-        return res.status(200).send({ result })
+        const { _id, admin } = result
+
+        const token = createToken({ _id, admin })
+
+        return res.status(200).send({ result, token })
 
     } catch (error) {
 

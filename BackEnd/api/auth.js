@@ -2,10 +2,7 @@ const UserDB = require('../model/user')
 const bcripty = require('bcrypt-nodejs')
 const jwt = require('jsonwebtoken')
 
-const createToken = payload => 
-    jwt.sign(payload, process.env.HASH, { expiresIn: 6000 } )
-
-const validToken = token => jwt.verify(token, process.env.HASH)
+const createToken = payload => jwt.sign(payload, process.env.HASH, { expiresIn: 6000 } )
 
 const Login =  async (req, res) => {
 
@@ -34,4 +31,33 @@ const Login =  async (req, res) => {
     }
 }
 
-module.exports = { Login, validToken }
+const userAdmin = middleware => {
+    (req, res, next) => req.body.admin 
+        ? middleware(req, res, next) 
+        : res.status(401).send('Usuário não é admin')
+}
+
+const validToken = (req, res, next) => {
+    const { authorization } = req.headers
+
+    if(!authorization) res.status(401).send({ error: 'Token não enviado'})
+
+    const parts = authorization.split(' ')
+    
+    if(!parts.length === 2) res.status(401).send({ error: 'Token inválido'})
+    
+    const [ bearer, token ] = parts
+
+    if(!/^Bearer$/i.test(bearer)) res.status(401).send({ error: 'Token inválido'})
+    
+    jwt.verify(token, process.env.HASH, (error, decoded) => {
+        if(error) return res.status(401).send({ error })
+
+        req.userID = decoded._id
+        req.admin  = decoded.admin
+
+        next()
+    })
+}
+
+module.exports = { Login, userAdmin, validToken, createToken }

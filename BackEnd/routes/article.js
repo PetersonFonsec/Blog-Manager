@@ -1,12 +1,18 @@
 const Article = require('../api/article')
+const { validToken } = require('../api/auth')
 
 module.exports = app => {
+
+    const { create, find, updateOne, removeOne, findOne } = Article
+
     app.route('/article')
-        .post( Article.create )
-        .get( Article.find )
+        .all(validToken)
+        .post(create)
+        .get(find)
 
     app.route('/article/:id')
-        .put( Article.updateOne )
-        .delete( Article.removeOne )
-        .get( Article.findOne )
+        .all(validToken)
+        .put(updateOne)
+        .delete(removeOne)
+        .get(findOne)
 }

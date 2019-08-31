@@ -1,12 +1,18 @@
 const Blog = require('../api/blog')
+const { validToken } = require('../api/auth')
 
 module.exports = app => {
+
+    const { create, find, updateOne, removeOne, findOne } = Blog
+
     app.route('/blog')
-        .post( Blog.create )
-        .get( Blog.find )
+        .all(validToken)
+        .post(create)
+        .get(find)
 
     app.route('/blog/:id')
-        .put( Blog.updateOne )
-        .delete( Blog.removeOne )
-        .get( Blog.findOne )
+        .all(validToken)
+        .put(updateOne)
+        .delete(removeOne)
+        .get(findOne)
 }
