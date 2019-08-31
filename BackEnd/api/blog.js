@@ -1,26 +1,18 @@
-const UserDB = require('../model/blog')
+const blogDb = require('../model/blog')
 
 const create = async (req, res) =>{
-    const { name, id } = req.body
+    const { name, photo } = req.body
+    const creator = [ req.userID ]
 
-    if( !name || !id ){
-        return res.status(401).send({ msg: 'Campo Name ou Id estão inválidos'})
-    }
-
+    if( !name  ) return res.status(401).send({ msg: 'Campo Name é Obrigatorio'})
+    
     try {
 
-        const emailExist = await UserDB.findOne({ email })
+        const blogsExist = await blogDb.findOne({ name })
 
-        if(emailExist) return res.status(401).send({ msg: 'Email já existente'})
+        if(blogsExist) return res.status(401).send({ msg: 'Blog já existente'})
 
-        const passwordEncripited = bcrypt.hashSync( req.body.password , bcrypt.genSaltSync(10)) 
-
-        const result = await UserDB.create({ 
-                name, 
-                email,
-                password: passwordEncripited,
-                admin: false 
-            })
+        const result = await blogDb.create({ name, creator, photo })
 
         return res.status(200).send({ msg: result })
 
@@ -33,14 +25,14 @@ const create = async (req, res) =>{
 
 const findOne = async (req, res)=>{
     try {
-        const { id } = req.params
+        const { id:_id } = req.params
 
-        const result = await UserDB.findOne({ _id : id })
+        const result = await blogDb.findOne({ _id })
 
         if(result){
             return res.status(200).send({ result })
         }else{
-            return res.status(404).send({ msg: 'Usuário não encontrado' })
+            return res.status(404).send({ msg: 'Blog não encontrado' })
         }
 
     }catch(error) {
@@ -50,7 +42,7 @@ const findOne = async (req, res)=>{
 
 const find = async (req, res)=>{
     try {
-        const result = await UserDB.find()
+        const result = await blogDb.find()
 
         return res.status(200).send({ result })
 
@@ -58,14 +50,33 @@ const find = async (req, res)=>{
         return res.status(501).send({ msg: error })
     }
 }
-
-const updateOne = async (req, res)=>{
+const giveAcess = async (req, res)=>{
     const { id } = req.params
-    const { name, email } = req.body
+    const { authors } = req.body
 
     try {
 
-        const result = await UserDB.findOneAndUpdate({ _id: id }, { name,  email } )
+        const result = await blogDb.findOneAndUpdate({ _id: id }, { $set : { authors } })
+
+        if(result){
+            return res.status(200).send({ result })
+        }else{
+            return res.status(404).send({ msg: 'Usuário não encontrado' })
+        }        
+
+    }catch(error){
+        console.log(error)
+        return res.status(501).send({ msg: error })
+    }
+}
+
+const updateOne = async (req, res)=>{
+    const { id } = req.params
+    const { name, photo, authors } = req.body
+
+    try {
+
+        const result = await blogDb.findOneAndUpdate({ _id: id }, { name,  email } )
 
         if(result){
             return res.status(200).send({ result })
@@ -94,4 +105,4 @@ const removeOne = async (req, res)=>{
     }
 }
 
-module.exports = { create, findOne, find, updateOne, removeOne }
+module.exports = { create, findOne, find, updateOne, removeOne, giveAcess }

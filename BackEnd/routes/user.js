@@ -7,8 +7,8 @@ module.exports = app => {
 
     app.route('/user')
         .all( validToken )
-        .post( userAdmin(create) )
         .get( userAdmin(find) )
+        .post( userAdmin(create) )
 
     app.route('/user/:id')
         .all( validToken )

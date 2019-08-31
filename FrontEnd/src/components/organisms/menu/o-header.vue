@@ -18,9 +18,11 @@
                     <menuItem 
                         :icon="route.icon"
                         :label="route.label"
-                        :path="route.path"
-                        :alt="route.alt"/>
+                        :path="route.path"/>
                 <li/>
+                <li @click="logout">
+                    <i class="fa fa-sign-out" aria-hidden="true"></i> Sair
+                </li>
             </ul>
         </template>
     </Header>
@@ -36,40 +38,35 @@ export default {
     name: 'O-Header',
     components: { btnToggle, Header, menuItem },
     data(){
-        return{
+        return {
             bg : 'background-image: linear-gradient(to right,#085078,#85D8CE);',
             routes: [
                 {
                     icon : 'fa fa-area-chart',
                     label : 'Dashboard',
-                    path : '/dashboard',
-                    alt :  'icone dashboard'
+                    path : '/dashboard',                    
                 },
                 {
                     icon : 'fa fa-file-o',
                     label : 'Blogs',
-                    path : '/blog',
-                    alt :  'icone blog'
+                    path : '/blog',                    
                 },
                 {
                     icon : 'fa fa-user-o',
                     label : 'Perfil',
-                    path : '/profile',
-                    alt :  'icone perfil'
+                    path : '/profile',                    
                 },
                 {
                     icon : 'fa fa-cogs',
                     label : 'Configurações',
-                    path : '/settings',
-                    alt :  'icone Configurações'
-                },
-                {
-                    icon : 'fa fa-sign-out',
-                    label : 'Sair',
-                    path : '/logout',
-                    alt :  'icone logout'
+                    path : '/settings',                    
                 }
             ]
+        }
+    },
+    methods:{
+        logout(){
+            this.$store.commit('logout')
         }
     }
 }
@@ -80,7 +77,7 @@ export default {
     color: #fff;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, .5)
 }
-.items-menu{
+.items-menu {
     list-style: none;
     display: flex;
     align-items: center;
@@ -90,14 +87,19 @@ export default {
     width: 100%;
     padding: 0px;
 }
-.items-menu li {
+.items-menu li, .items-menu li a {
     padding: 5px 15px;
     border-radius: 5px;
     transition: .2s all linear;
+     text-decoration: none;
+    color: #fff;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, .5);
+    font-size: 18px;    
 }
 .items-menu li:hover {
     transform: translateY(-5px);
     background-color: rgba(255, 255, 255, .2); 
+    text-decoration: none;
 }
 .born li{
     animation: bornBox .8s;
@@ -117,5 +119,4 @@ export default {
         padding: 10px 0;
     }
 }
-
 </style>

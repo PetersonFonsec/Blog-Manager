@@ -28,6 +28,7 @@ export default new Vuex.Store({
     },
     logout(state){
       state.userLogged = false
+      state.isMenuOpen = false,
       localStorage.removeItem(userKey)
     },
     updatePreview(state, article){
