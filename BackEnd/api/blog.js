@@ -72,11 +72,10 @@ const giveAcess = async (req, res)=>{
 
 const updateOne = async (req, res)=>{
     const { id } = req.params
-    const { name, photo, authors } = req.body
 
     try {
 
-        const result = await blogDb.findOneAndUpdate({ _id: id }, { name,  email } )
+        const result = await blogDb.findOneAndUpdate({ _id: id }, { ...req.body } )
 
         if(result){
             return res.status(200).send({ result })
@@ -91,13 +90,16 @@ const updateOne = async (req, res)=>{
 }
 
 const removeOne = async (req, res)=>{
-    const { id } = req.params
+    const _id = req.params.id
 
     try {
+        const result = await blogDb.deleteOne({ _id })
 
-        const result = await UserDB.deleteOne({ _id: id })
-
-        return res.status(200).send({ result })
+        if(result){
+            return res.status(200).send({ result })
+        }else{
+            return res.status(404).send({ msg: 'Blog não encontrado' })
+        }
 
     }catch(error){
 
