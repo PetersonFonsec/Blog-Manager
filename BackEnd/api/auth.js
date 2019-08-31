@@ -1,35 +1,37 @@
 const UserDB = require('../model/user')
+const bcripty = require('bcrypt-nodejs')
+const jwt = require('jsonwebtoken')
 
-const create = async (req, res) =>{
-    const { name, password, email } = req.body
+const createToken = payload => 
+    jwt.sign(payload, process.env.HASH, { expiresIn: 6000 } )
 
-    if( !name || !password || !email ){
-        return res.status(401).send({ msg: 'Campo Name, Password ou Email estão inválidos '})
-    }
+const validToken = token => jwt.verify(token, process.env.HASH)
+
+const Login =  async (req, res) => {
+
+    const { email, password } = req.body
 
     try {
-        const emailExist = await UserDB.findOne({ email })
 
-        console.log(emailExist)
+        const result = await UserDB.findOne({ email }).select('+password')
 
-        return res.status(200).send({ msg: 'ok' })
+        if(!result) return res.status(401).send({ msg: 'Usuário não encontrado' })
 
-    } catch (error) {
-        return res.status(501).send({ msg: error })
+        const isMach = bcripty.compareSync(password, result.password)
+
+        if(!isMach) return res.status(401).send({ msg: 'Senha ou Email incorretos' })
+
+        const { _id, admin } = result
+
+        const token = createToken({ _id, admin })
+
+        delete result.password
+
+        res.status(200).send({ result, token })
+
+    }catch(error){
+        res.status(501).send({ msg: error })
     }
-
-}
-const findOne = (req, res)=>{
-
-}
-const find = (req, res)=>{
-
-}
-const updateOne = (req, res)=>{
-
-}
-const removeOne = (req, res)=>{
-
 }
 
-module.exports = { create, findOne, find, updateOne, removeOne }
+module.exports = { Login, validToken }

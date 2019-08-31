@@ -9,7 +9,19 @@
                 <b-form-input
                     id="user-email"
                     type="email" 
+                    required
                     v-model="user.email"/>
+            </b-form-group>
+
+            <b-form-group 
+                id="group-user-name"
+                label="Nome do Usuários"
+                labe-for="user-name">
+                
+                <b-form-input
+                    id="user-name"
+                    required
+                    v-model="user.name"/>
             </b-form-group>
 
             <b-form-group
@@ -20,6 +32,7 @@
                 <b-form-input
                     id="user-password"
                     type="password" 
+                    required
                     v-model="user.password"/>
             </b-form-group>
 
@@ -31,6 +44,7 @@
                 <b-form-input
                     id="user-ConfirmPassword"
                     type="password" 
+                    required
                     :state="confirm"
                     @input="validatePassword"
                     v-model="user.confirmPassword"/>
@@ -57,7 +71,14 @@ export default {
     },
     methods:{
         create(){
-            this.$emit('create', this.user )
+            const user = {
+                ...this.user,
+                newUser: true
+            }
+
+            if( this.confirm && this.confirm !== 'none'){
+                this.$emit('create', user)
+            }            
         },
         validatePassword(value){
             this.confirm = !!(this.user.password === value)

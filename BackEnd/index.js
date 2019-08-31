@@ -3,7 +3,7 @@ require('dotenv').config()
 const express = require('express')
 const consign = require('consign')
 const server = express()
-const port = process.env.PORT
+const port = process.env.PORT || 3000
 
 consign()
     .then('./server')

@@ -1,4 +1,5 @@
+const auth = require('../api/auth')
+
 module.exports = app => {
-    const { authenticate } = app.api.auth
-        
+    app.post('/auth', auth.Login )   
 }

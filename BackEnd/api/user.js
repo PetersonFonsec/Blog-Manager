@@ -23,11 +23,9 @@ const create = async (req, res) =>{
                 admin: false 
             })
 
-        return res.status(200).send({ msg: result })
+        return res.status(200).send({ result })
 
     } catch (error) {
-
-        console.log(error)
 
         return res.status(501).send({ msg: error })
     }

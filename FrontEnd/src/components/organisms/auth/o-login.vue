@@ -11,7 +11,7 @@
     <template v-else>
         <h3>Criar Conta</h3>
         <FormCreateUser
-            @create="creatUser"
+            @create="welcome"
             @userExist="login = true"/>
     </template>
 
@@ -27,10 +27,25 @@ export default {
     name:'OrganismsLogin',
     components: { Form, FormCreateUser },
     methods:{
-        creatUser(user){
-
-        },
         welcome(user){
+            const router = user.newUser ? '/user' : '/auth'
+            
+            this.$axios.post(router, user)
+                .then( result => {
+
+                this.$store.commit('login', result.data.token )
+
+                this.$router.push({ path: `/home`})
+
+            }).catch(() => {
+
+                this.$bvToast.toast('Senha invalida', {
+                    title: 'Opss...',
+                    variant: 'danger',
+                    solid: true
+                })
+
+            })
 
         },
     },
@@ -46,7 +61,8 @@ export default {
 .container-Login {
     animation: bornBox .4s linear;
     width: 300px;
-    height: 400px;
+    min-height: 400px;
+    height: auto;
     box-shadow: 0 1px 5px #AAA;
     background-color: #fff;
 
