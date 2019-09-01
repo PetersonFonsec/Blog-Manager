@@ -40,15 +40,15 @@ const userAdmin = middleware => {
 const validToken = (req, res, next) => {
     const { authorization } = req.headers
 
-    if(!authorization) res.status(401).send({ error: 'Token não enviado'})
+    if(!authorization) return res.status(401).send({ error: 'Token não enviado'})
 
     const parts = authorization.split(' ')
     
-    if(!parts.length === 2) res.status(401).send({ error: 'Token inválido'})
+    if(!parts.length === 2) return  res.status(401).send({ error: 'Token inválido'})
     
     const [ bearer, token ] = parts
 
-    if(!/^Bearer$/i.test(bearer)) res.status(401).send({ error: 'Token inválido'})
+    if(!/^Bearer$/i.test(bearer)) return  res.status(401).send({ error: 'Token inválido'})
     
     jwt.verify(token, process.env.HASH, (error, decoded) => {
         if(error) return res.status(401).send({ error })

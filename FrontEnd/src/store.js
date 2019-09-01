@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { userKey } from '@/global'
+import axios from 'axios'
 
 Vue.use(Vuex)
 
@@ -24,11 +25,18 @@ export default new Vuex.Store({
     },
     login(state, token){
       state.userLogged = true
-      localStorage.setItem(userKey, JSON.stringify(token))
+
+      axios.defaults.headers.common['authorization'] = `Bearer ${token}`
+
+      localStorage.setItem(userKey, `Bearer ${token}`)
     },
     logout(state){
       state.userLogged = false
+
       state.isMenuOpen = false,
+
+      delete axios.defaults.headers.common['authorization']
+
       localStorage.removeItem(userKey)
     },
     updatePreview(state, article){

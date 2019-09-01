@@ -25,7 +25,9 @@ export default {
         }
     },
     methods:{
-        createBlog(){}
+        createBlog(){
+            this.$emit('createBlog', this.blog)
+        }
     }
 }
 </script>

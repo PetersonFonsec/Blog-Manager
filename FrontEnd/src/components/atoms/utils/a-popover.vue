@@ -47,10 +47,6 @@
         type: String,
         required: true,
       },
-      ref:{
-        type: String,
-        required: true,          
-      },
       refTarget:{
         type: String,
         required: true,          

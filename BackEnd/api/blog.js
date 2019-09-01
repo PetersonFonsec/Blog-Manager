@@ -1,7 +1,7 @@
 const blogDb = require('../model/blog')
 
 const create = async (req, res) =>{
-    const { name, photo } = req.body
+    const { name } = req.body
     const creator = [ req.userID ]
 
     if( !name  ) return res.status(401).send({ msg: 'Campo Name é Obrigatorio'})
@@ -12,7 +12,7 @@ const create = async (req, res) =>{
 
         if(blogsExist) return res.status(401).send({ msg: 'Blog já existente'})
 
-        const result = await blogDb.create({ name, creator, photo })
+        const result = await blogDb.create({ name, creator })
 
         return res.status(200).send({ msg: result })
 

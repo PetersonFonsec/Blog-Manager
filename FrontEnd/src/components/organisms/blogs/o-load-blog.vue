@@ -9,7 +9,7 @@
       >
       
       <template v-slot:trigger>
-        <blog BlogName="ppets" />
+        <blog :BlogName="BlogName" />
       </template>
 
       <template v-slot:content>
@@ -21,20 +21,21 @@
 </template>
 
 <script>
-  import Popover from '../molecules/m-popover-something'
-  import blog    from '../molecules/m-load-blog'
-  import actions from '../molecules/m-blog-actions'
+  import Popover from '@/components/atoms/utils/a-popover'
+  import blog    from '@/components/molecules/blogs/m-box'
+  import actions from '@/components/atoms/blogs/a-form-actions'
 
   export default {
     name: 'LoadBlog',
     components: { Popover, blog, actions },
+    props: ['BlogName'],
     data(){
       return {
-          title: 'O que fazer ?',
-          target: 'carregar',
-          container: 'box-load-blog',
-          ref: 'popover-actions',
-          refTarget: 'LoadBlog'
+        title: 'O que fazer ?',
+        target: 'carregar',
+        container: 'box-load-blog',
+        ref: 'popover-actions',
+        refTarget: 'LoadBlog'
       }
     }
   }

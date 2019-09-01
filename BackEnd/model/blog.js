@@ -6,10 +6,6 @@ module.exports = model('Blog', new Schema({
         required: true,
         unique: true
     },
-    photo: {
-        type: String,
-        required: true
-    },
     creator: {
         type: Schema.Types.ObjectId,
         ref: 'User'

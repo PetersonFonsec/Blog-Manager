@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import '@/css/keyframes.css'
+import '@/css/keyFrames.css'
 export default {
     name: 'cSomething',
 }

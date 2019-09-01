@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import auth from './views/login.vue'
-import article from './components/organisms/articles/o-form-view'
 
 Vue.use(Router)
 
@@ -17,13 +16,13 @@ const router = new Router({
     {
       path: '/article',
       name: 'article',
-      component: article
+      component: () => import('./components/organisms/articles/o-form-view')
     },
-    /*{
-      path: '/about',
-      name: 'about',
-      component: () => import( "about"  './views/About.vue')
-    } */
+    {
+      path: '/blog',
+      name: 'blog',
+      component: () => import('./views/Blog.vue')
+    }
   ]
 })
 
