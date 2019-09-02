@@ -4,28 +4,28 @@
         <b-row>
             <b-col xs='12' sm=6 md=4>
                 <b-form-group id="group-title" label="Titulo" label-for="title">
-            
+
                 <b-form-input
                     id="title"
                     v-model="filters.title"
                     placeholder="Titulo do artigo" />
-            
+
                 </b-form-group>          
             </b-col>
 
             <b-col xs='12' sm=6 md=4>
                 <b-form-group id="group-blog" label="blog" label-for="blog">
-            
+
                 <b-form-select
                     id="blog"
                     v-model="filters.blog"
                     :options="blogs"
                     placeholder="Titulo do artigo" />
-            
+
                 </b-form-group>          
             </b-col>
-        
-            <b-col xs='12' sm=2>          
+
+            <b-col xs='12' sm=12 md=4>
                 <b-form-group id="group-date" label="Data da Publicação" label-for="date">
 
                     <b-form-input
@@ -36,8 +36,21 @@
 
                 </b-form-group>          
             </b-col>
+        </b-row>
+        
+        <b-row class="center flooat-right" >
 
-          <b-col sm="2" class="center">
+          <b-col xs="12" sm="6" md="3">
+            <b-button 
+                block 
+                variant="primary"
+                class="mt-1"
+                @click="toggleView"> 
+                <i class="fa fa-refresh" aria-hidden="true"></i>
+             </b-button>
+          </b-col>
+
+          <b-col xs="12" sm="6" md="3">
             <b-button block variant="success" class="mt-1" type="submit"> Filtrar </b-button>
           </b-col>
 
@@ -51,14 +64,28 @@ export default {
     name: 'FilterArticles',
     data(){
         return {
-            blogs: {},
-            filters: {}
+            filters: {},
+            blogs: {}
         }
     },
     methods:{
         filtrate(){
             this.$emit('filtrate', this.filters)
+        },
+        toggleView(){
+            this.$emit('toggleView')
+        },
+        async loadBlogs(){
+
+            const blogs = await this.$axios.get('/blog')
+
+            const forma2Select = result => ({ text: result.name, value: result._id})
+
+            this.blogs = blogs.data.result.map( forma2Select )
         }
+    },
+    mounted(){
+        this.loadBlogs()
     }
 }
 </script>
@@ -68,5 +95,12 @@ export default {
     justify-content: center;
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
+}
+.flooat-right{
+    justify-content: flex-end;
+}
+.filter-articles{
+    margin-bottom: 10px;
 }
 </style>

@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <Header />
+    <list />
     <!-- <router-view /> -->
   </div>
 </template>
@@ -8,9 +9,10 @@
 <script>
 import { userKey } from './global'
 import Header from '@/components/organisms/menu/o-header'
+import list from '@/components/organisms/articles/o-list'
 
 export default {
-  components: { Header },
+  components: { Header, list },
   created(){
     const token = localStorage.getItem(userKey)
 
