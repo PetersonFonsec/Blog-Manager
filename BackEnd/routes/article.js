@@ -3,16 +3,17 @@ const { validToken } = require('../api/auth')
 
 module.exports = app => {
 
-    const { create, find, updateOne, removeOne, findOne } = Article
+    const { create, findByBlogs, updateOne, removeOne, findOne, addLike } = Article
 
     app.route('/article')
         .all(validToken)
+        .get(findByBlogs)
         .post(create)
-        .get(find)
 
     app.route('/article/:id')
         .all(validToken)
+        .get(findOne)
+        .post(addLike)
         .put(updateOne)
         .delete(removeOne)
-        .get(findOne)
 }

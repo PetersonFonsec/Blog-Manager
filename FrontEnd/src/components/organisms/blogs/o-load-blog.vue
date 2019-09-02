@@ -57,10 +57,9 @@
       },
       removeBlog(){
         this.$axios.delete(`/blog/${this.idBlog}`).then( () => this.$emit('actionTaken') )
-        1
       },
       seerArticles(){
-
+        this.$axios.delete(`/blog/${this.idBlog}`).then( () => this.$emit('actionTaken') )
       },
       giveAcess(){
 

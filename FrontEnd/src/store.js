@@ -1,8 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { userKey } from '@/global'
 import axios from 'axios'
-import router from 'vue-router'
+import { userKey } from '@/global'
 
 Vue.use(Vuex)
 
@@ -41,8 +40,6 @@ export default new Vuex.Store({
       delete axios.defaults.headers.common['authorization']
 
       localStorage.removeItem(userKey)
-
-      router.push({ path: '/auth' })
     },
     updatePreview(state, article){
       const preview = state.ArticlePreview

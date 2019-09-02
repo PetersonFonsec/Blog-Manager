@@ -1,35 +1,153 @@
-const UserDB = require('../model/article')
+const articleDB = require('../model/article')
 
-const create = async (req, res) =>{
-    const { name, password, email } = req.body
+const blogDb = require('../model/blog')
 
-    if( !name || !password || !email ){
-        return res.status(401).send({ msg: 'Campo Name, Password ou Email estão inválidos '})
-    }
+const create = async (req, res) => {
+
+    const { title, blog, description, content, photo } = req.body
+
+    const err = msg => res.status(401).send({ msg }) 
+
+    if(!title)       return err('O titulo é obrigatório')
+    if(!blog)        return err('O id do blog é obrigatório')
+    if(!description) return err('a Descrição é obrigatória')
+    if(!content)     return err('Todo article deve ter conteudo')
+    if(!photo)       return err('Todo article deve ter uma foto de capa')
+
+    const author = req.userID
 
     try {
-        const emailExist = await UserDB.findOne({ email })
 
-        console.log(emailExist)
+        const result = await articleDB.create({ title, blog, description, content, author, photo })
 
-        return res.status(200).send({ msg: 'ok' })
+        if(result) return res.status(200).send({ result })
 
     } catch (error) {
         return res.status(501).send({ msg: error })
     }
 
 }
-const findOne = (req, res)=>{
+
+const findOne = async (req, res)=>{
+    const _id = req.params.id
+
+    if( !_id ) return res.status(401).send({ msg: 'Id é um campo obrigatório'})
+
+    try {
+
+        const result = await articleDB.findOne({ _id })
+
+        return result
+            ? res.status(200).send({ result })
+            : res.status(401).send({ msg: 'Artigo não encontrado' })
+
+    } catch (error) {
+        return res.status(501).send({ msg: error })
+    }
 
 }
-const find = (req, res)=>{
 
+const findByBlogs = async (req, res)=>{
+
+    const _id = req.userID
+
+    const err = msg => res.status(401).send({ msg }) 
+
+    try {
+
+        const getBlogsByAthors = {  authors : { $in: [ _id ] } }
+
+        const allBlogs = await blogDb.find(getBlogsByAthors)
+
+        if(!allBlogs) return err('Artigo não encontrado')
+
+        const blogIds = allBlogs.map( blog => blog._id )
+        
+        const getArticlesByBlogs = { blog: blogIds }
+
+        const allArticles = await articleDB.find(getArticlesByBlogs)
+
+        if(!allArticles) return err('Artigo não encontrado')
+
+        return res.status(200).send({ result: allArticles })
+
+    } catch (error) {
+        return res.status(501).send({ msg: error })
+    }
 }
-const updateOne = (req, res)=>{
 
+const findAll = async (req, res)=>{
+    try {
+        const result = await articleDB.find()
+
+        return result
+            ? res.status(200).send({ result })
+            : res.status(401).send({ msg: 'Artigo não encontrado' })
+
+    }catch(error) {
+        return res.status(501).send({ msg: error })
+    }
 }
-const removeOne = (req, res)=>{
 
+const updateOne = async (req, res)=>{
+    const _id = req.params.id
+
+    if( !_id ) return res.status(401).send({ msg: 'Id é um campo obrigatório'})
+
+    try {
+
+        const result = await articleDB.findByIdAndUpdate( _id, { ...req.params } )
+
+        return result
+            ? res.status(200).send({ result })
+            : res.status(401).send({ msg: 'Artigo não encontrado' })
+
+    } catch (error) {
+        return res.status(501).send({ msg: error })
+    }
 }
 
-module.exports = { create, findOne, find, updateOne, removeOne }
+const removeOne = async (req, res)=>{
+    const _id = req.params.id
+
+    if( !_id ) return res.status(401).send({ msg: 'Id é um campo obrigatório'})
+
+    try {
+
+        const result = await articleDB.deleteOne({ _id })
+
+        return result
+            ? res.status(200).send({ result })
+            : res.status(401).send({ msg: 'Artigo não encontrado' })
+
+    } catch (error) {
+        return res.status(501).send({ msg: error })
+    }
+}
+
+const addLike = async (req, res)=>{
+    const _id = req.params.id
+
+    if( !_id ) return res.status(401).send({ msg: 'Id é um campo obrigatório'})
+
+    try {
+
+        const article = await articleDB.findById(_id)
+
+        if(article){
+
+            article.likes++
+
+            article.save()
+         
+            return res.status(200).send({ result: 'ok' })
+
+        }else{
+            return res.status(401).send({ msg: 'Artigo não encontrado' })
+        }
+
+    } catch (error) {
+        return res.status(501).send({ msg: error })
+    }
+} 
+module.exports = { create, findOne, findByBlogs, findAll, updateOne, removeOne, addLike }
