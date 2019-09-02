@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import { userKey } from '@/global'
 import axios from 'axios'
+import router from 'vue-router'
 
 Vue.use(Vuex)
 
@@ -26,18 +27,22 @@ export default new Vuex.Store({
     login(state, token){
       state.userLogged = true
 
-      axios.defaults.headers.common['authorization'] = `Bearer ${token}`
+      const tokenFormated = `Bearer ${token}`
 
-      localStorage.setItem(userKey, `Bearer ${token}`)
+      axios.defaults.headers.common['authorization'] = tokenFormated
+
+      localStorage.setItem(userKey, token)
     },
     logout(state){
       state.userLogged = false
 
-      state.isMenuOpen = false,
+      state.isMenuOpen = false
 
       delete axios.defaults.headers.common['authorization']
 
       localStorage.removeItem(userKey)
+
+      router.push({ path: '/auth' })
     },
     updatePreview(state, article){
       const preview = state.ArticlePreview

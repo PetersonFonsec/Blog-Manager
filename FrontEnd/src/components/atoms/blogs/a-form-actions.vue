@@ -3,6 +3,8 @@
         <ul>
             <li @click="edit"> Editar </li>
             <li @click="drop"> exluir </li>
+            <li @click="seeArticles"> ver artigos </li>
+            <li @click="giveAcess"> adicionar autores </li>
         </ul>
     </div>
 </template>
@@ -11,8 +13,18 @@
 export default {
     name: 'blogAction',
     methods: {
-        edit(){},
-        drop(){}
+        edit(){
+            this.$emit('editBlog')
+        },
+        drop(){
+            this.$emit('removeBlog')
+        },
+        seeArticles(){
+            this.$emit('seerArticles')
+        },
+        giveAcess(){
+            this.$emit('giveAcess')
+        },
     }
 }
 </script>
@@ -28,6 +40,7 @@ export default {
     width: 100%;
     padding: 5px 0px;
     text-align: center;
+    cursor: pointer;
 }
 .list-action li:hover{
     background-color: rgba( 200, 200, 200, .5);

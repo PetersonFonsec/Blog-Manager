@@ -12,11 +12,11 @@ import Header from '@/components/organisms/menu/o-header'
 export default {
   components: { Header },
   created(){
-    const user = localStorage.getItem(userKey)
+    const token = localStorage.getItem(userKey)
 
-    if(!user) return this.$router.push({ path: '/auth' })
+    if(!token) return this.$router.push({ path: '/auth' })
     
-    this.$store.commit( 'login' )
+    this.$store.commit( 'login', token )
   }
 }
 </script>

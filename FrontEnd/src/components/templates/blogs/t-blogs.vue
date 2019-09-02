@@ -7,7 +7,11 @@
     <div class="blogs">
         
       <template v-for="(blog, index) in blogs ">
-        <LoadBlog :key="index" :BlogName="blog.name"/>
+        <LoadBlog 
+          @actionTaken="refresh"
+          :idBlog="blog._id"
+          :key="index"
+          :BlogName="blog.name"/>
       </template>
 
       <addBlogs @blogCreated="refresh"/>
