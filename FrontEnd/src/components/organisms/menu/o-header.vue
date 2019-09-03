@@ -47,7 +47,7 @@ export default {
                     path : '/dashboard',                    
                 },
                 {
-                    icon : 'fa fa-file-o',
+                    icon : 'fa fa-folder',
                     label : 'Blogs',
                     path : '/blog',                    
                 },

@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import '@/css/keyFrames.css'
 export default {
     name: 'BoxPost',
     props:{
@@ -48,6 +49,7 @@ export default {
 
 <style scoped>
 .card-item-article {
+  animation: bornBox linear .6s;
   background-color: #fff;
   border: 1px solid rgba(0, 0, 0, 0.2);
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
@@ -61,7 +63,7 @@ export default {
 }
 
 .card-item-article img {
-  max-width: 300px;
+  max-width: 250px;
   border-radius: 5px;
 }
 

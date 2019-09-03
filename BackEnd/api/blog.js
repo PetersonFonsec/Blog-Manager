@@ -51,6 +51,24 @@ const find = async (req, res)=>{
         return res.status(501).send({ msg: error })
     }
 }
+
+const findByIdUser = async (req, res)=>{
+    try {
+        const _id = req.userID
+
+        if(!_id) return res.status(401).send({ msg: 'Id é obrigatório' })
+
+        const query = {  authors : { $in: [ _id ] } }
+
+        const result = await blogDb.find(query)
+
+        return res.status(200).send({ result })
+
+    }catch(error) {
+        return res.status(501).send({ msg: error })
+    }
+}
+
 const giveAcess = async (req, res)=>{
     const { id } = req.params
     const { authors } = req.body
@@ -66,7 +84,6 @@ const giveAcess = async (req, res)=>{
         }        
 
     }catch(error){
-        console.log(error)
         return res.status(501).send({ msg: error })
     }
 }
@@ -108,4 +125,4 @@ const removeOne = async (req, res)=>{
     }
 }
 
-module.exports = { create, findOne, find, updateOne, removeOne, giveAcess }
+module.exports = { create, findOne, find, updateOne, removeOne, giveAcess, findByIdUser }

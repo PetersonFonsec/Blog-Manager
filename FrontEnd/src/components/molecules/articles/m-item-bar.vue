@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import '@/css/keyFrames.css'
 export default {
     name: 'totalBlog',
     props:{      
@@ -54,6 +55,7 @@ export default {
 
 <style >
 .article-item-bar{
+  animation: bornHeder linear .2s;
   padding: 5px;
   background-color: #fff;
   border: 1px solid rgba(0, 0, 0, 0.2);

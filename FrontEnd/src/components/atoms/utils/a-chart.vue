@@ -4,22 +4,41 @@
     </b-card>
 </template>
 
-<script>
-    import "chart.js";
-    export default {
-        props:[ 'datasets', 'labels', 'type', 'id' ],
-        mounted(){
-            const canvas = document.querySelector(`#${ this.id }`).getContext('2d')
-            
-            new Chart( canvas, {
-                type: this.type,
-                data:{
-                    labels: this.labels,
-                    datasets: this.datasets
-                }
-            });
-        }
-    }
+<script >
+import 'chart.js';
+
+export default {
+  props: {
+    datasets: {
+      type: Array,
+      required: true,
+    },
+    labels: {
+      type: [Array, String],
+      required: true,
+    },
+    type: {
+      type: String,
+      required: true,
+    },
+    id: {
+      type: String,
+      required: true,
+    },
+  },
+  mounted() {
+    const canvas = document.getElementById(this.id).getContext('2d');
+
+    // eslint-disable-next-line 
+    new Chart( canvas, {
+      type: this.type,
+      data:{
+        labels: this.labels,
+        datasets: this.datasets
+      }
+    });
+  },
+};
 </script>
 
 <style scoped>

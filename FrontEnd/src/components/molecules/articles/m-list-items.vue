@@ -26,6 +26,7 @@
 
         </template>
     </div>
+
   </div>
 </template>
 
@@ -52,6 +53,6 @@ export default {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
 }
 </style>

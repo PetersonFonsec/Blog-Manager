@@ -32,18 +32,20 @@ export default {
 </script>
 
 <style scoped>
+
 .FormAndView {
     display: flex;
-    /* justify-content: flex-start; */
     justify-content: center;
     align-items: flex-start;
 }
+
 .FormAndView .left-side {
-    width: 50%;
-    margin: 20px 0 0 20px;
+    width: auto;
+    margin: 10px;
     transition:linear .4s all;
     box-shadow: 0px 2px 1px rgba(0, 0, 0, 1);
 }
+
 .FormAndView .right-side{
     box-shadow:  0 1px 5px rgba(0, 0, 0, 0.15);
     border: 1px solid  #AAA;
@@ -57,21 +59,36 @@ export default {
     right: 0px;
     transition:linear .4s all;
 }
+
 .centralizar{
     position: absolute;
     top: 50%;
     left: -25px;
 }
+
 .left-side.show{
     transform: translateX(-50%);
 }
+
 .left-side.hide{
     transform: translateX(0);
 }
+
 .right-side.show{
     transform: translateX(0%);
 }
+
 .right-side.hide{
     transform: translateX(95%)
+}
+
+@media only screen and ( max-width:  800px) {
+    .FormAndView .right-side{
+        display: none;
+    }
+    .FormAndView .left-side{
+        width: 100%;
+        margin: 20px;
+    }
 }
 </style>

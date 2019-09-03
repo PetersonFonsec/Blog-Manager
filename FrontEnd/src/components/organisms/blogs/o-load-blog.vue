@@ -54,15 +54,24 @@
     methods:{
       editBlog(){
         
+        const params = this.idBlog
+        
+        this.$router.push({ path: '/blog/edit', params })
       },
       removeBlog(){
         this.$axios.delete(`/blog/${this.idBlog}`).then( () => this.$emit('actionTaken') )
       },
       seerArticles(){
-        this.$axios.delete(`/blog/${this.idBlog}`).then( () => this.$emit('actionTaken') )
+        
+        const params = this.idBlog
+        
+        this.$router.push({ path: '/blog/articles', params })
       },
       giveAcess(){
 
+        const params = this.idBlog
+        
+        this.$router.push({ path: '/blog/authores', params })
       },
     }
   }

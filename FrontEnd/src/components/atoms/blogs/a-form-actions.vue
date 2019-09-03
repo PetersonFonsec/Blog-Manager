@@ -4,6 +4,7 @@
             <li @click="edit"> Editar </li>
             <li @click="drop"> exluir </li>
             <li @click="seeArticles"> ver artigos </li>
+            <li @click="addArticles"> adicionar artigos </li>
             <li @click="giveAcess"> adicionar autores </li>
         </ul>
     </div>
@@ -25,6 +26,9 @@ export default {
         giveAcess(){
             this.$emit('giveAcess')
         },
+        addArticles(){
+            this.$emit('addArticles')
+        }
     }
 }
 </script>

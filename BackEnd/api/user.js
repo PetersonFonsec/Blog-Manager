@@ -36,6 +36,40 @@ const create = async (req, res) =>{
 
 }
 
+const createAdmin = async (req, res) =>{
+    const { name, password, email } = req.body
+
+    if( !name || !password || !email )
+        return res.status(401).send({ msg: 'Campo Name, Password ou Email estão inválidos'})
+
+    try {
+
+        const emailExist = await UserDB.findOne({ email })
+
+        if(emailExist) return res.status(401).send({ msg: 'Email já existente'})
+
+        const passwordEncripited = bcrypt.hashSync( req.body.password , bcrypt.genSaltSync(10)) 
+
+        const result = await UserDB.create({ 
+            name, 
+            email,
+            password: passwordEncripited,
+            admin: true
+        })
+
+        const { _id, admin } = result
+
+        const token = createToken({ _id, admin })
+
+        return res.status(200).send({ result, token })
+
+    } catch (error) {
+
+        return res.status(501).send({ msg: error })
+    }
+
+}
+
 const findOne = async (req, res)=>{
     try {
         const { id } = req.params
@@ -99,4 +133,4 @@ const removeOne = async (req, res)=>{
     }
 }
 
-module.exports =   { create, findOne, find, updateOne, removeOne }
+module.exports =   { create, findOne, find, updateOne, removeOne, createAdmin }

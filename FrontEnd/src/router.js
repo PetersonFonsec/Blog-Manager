@@ -14,15 +14,30 @@ const router = new Router({
       component: auth
     },
     {
-      path: '/article',
-      name: 'article',
-      component: () => import('./components/organisms/articles/o-form-view')
+      path: '/dashboard',
+      name: 'dashboard',
+      component: () => import('./components/templates/stats/t-dashboard'),
     },
     {
       path: '/blog',
       name: 'blog',
-      component: () => import('./views/Blog.vue')
-    }
+      component: () => import('./views/Blog.vue'),
+    },
+    {
+      name: 'bArticles',
+      path: '/blog/articles',
+      component: () => import('@/components/organisms/articles/o-list')
+    },
+    { 
+      name: 'bEdit',
+      path: '/blog/edit',
+      component: () => import('@/components/organisms/articles/o-form-view')
+    },
+    {
+      name: 'bAuthores',
+      path: '/blog/authores',
+      component: () => import('@/components/organisms/articles/o-form-view')
+    },
   ]
 })
 

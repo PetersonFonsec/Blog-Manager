@@ -32,7 +32,7 @@ const Login =  async (req, res) => {
 }
 
 const userAdmin = middleware => {
-    return (req, res, next) => req.body.admin 
+    return (req, res, next) => req.admin 
         ? middleware(req, res, next) 
         : res.status(401).send('Usuário não é admin')
 }
