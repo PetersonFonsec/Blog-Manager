@@ -5,8 +5,6 @@
 </template>
 
 <script >
-import 'chart.js';
-
 export default {
   props: {
     datasets: {
@@ -43,6 +41,6 @@ export default {
 
 <style scoped>
     .Grafico{
-       padding: 10px 5px;
+      margin: 10px;
     }
 </style>

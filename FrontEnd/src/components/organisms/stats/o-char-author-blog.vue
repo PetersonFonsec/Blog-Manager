@@ -1,35 +1,37 @@
 <template>
-  <div class="container-chart-likes">
+  <div class="container-chart-authors">
       <char 
         :labels="labels"
         :datasets="datasets"
         type="bar"
-        id="CharLikeArticle"/>
+        id="CharAuthorEachBlog"/>
   </div>
 </template>
 
 <script>
 import char from '@/components/atoms/utils/a-chart'
 export default {
-    name: 'likesArthicles',
+    name: 'AuthorEachBlog',
     components: { char },
     methods:{
         async loadingChart(){
-            const response = await this.$axios.get('/likesAndArticles')
+            const response = await this.$axios.get('/authorsEachBlog')
 
-            const result = response.data.likesAndArticles
+            const result = response.data.authorsAndBlogs
 
-            const labels = result.map(blog => blog.title)
+            const labels = result.map(blog => blog.name)
 
-            const data = result.map(blog => blog.likes)
+            const data = result.map(blog => blog.authors)
 
             this.datasets = [{
                 data,
-                label: 'Likes por Artigos',
-                backgroundColor: "rgba( 151, 187, 205, .8)",
+                label: 'Autores por Blog',
+                backgroundColor: "rgba( 151, 187, 205, 0.8)",
             }]
 
             this.labels = labels
+
+            console.log(this.datasets)
         }
     },
     data(){
@@ -45,8 +47,7 @@ export default {
 </script>
 
 <style scoped>
-.container-chart-likes{
-    animation: bornHeder linear .4s;
+.container-chart-authors{
     width: 100%;
     max-width: 600px;
     height: 300px;

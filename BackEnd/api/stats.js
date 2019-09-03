@@ -107,4 +107,56 @@ const authorsEachBlog = async (req, res) => {
 
 }
 
-module.exports = { totalizersBlogAndArticles, statsLikeArticle, authorsEachBlog }
+const articlesEachAuthor = async (req, res) => {
+
+    const _id = req.userID
+
+    const err = msg => res.status(401).send({ msg }) 
+
+    try {
+
+        const getBlogsByAthors = {  authors : { $in: [ _id ] } }
+
+        const allBlogs = await blogDb.find(getBlogsByAthors)
+
+        if(!allBlogs) return err('Artigo não encontrado')
+
+        const blogIds = allBlogs.map( blog => blog._id )
+        
+        const getArticlesByBlogs = { blog: blogIds }
+
+        const allArticles = await articleDB.find(getArticlesByBlogs)
+
+        if(!allArticles) return err('Artigo não encontrado')
+
+        const allAuthorsId = allArticles.map( artcile => artcile.author )
+
+        const queryUser = { _id : allAuthorsId }
+
+        const fieldsUser = { name: 1 }
+
+        const namesAuthor = await UserDB.find(queryUser, fieldsUser)
+
+        const articleSummarizedByIdAuthor = {}
+
+        const summarizesQuantityArticles = author =>
+            articleSummarizedByIdAuthor[author] 
+                ? articleSummarizedByIdAuthor[author]++ 
+                : articleSummarizedByIdAuthor[author] = 1
+
+        allAuthorsId.map(summarizesQuantityArticles)
+
+        const changeIdForNameAuthor = author =>
+         ({ name: author.name, amountArticles: articleSummarizedByIdAuthor[author._id] })
+
+        const result = namesAuthor.map( changeIdForNameAuthor )
+
+        return res.status(201).send({ result })
+
+    } catch (error) {
+        console.log(error)
+        return res.status(501).send({ msg: error })
+    }
+}
+
+module.exports = { totalizersBlogAndArticles, statsLikeArticle, authorsEachBlog, articlesEachAuthor }

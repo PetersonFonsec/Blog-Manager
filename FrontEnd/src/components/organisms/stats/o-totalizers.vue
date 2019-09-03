@@ -38,9 +38,9 @@ export default {
 <style>
 .totalizer-container {
     display: flex;
-    margin: 20px;
     max-width: 650px;
     width: 100%;
     justify-content: space-around;
+    flex-wrap:wrap;
 }
 </style>

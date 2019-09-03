@@ -22,6 +22,10 @@ module.exports = app => {
         .all(validToken)
         .get(authorsEachBlog)
 
+    app.route('/articlesEachAuthor')
+            .all(validToken)
+            .get(stats.articlesEachAuthor)
+
     app.route('/totalizers/admin')
         .all(validToken)
         .get( userAdmin(Totalizers) )
