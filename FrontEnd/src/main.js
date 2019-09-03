@@ -9,7 +9,8 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import './registerServiceWorker'
-import 'chart.js';
+
+// import 'chart.js';
 
 Vue.config.productionTip = false
 

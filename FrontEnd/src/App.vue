@@ -26,6 +26,7 @@ body{
   padding: 0px;
   margin:  0px;
   background-color: #f2f2f2;
+  overflow-x: hidden;
 }
 .content{
   padding-top: 50px; 

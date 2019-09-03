@@ -1,18 +1,14 @@
 <template>
   <div class="container-chart-likes">
-      <char 
-        :labels="labels"
-        :datasets="datasets"
-        type="bar"
-        id="CharLikeArticle"/>
+     <b-card>
+        <canvas id="CharLikeArticle"></canvas>
+    </b-card>
   </div>
 </template>
 
 <script>
-import char from '@/components/atoms/utils/a-chart'
 export default {
     name: 'likesArthicles',
-    components: { char },
     methods:{
         async loadingChart(){
             const response = await this.$axios.get('/likesAndArticles')
@@ -23,19 +19,21 @@ export default {
 
             const data = result.map(blog => blog.likes)
 
-            this.datasets = [{
-                data,
-                label: 'Likes por Artigos',
-                backgroundColor: "rgba( 151, 187, 205, .8)",
-            }]
+            const canvas = document.getElementById('CharLikeArticle').getContext('2d')
 
-            this.labels = labels
-        }
-    },
-    data(){
-        return {
-            labels: [],
-            datasets: [],
+            // eslint-disable-next-line
+            new Chart( canvas, {
+                type: 'bar',
+                data:{ 
+                    labels, 
+                    datasets:[{
+                        data,
+                        label: 'likes',
+                        backgroundColor: "rgba( 151, 187, 205, 0.8)",
+                        borderColor: "rgba( 151, 187, 205, 1)",
+                    }]
+                }
+            });
         }
     },
     mounted(){
@@ -48,8 +46,8 @@ export default {
 .container-chart-likes{
     animation: bornHeder linear .4s;
     width: 100%;
-    max-width: 600px;
+    max-width: 550px;
     height: 300px;
-    margin: 0 20px 20px 10px;
+    margin-bottom: 10px;
 }
 </style>

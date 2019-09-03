@@ -1,18 +1,14 @@
 <template>
   <div class="container-chart-authors">
-      <char 
-        :labels="labels"
-        :datasets="datasets"
-        type="bar"
-        id="CharAuthorEachBlog"/>
+    <b-card>
+        <canvas id="CharAuthorEachBlog"></canvas>
+    </b-card>
   </div>
 </template>
 
 <script>
-import char from '@/components/atoms/utils/a-chart'
 export default {
     name: 'AuthorEachBlog',
-    components: { char },
     methods:{
         async loadingChart(){
             const response = await this.$axios.get('/authorsEachBlog')
@@ -22,22 +18,22 @@ export default {
             const labels = result.map(blog => blog.name)
 
             const data = result.map(blog => blog.authors)
-
-            this.datasets = [{
-                data,
-                label: 'Autores por Blog',
-                backgroundColor: "rgba( 151, 187, 205, 0.8)",
-            }]
-
-            this.labels = labels
-
-            console.log(this.datasets)
-        }
-    },
-    data(){
-        return {
-            labels: [],
-            datasets: [],
+            
+            // eslint-disable-next-line
+            new Chart( document.getElementById('CharAuthorEachBlog').getContext('2d'), {
+                type: 'bar',
+                data:{ 
+                    labels, 
+                    datasets:[
+                        {
+                            data,
+                            label: 'Autores por blogs',
+                            backgroundColor: "rgba( 151, 187, 205, 0.8)",
+                            borderColor: "rgba( 151, 187, 205, 1)",
+                        }
+                    ]
+                }
+            });
         }
     },
     mounted(){
@@ -48,9 +44,10 @@ export default {
 
 <style scoped>
 .container-chart-authors{
+    animation: bornHeder linear .4s;
     width: 100%;
-    max-width: 600px;
+    max-width: 550px;
     height: 300px;
-    margin: 0 20px 20px 10px;
+    margin: 10px;
 }
 </style>
