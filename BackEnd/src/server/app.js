@@ -1,4 +1,6 @@
-require('dotenv').config()
+require('dotenv').config({
+    path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env'
+})
 
 const express = require('express')
 const bodyParse = require('body-parser')
@@ -21,9 +23,9 @@ class AppController{
     routes(){                
         const self = this.express
         consign()
-            .then('./server/db.js')
-            .then('./api')
-            .then('./routes')
+            .then('./src/server/db.js')
+            .then('./src/api')
+            .then('./src/routes')
             .into(self)
     }
 

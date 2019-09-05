@@ -6,7 +6,7 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "jest",
+    "test": "NODE_ENV=test jest",
     "dev": "nodemon src/index --ignore tests",
     "start": "node src/index"
   },
