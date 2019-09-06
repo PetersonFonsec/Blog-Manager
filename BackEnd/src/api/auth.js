@@ -12,19 +12,19 @@ class AuthController {
     async Login(req, res){
         const { email, password } = req.body
 
-        if(!email) return res.status(501).send({ msg: 'Campo email é obrigatorio' })
+        if(!email) return res.status(501).send({ msg: "Campo email é obrigatorio" })
     
-        if(!password) return res.status(501).send({ msg: 'Campo password é obrigatorio' })
+        if(!password) return res.status(501).send({ msg: "Campo password é obrigatorio" })
     
         try {
     
-            const result = await UserDB.findOne({ email }).select('+password')
+            const result = await UserDB.findOne({ email }).select("+password")
     
-            if(!result) return res.status(401).send({ msg: 'Usuário não encontrado' })
+            if(!result) return res.status(401).send({ msg: "Usuário não encontrado" })
     
             const isMach = bcripty.compareSync(password, result.password)
     
-            if(!isMach) return res.status(401).send({ msg: 'Senha ou Email incorretos' })
+            if(!isMach) return res.status(401).send({ msg: "Senha ou Email incorretos" })
     
             const { _id, admin } = result
     
@@ -42,21 +42,21 @@ class AuthController {
     userAdmin(middleware){
         return (req, res, next) => req.admin 
             ? middleware(req, res, next) 
-            : res.status(401).send('Usuário não é admin')
+            : res.status(401).send("Usuário não é admin")
     }
 
     validToken(req, res, next){
         const { authorization } = req.headers
 
-        if(!authorization) return res.status(401).send({ error: 'Token não enviado'})
+        if(!authorization) return res.status(401).send({ error: "Token não enviado"})
 
-        const parts = authorization.split(' ')
+        const parts = authorization.split(" ")
 
-        if(!parts.length === 2) return  res.status(401).send({ error: 'Token inválido'})
+        if(!parts.length === 2) return  res.status(401).send({ error: "Token inválido"})
 
         const [ bearer, token ] = parts
 
-        if(!/^Bearer$/i.test(bearer)) return  res.status(401).send({ error: 'Token inválido'})
+        if(!/^Bearer$/i.test(bearer)) return  res.status(401).send({ error: "Token inválido"})
         
         jwt.verify(token, process.env.HASH, (error, decoded) => {
             if(error) return res.status(401).send({ error })

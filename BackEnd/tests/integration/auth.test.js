@@ -1,17 +1,44 @@
-const request = require('supertest')
+const request = require("supertest")
+const userDb = require("../../src/model/user") 
+const mockUser = require("../../mock/user") 
 
-const app = require('../../src/server/app')
+const user = mockUser
 
-describe('routes Auth', () => {
+const app = require("../../src/server/app")
 
-    describe('function Login', () => {
+beforeEach( async () => { 
+    await request(app).post("/user").send(user)
+})
 
-        it('should return stats 200', async () => {
-            // const res = await request(app).post('/auth').send(mokeUser)
+afterEach( async () => { 
+    await userDb.findOneAndRemove({ email: user.email }) 
+})
 
-            expect(200).toBe(200)
+describe("routes Auth", () => {
+
+    describe("POST", () => {
+
+        it("should return stats 401 when user not exist", async () => {
+
+            const res = await request(app).post("/auth").send({
+                password: user.password,
+                email: user.email,
+            })
+
+            expect(res.status).toBe(401)
         })
 
+        it("should return stats 200 when user not exist", async () => {
+
+            const res = await request(app).post("/auth").send({
+                password: user.password,
+                email: user.email,
+            })
+
+            expect(res.status).toBe(200)
+        })
+
+       
     })
 
 })
