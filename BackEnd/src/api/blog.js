@@ -129,7 +129,7 @@ class BlogController {
         const _id = req.params.id
     
         try {
-            const result = await blogDb.deleteOne({ _id })
+            const result = await blogDb.findOneAndRemove({ _id })
     
             return result
                 ? res.status(200).send({ result })

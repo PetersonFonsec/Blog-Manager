@@ -124,7 +124,7 @@ class Article {
     
         try {
     
-            const result = await articleDB.deleteOne({ _id })
+            const result = await articleDB.findOneAndRemove({ _id })
     
             return result
                 ? res.status(200).send({ result })

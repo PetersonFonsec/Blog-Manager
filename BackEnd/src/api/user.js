@@ -42,31 +42,33 @@ class UserController {
 
     async createAdmin(req, res){
         const { name, password, email } = req.body
-    
+        
         if( !name || !password || !email )
             return res.status(401).send({ msg: 'Campo Name, Password ou Email estão inválidos'})
     
         try {
-    
+
             const emailExist = await UserDB.findOne({ email })
-    
+
             if(emailExist) return res.status(401).send({ msg: 'Email já existente'})
-    
+
             const passwordEncripited = bcrypt.hashSync( req.body.password , bcrypt.genSaltSync(10)) 
-    
+
             const result = await UserDB.create({ 
                 name, 
                 email,
                 password: passwordEncripited,
                 admin: true
             })
-    
+
             const { _id, admin } = result
-    
+
             const token = createToken({ _id, admin })
-    
+
+            delete result.password
+
             return res.status(200).send({ result, token })
-    
+
         } catch (error) {
     
             return res.status(501).send({ msg: error })
@@ -78,13 +80,11 @@ class UserController {
         try {
             const { id } = req.params
     
-            const result = await UserDB.findOne({ _id : id })
+            const result = await UserDB.findById(id)
     
-            if(result){
-                return res.status(200).send({ result })
-            }else{
-                return res.status(404).send({ msg: 'Usuário não encontrado' })
-            }
+            return result
+                ? res.status(200).send({ result })
+                : res.status(404).send({ msg: 'Usuário não encontrado' })
     
         }catch(error) {
             return res.status(501).send({ msg: error })
@@ -93,8 +93,11 @@ class UserController {
 
     async find(req, res){
         try {
-            const result = await UserDB.find()
-    
+
+            const fields = { name: 1, email: 1}
+
+            const result = await UserDB.find({}, fields)
+
             return res.status(200).send({ result })
     
         }catch(error) {
@@ -104,20 +107,21 @@ class UserController {
 
     async updateOne(req, res){
         const { id } = req.params
-        const { name, email } = req.body
-    
+
+        const { name } = req.body
+
+        if(req.body.admin) return res.status(501).send({ msg: 'Não é possivel alterar o campo admin' })
+
+        if( req.body.email ) return res.status(401).send({ msg: 'Campo Email não pode ser alterado'})
+
         try {
+            const result = await UserDB.findByIdAndUpdate( id, { name } )
+
+            return result 
+                ? res.status(200).send({ result })
+                : res.status(404).send({ msg: 'Usuário não encontrado' })   
     
-            const result = await UserDB.findOneAndUpdate({ _id: id }, { name,  email } )
-    
-            if(result){
-                return res.status(200).send({ result })
-            }else{
-                return res.status(404).send({ msg: 'Usuário não encontrado' })
-            }        
-    
-        }catch(error){
-    
+        }catch(error){    
             return res.status(501).send({ msg: error })
         }
     }
@@ -126,10 +130,12 @@ class UserController {
         const { id } = req.params
     
         try {
+
+            const result = await UserDB.findByIdAndRemove(id)
     
-            const result = await UserDB.deleteOne({ _id: id })
-    
-            return res.status(200).send({ result })
+            return result 
+                ? res.status(200).send({ result })
+                : res.status(404).send({ msg: 'Usuário não encontrado' })
     
         }catch(error){
     

@@ -47,15 +47,15 @@ class AuthController {
 
     validToken(req, res, next){
         const { authorization } = req.headers
-    
+
         if(!authorization) return res.status(401).send({ error: 'Token não enviado'})
-    
+
         const parts = authorization.split(' ')
-        
+
         if(!parts.length === 2) return  res.status(401).send({ error: 'Token inválido'})
-        
+
         const [ bearer, token ] = parts
-    
+
         if(!/^Bearer$/i.test(bearer)) return  res.status(401).send({ error: 'Token inválido'})
         
         jwt.verify(token, process.env.HASH, (error, decoded) => {

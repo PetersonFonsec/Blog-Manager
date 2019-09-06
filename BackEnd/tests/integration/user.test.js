@@ -4,17 +4,43 @@ const mockUser = require('../../mock/user')
 const app = require('../../src/server/app')
 const bcrypt = require('bcrypt-nodejs')
 
-let user = mockUser
+const user = mockUser
+
+const adminParams = {
+    name: "Peterson Admin",
+    email: "Peterson@admin.com",
+    password: "123456"
+}
+
+let userAdmin, userLogged, token, tokenAdmin = false
+
+beforeAll( async () => { 
+    await userDb.findOneAndRemove({ email: adminParams.email }) 
+
+    if(!userLogged) {
+        userLogged = await request(app).post('/user').send(user)
+        token = `Bearer ${userLogged.body.token}`  
+    }
+
+    if(!userAdmin){
+        userAdmin = await request(app)
+            .post('/user/admin')
+            .set({ authorization: `Bearer ${userLogged.body.token}` })
+            .send(adminParams)
+
+        tokenAdmin = `Bearer ${userAdmin.body.token}` 
+        
+    }
+})
+
+afterEach( async () => {
+    await userDb.findOneAndRemove({ email: user.email }) 
+    await userDb.findOneAndRemove({ email: adminParams.email }) 
+})
 
 describe('route /user', () => {
 
     describe('POST', () => {
-
-        beforeEach( async () => { 
-            user = mockUser
-    
-            await userDb.findOneAndDelete({ email: user.email })
-        })
     
         it('should return stats 401 when params is invalid', async () => {
             
@@ -96,18 +122,6 @@ describe('route /user/admin', () => {
 
     describe('POST', () => {
 
-        let userLogged = false
-
-        beforeEach( async () => { 
-            user = mockUser
-
-            await userDb.findOneAndDelete({ email: user.email })
-
-            if(!userLogged) userLogged = await request(app).post('/user').send(user)
-        })
-
-        afterEach( async () => await userDb.findOneAndDelete({ email: user.email }) )
-
         it('should return stats 401 when params is invalid', async () => {
 
             const token = `Bearer ${userLogged.body.token}`
@@ -118,8 +132,24 @@ describe('route /user/admin', () => {
             }
 
             const res = await request(app)
-                                .post('/User/admin')
+                                .post('/user/admin')
                                 .set({ authorization: token })
+                                .send(invalidUser)
+
+            expect(res.status).toBe(401)
+        })
+
+        it('should return stats 401 when header without authorization ', async () => {
+
+            const token = `Bearer ${userLogged.body.token}`
+
+            const invalidUser = {
+                name: user.name,
+                password: user.password
+            }
+
+            const res = await request(app)
+                                .post('/user/admin')
                                 .send(invalidUser)
 
             expect(res.status).toBe(401)
@@ -127,10 +157,8 @@ describe('route /user/admin', () => {
 
         it('should return stats 200 when params is valid', async () => {
     
-            const token = `Bearer ${userLogged.body.token}`
-
             const res = await request(app)
-                .post('/User/admin')
+                .post('/user/admin')
                 .set({ authorization: token })                
                 .send(user)
 
@@ -142,12 +170,12 @@ describe('route /user/admin', () => {
             const token = `Bearer ${userLogged.body.token}`
 
             const resValid = await request(app)
-                .post('/User/admin')
+                .post('/user/admin')
                 .set({ authorization: token })
                 .send(user)
 
             const resInvalid = await request(app)
-                .post('/User/admin')
+                .post('/user/admin')
                 .set({ authorization: token })
                 .send(user)
 
@@ -156,10 +184,8 @@ describe('route /user/admin', () => {
 
         it('should return token', async () => {
 
-            const token = `Bearer ${userLogged.body.token}`
-
             const res = await request(app)
-                .post('/User/admin')
+                .post('/user/admin')
                 .set({ authorization: token })
                 .send(user)
     
@@ -168,10 +194,8 @@ describe('route /user/admin', () => {
 
         it('password saved should encripted', async () => {
 
-            const token = `Bearer ${userLogged.body.token}`
-
             const userInsered = await request(app)
-                .post('/User/admin')
+                .post('/user/admin')
                 .set({ authorization: token })
                 .send(user)
 
@@ -189,94 +213,222 @@ describe('route /user/admin', () => {
 
 describe('route /user/:id', () => {
 
-    describe('POST', () => {
+    describe('PUT', () => {
 
-        let userLogged = false
-
-        beforeEach( async () => { 
-            user = mockUser
-
-            await userDb.findOneAndDelete({ email: user.email })
-
-            if(!userLogged) userLogged = await request(app).post('/user').send(user)
-        })
-
-        afterEach( async () => await userDb.findOneAndDelete({ email: user.email }) )
-
-        it('should return stats 401 when params is invalid', async () => {
-
-            const token = `Bearer ${userLogged.body.token}`
+        it('should return stats 401 when header without authorization ', async () => {
 
             const invalidUser = {
                 name: user.name,
-                password: user.password
+                password: user.password,
+                email: 'Fake@Gmail.com'
             }
 
-            const res = await request(app)
-                                .post('/User/admin')
-                                .set({ authorization: token })
-                                .send(invalidUser)
+            const {id} = userAdmin.body.result
+
+            const res = await request(app).put(`/user/${id}`).send(invalidUser)
 
             expect(res.status).toBe(401)
         })
 
-        it('should return stats 200 when params is valid', async () => {
-    
-            const token = `Bearer ${userLogged.body.token}`
+        it('should return stats 401 when user logged not is a admin', async () => {
+
+            const userFake = {
+                name: "Peterson F. Fake",
+                email: "Peterson@fake.com",
+                password: "123456"
+            }
+
+            const result = await request(app).post('/user').send(userFake)
+            
+            const tokenFake = `Bearer ${result.body.token}`
+
+            const userNotAdmin = result.body
+
+            const fieldAltered = { name:"Peterson Fonseca Fake" }
 
             const res = await request(app)
-                .post('/User/admin')
-                .set({ authorization: token })                
-                .send(user)
+                                .put(`/user/${userNotAdmin.id}`)
+                                .set({ authorization: tokenFake })
+                                .send(fieldAltered)
 
-            expect(res.status).toBe(200)
+            await userDb.findOneAndDelete({ email: userFake.email })
+
+            expect(res.status).toBe(401)
+
         })
 
-        it('should return stats 401 when email exist', async () => {
+        it('No change the value field admin', async () => {
+
+            const userFake = {
+                name: "Peterson F. Fake",
+                email: "Peterson@fake.com",
+                password: "123456"
+            }
+
+            const result = await request(app).post('/user').send(userFake)
             
-            const token = `Bearer ${userLogged.body.token}`
+            const tokenFake = `Bearer ${result.body.token}`
 
-            const resValid = await request(app)
-                .post('/User/admin')
-                .set({ authorization: token })
-                .send(user)
+            const fieldAltered = { admin: true }
 
-            const resInvalid = await request(app)
-                .post('/User/admin')
-                .set({ authorization: token })
-                .send(user)
-
-            expect(resInvalid.status).toBe(401)
-        })
-
-        it('should return token', async () => {
-
-            const token = `Bearer ${userLogged.body.token}`
+            const { _id } = result.body.result
 
             const res = await request(app)
-                .post('/User/admin')
-                .set({ authorization: token })
-                .send(user)
-    
-            expect(res.body.token).not.toBeUndefined()
+                .put(`/user/${_id}`)
+                .set({ authorization: tokenFake })                
+                .send(fieldAltered)
+
+            await userDb.findOneAndDelete({ email: userFake.email })
+
+            expect(res.status).toBe(401)
+
         })
 
-        it('password saved should encripted', async () => {
+        it('should change field sended', async () => {
 
-            const token = `Bearer ${userLogged.body.token}`
+            const userFake = {
+                name: "Peterson F. Fake",
+                email: "Peterson@fake.com",
+                password: "123456"
+            }
 
-            const userInsered = await request(app)
-                .post('/User/admin')
-                .set({ authorization: token })
-                .send(user)
+            const result = await request(app).post('/user').send(userFake)
 
-            const { email } = userInsered.body.result
+            const name = 'OtherName'
 
-            const userSaved = await userDb.findOne({ email }).select('+password')
+            const fieldAltered = { name }
+
+            const { _id } = result.body.result
+
+            await request(app)
+                .put(`/user/${_id}`)
+                .set({ authorization: tokenAdmin })
+                .send(fieldAltered)
+
+            const verify = await userDb.findById(_id)
+
+            await userDb.findOneAndDelete({ email: userFake.email })
+
+            expect(verify.name).toEqual(name)
+        })
+
+    })
+
+    describe('GET', () => {
+
+        it('should return stats 401 when header without authorization ', async () => {
+
+            const { id } = userAdmin.body.result
+
+            const res = await request(app).get(`/user/${id}`).send()
+
+            expect(res.status).toBe(401)
+        })
+
+        it('should return stats 401 when user logged not is a admin', async () => {
+
+            const { id } = userAdmin.body.result
+
+            const res = await request(app)
+                                .put(`/user/${id}`)
+                                .set({ authorization: token })
+                                .send()
+
+            expect(res.status).toBe(401)
+
+        })
+
+        it('should return status 200 when user id exist', async () => {
+
+            const userFake = {
+                name: "Peterson F. Fake",
+                email: "Peterson@fake.com",
+                password: "123456"
+            }
+
+            const result = await request(app).post('/user').send(userFake)
             
-            const passwordEncripited = bcrypt.hashSync( user.password , bcrypt.genSaltSync(10)) 
+            const { _id } = result.body.result
 
-            expect(userSaved.password).not.toEqual(passwordEncripited)
+            const res = await request(app)
+                .get(`/user/${_id}`)
+                .set({ authorization: tokenAdmin })                
+                .send()
+
+            await userDb.findOneAndDelete({ email: userFake.email })
+
+            expect(res.body.result._id).toEqual(_id)
+        })
+
+        it('should return status 404 when user id not exist', async () => {
+
+            const idNotExist = '5d71e6dd98412f71d2a68ef4'
+
+            const res = await request(app)
+                .put(`/user/${idNotExist}`)
+                .set({ authorization: tokenAdmin })                
+                .send()
+
+            expect(res.status).toBe(404)
+        })
+    })
+
+    describe('DELETE', () => {
+
+        it('should return stats 401 when header without authorization ', async () => {
+
+            const { id } = userAdmin.body.result
+
+            const res = await request(app).delete(`/user/${id}`).send()
+
+            expect(res.status).toBe(401)
+        })
+
+        it('should return stats 401 when user logged not is a admin', async () => {
+
+            const { id } = userAdmin.body.result
+
+            const res = await request(app)
+                                .delete(`/user/${id}`)
+                                .set({ authorization: token })
+                                .send()
+
+            expect(res.status).toBe(401)
+
+        })
+
+        it('should return status 200 when user id exist', async () => {
+
+            const userFake = {
+                name: "Peterson F. Fake",
+                email: "Peterson@fake.com",
+                password: "123456"
+            }
+
+            const result = await request(app).post('/user').send(userFake)
+            
+            const { _id } = result.body.result
+
+            const res = await request(app)
+                .delete(`/user/${_id}`)
+                .set({ authorization: tokenAdmin })                
+                .send()
+
+            await userDb.findOneAndDelete({ email: userFake.email })
+
+            expect(res.status).toEqual(200)
+        })
+
+        it('should return status 404 when user id not exist', async () => {
+
+            const idNotExist = '5d71e6dd98412f71d2a68ef4'
+
+            const res = await request(app)
+                .delete(`/user/${idNotExist}`)
+                .set({ authorization: tokenAdmin })                
+                .send()
+
+            expect(res.status).toBe(404)
         })
     })
 
