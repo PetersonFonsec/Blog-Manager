@@ -1,20 +1,10 @@
 const request = require("supertest")
-const userDb = require("../../src/model/user") 
-const mockUser = require("../../mock/user") 
+const blogDb = require("../../src/model/blog") 
+const mockBlog = require("../../mock/user") 
 
-const user = mockUser
+const Blog = mockBlog
 
-const app = require("../../src/server/app")
-
-beforeEach( async () => { 
-    await request(app).post("/user").send(user)
-})
-
-afterEach( async () => { 
-    await userDb.findOneAndRemove({ email: user.email }) 
-})
-
-describe("routes Auth", () => {
+describe("routes Blog", () => {
 
     describe("POST", () => {
 
@@ -32,7 +22,7 @@ describe("routes Auth", () => {
                 email: "newUserFail@mock.com",
             })
 
-            await userDb.findOneAndRemove({ email : newUser.email})
+            await blogDb.findOneAndRemove({ email : newUser.email})
 
             expect(res.status).toBe(401)
         })
@@ -52,7 +42,7 @@ describe("routes Auth", () => {
                 email: newUser.email,
             })
 
-            await userDb.findOneAndRemove({ email : newUser.email})
+            await blogDb.findOneAndRemove({ email : newUser.email})
 
             expect(res.status).toBe(200)
         })

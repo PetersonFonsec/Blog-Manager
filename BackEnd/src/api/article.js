@@ -30,7 +30,7 @@ class Article {
                 photo
             })
 
-            if(result) return res.status(200).send({ result })
+            if(result) return res.status(200).send({ msg : 'ok' })
 
         } catch (error) {
             return res.status(501).send({ msg: error })

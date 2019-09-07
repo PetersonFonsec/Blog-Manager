@@ -2,6 +2,9 @@ const UserDB = require('../model/user')
 const bcripty = require('bcrypt-nodejs')
 const jwt = require('jsonwebtoken')
 
+const createToken = payload =>
+    jwt.sign(payload, process.env.HASH, { expiresIn: 6000 } ) 
+
 class AuthController {
     constructor(){}
     
@@ -12,9 +15,9 @@ class AuthController {
     async Login(req, res){
         const { email, password } = req.body
 
-        if(!email) return res.status(501).send({ msg: "Campo email é obrigatorio" })
+        if(!email) return res.status(401).send({ msg: "Campo email é obrigatorio" })
     
-        if(!password) return res.status(501).send({ msg: "Campo password é obrigatorio" })
+        if(!password) return res.status(401).send({ msg: "Campo password é obrigatorio" })
     
         try {
     
@@ -27,7 +30,7 @@ class AuthController {
             if(!isMach) return res.status(401).send({ msg: "Senha ou Email incorretos" })
     
             const { _id, admin } = result
-    
+
             const token = createToken({ _id, admin })
     
             delete result.password
@@ -35,7 +38,8 @@ class AuthController {
             return res.status(200).send({ result, token })
     
         }catch(error){
-            return  res.status(501).send({ msg: error })
+            console.log(error)
+            return  res.status(501).send({ error })
         }
     }
 

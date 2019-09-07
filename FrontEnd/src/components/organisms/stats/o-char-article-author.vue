@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import Chart from 'chart.js'
 export default {
     name: 'ArticleForAuthor',
     methods:{

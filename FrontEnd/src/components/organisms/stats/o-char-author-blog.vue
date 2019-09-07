@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import Chart from 'chart.js'
 export default {
     name: 'AuthorEachBlog',
     methods:{
@@ -19,7 +20,6 @@ export default {
 
             const data = result.map(blog => blog.authors)
             
-            // eslint-disable-next-line
             new Chart( document.getElementById('CharAuthorEachBlog').getContext('2d'), {
                 type: 'bar',
                 data:{ 

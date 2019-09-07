@@ -17,6 +17,7 @@
           @editBlog="editBlog"
           @removeBlog="removeBlog"
           @seerArticles="seerArticles"
+          @addArticles="addArticles"
           @giveAcess="giveAcess"/>
       </template>
 
@@ -68,11 +69,15 @@
         this.$router.push({ path: '/blog/articles', params })
       },
       giveAcess(){
-
         const params = this.idBlog
         
         this.$router.push({ path: '/blog/authores', params })
       },
+      addArticles(){        
+        const idBlog = this.idBlog
+        
+        this.$router.push({ path: `/blog/${idBlog}/articles` })
+      }
     }
   }
 </script>

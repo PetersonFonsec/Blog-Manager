@@ -1,4 +1,4 @@
-const blogDb = require('../model/blog')
+const blogDb = require("../model/blog")
 
 class BlogController {
     constructor(){}
@@ -8,13 +8,13 @@ class BlogController {
         const creator = req.userID
         const authors = [ req.userID ]
     
-        if( !name  ) return res.status(401).send({ msg: 'Campo Name é Obrigatorio'})
+        if( !name  ) return res.status(401).send({ msg: "Campo Name é Obrigatorio"})
         
         try {
     
             const blogsExist = await blogDb.findOne({ name })
     
-            if(blogsExist) return res.status(401).send({ msg: 'Blog já existente'})
+            if(blogsExist) return res.status(401).send({ msg: "Blog já existente"})
     
             const result = await blogDb.create({ name, creator, authors })
     
@@ -36,7 +36,7 @@ class BlogController {
             if(result){
                 return res.status(200).send({ result })
             }else{
-                return res.status(404).send({ msg: 'Blog não encontrado' })
+                return res.status(404).send({ msg: "Blog não encontrado" })
             }
     
         }catch(error) {
@@ -59,7 +59,7 @@ class BlogController {
         try {
             const _id = req.userID
     
-            if(!_id) return res.status(401).send({ msg: 'Id é obrigatório' })
+            if(!_id) return res.status(401).send({ msg: "Id é obrigatório" })
     
             const query = {  authors : { $in: [ _id ] } }
     
@@ -83,7 +83,7 @@ class BlogController {
             if(result){
                 return res.status(200).send({ result })
             }else{
-                return res.status(404).send({ msg: 'Usuário não encontrado' })
+                return res.status(404).send({ msg: "Usuário não encontrado" })
             }        
     
         }catch(error){
@@ -100,7 +100,7 @@ class BlogController {
     
             return result
                 ? res.status(200).send({ result })
-                : res.status(404).send({ msg: 'Usuário não encontrado' })
+                : res.status(404).send({ msg: "Usuário não encontrado" })
     
         }catch(error){
     
@@ -117,7 +117,7 @@ class BlogController {
     
             return result
                 ? res.status(200).send({ result })
-                : res.status(404).send({ msg: 'Usuário não encontrado' })
+                : res.status(404).send({ msg: "Usuário não encontrado" })
     
         }catch(error){
     
@@ -133,7 +133,7 @@ class BlogController {
     
             return result
                 ? res.status(200).send({ result })
-                : res.status(404).send({ msg: 'Blog não encontrado' })
+                : res.status(404).send({ msg: "Blog não encontrado" })
     
         }catch(error){    
             return res.status(501).send({ msg: error })

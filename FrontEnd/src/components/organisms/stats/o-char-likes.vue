@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import Chart from 'chart.js'
 export default {
     name: 'likesArthicles',
     methods:{
@@ -21,7 +22,6 @@ export default {
 
             const canvas = document.getElementById('CharLikeArticle').getContext('2d')
 
-            // eslint-disable-next-line
             new Chart( canvas, {
                 type: 'bar',
                 data:{ 

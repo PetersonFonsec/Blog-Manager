@@ -23,7 +23,7 @@
             <b-form-group id="group-title" label="Titulo" label-for="title">
               <b-form-input 
                 id="title"
-                :state="rules.title"
+                :state="rulesTitle"
                 v-model="article.title"
                 placeholder="Titulo do artigo" />
             </b-form-group>
@@ -55,16 +55,26 @@
             <b-form-group id="group-description" label="Descrião" label-for="name">
               <b-form-input 
                 id="description"
-                :state="rules.description"
+                :state="rulesDescription"
                 v-model="article.description"
-                placeholder="Uma breve descrição do artigo..." />
+                aria-describedby="input-live-help input-live-feedback"
+                placeholder="Uma breve descrição do artigo..." 
+                trim
+                />
+
+              <b-form-invalid-feedback id="input-live-feedback">
+                Maximo de 80 caracteres
+              </b-form-invalid-feedback>
+
+              <b-form-text id="input-live-help">Max 80 caracteres.</b-form-text>
+
             </b-form-group>
           </b-col>
         </b-row>
         
         <b-row>
           <b-col sm="12" class="mt-3 mb-3">
-            <VueEditor v-model="article.content" laceholder="Conteudo do Artigo..." />
+            <VueEditor v-model="article.content" placeholder="Conteudo do Artigo..." />
           </b-col>
         </b-row>
         
@@ -101,24 +111,30 @@ export default {
     computed:{
       _mode(){
         return this.mode || 'save'
+      },
+      rulesDescription(){ 
+        return this.article.description.length <= 80 ? 'none' : false
+      },
+      rulesTitle(){
+        return this.article.title.length <= 80 ? 'none' : false
       }
     },
     data(){
       return {
         linkImg: false,
-        article: {},
-        rules: {
-          name: 'none',
-          description: 'none',
-        }
+        article: {
+          description: '',
+          title: '',
+        },
       }
     },
     methods:{
       _submit(){
         const mode = this._mode === 'save' ? 'save' : 'update'
-        const article = { mode, ...this.article }
+        const photo = this.article.linkImg || this.article.img
+        const article = { mode, photo, ...this.article }
 
-        this.$emit('submit', article)
+        this.$emit('tester', article)
       },
       reset(){
         this.article = {}

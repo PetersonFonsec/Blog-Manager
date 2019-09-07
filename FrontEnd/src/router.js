@@ -25,17 +25,7 @@ const router = new Router({
     },
     {
       name: 'bArticles',
-      path: '/blog/articles',
-      component: () => import('@/components/organisms/articles/o-list')
-    },
-    { 
-      name: 'bEdit',
-      path: '/blog/edit',
-      component: () => import('@/components/organisms/articles/o-form-view')
-    },
-    {
-      name: 'bAuthores',
-      path: '/blog/authores',
+      path: '/blog/:id/articles',
       component: () => import('@/components/organisms/articles/o-form-view')
     },
   ]

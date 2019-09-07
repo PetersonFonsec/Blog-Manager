@@ -39,7 +39,7 @@ export default {
 
             }).catch(() => {
 
-                this.$bvToast.toast('Senha invalida', {
+                this.$bvToast.toast('Email ou Senha invalidos', {
                     title: 'Opss...',
                     variant: 'danger',
                     solid: true
