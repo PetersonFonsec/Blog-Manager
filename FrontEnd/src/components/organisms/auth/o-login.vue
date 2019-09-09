@@ -35,11 +35,11 @@ export default {
 
                 this.$store.commit('login', result.data.token )
 
-                this.$router.push({ path: `/home`})
+                this.$router.push({ path: `/dashboard`})
 
-            }).catch(() => {
+            }).catch(err => {
 
-                this.$bvToast.toast('Email ou Senha invalidos', {
+                this.$bvToast.toast(err.msg, {
                     title: 'Opss...',
                     variant: 'danger',
                     solid: true

@@ -62,11 +62,8 @@
       removeBlog(){
         this.$axios.delete(`/blog/${this.idBlog}`).then( () => this.$emit('actionTaken') )
       },
-      seerArticles(){
-        
-        const params = this.idBlog
-        
-        this.$router.push({ path: '/blog/articles', params })
+      seerArticles(){        
+        this.$router.push({ path: '/listArticles' })
       },
       giveAcess(){
         const params = this.idBlog

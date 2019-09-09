@@ -6,8 +6,8 @@
 
             <Bar :key="index"
                 :title="article.title"
-                :author="article.author"
-                :data="article.data"
+                :author="article.author.name"
+                :data="article.createdAt"
                 :description="article.description"
                 :imagem="article.imagem" />
 
@@ -19,8 +19,8 @@
 
             <Card :key="index"
                 :title="article.title"
-                :author="article.author"
-                :data="article.data"
+                :author="article.author.name"
+                :data="article.createdAt"
                 :description="article.description"
                 :imagem="article.imagem" />
 

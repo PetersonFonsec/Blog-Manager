@@ -1,38 +1,44 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import auth from './views/login.vue'
+import Vue from "vue"
+import Router from "vue-router"
+import auth from "./views/login.vue"
 
 Vue.use(Router)
 
 const router = new Router({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/auth',
-      name: 'auth',
+      path: "/auth",
+      name: "auth",
       component: auth
     },
     {
-      path: '/dashboard',
-      name: 'dashboard',
-      component: () => import('./components/templates/stats/t-dashboard'),
+      path: "/dashboard",
+      name: "dashboard",
+      component: () => import("./components/templates/stats/t-dashboard"),
     },
     {
-      path: '/blog',
-      name: 'blog',
-      component: () => import('./views/Blog.vue'),
+      path: "/profile",
+      name: "profile",
+      component: () => import("./views/Profile"),
     },
     {
-      name: 'bArticles',
-      path: '/blog/:id/articles',
-      component: () => import('@/components/organisms/articles/o-form-view')
+      path: "/blog",
+      name: "blog",
+      component: () => import("./views/Blog"),
+    },
+    {
+      name: "bArticles",
+      path: "/blog/:id/articles",
+      component: () => import("@/components/organisms/articles/o-form-view")
+    },
+    {
+      name: "ListArticles",
+      path: "/listArticles",
+      component: () => import("@/components/organisms/articles/o-list")
     },
   ]
 })
-
-// router.beforeEach((to, from, next) => {
-
-// })
 
 export default router

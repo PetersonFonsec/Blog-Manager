@@ -15,7 +15,7 @@
       </p>
 
       <div class="about">
-        <div>{{ author }}</div>
+        <div>Author: {{ author }}</div>
         <div>{{ data }}</div>
       </div>
 

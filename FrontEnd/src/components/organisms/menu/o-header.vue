@@ -14,12 +14,23 @@
 
         <template v-slot:subMenu>
             <ul class="items-menu born">
-                <li v-for="( route, key ) in routes" :key="key">
-                    <menuItem 
-                        :icon="route.icon"
-                        :label="route.label"
-                        :path="route.path"/>
+
+                <li>
+                    <menuItem  icon="fa fa-area-chart" label="Dashboard" path="/dashboard"/>
                 <li/>
+
+                <li>
+                   <menuItem  icon="fa fa-folder" label="Blogs" path="/blog"/>
+                <li/>
+
+                <li>
+                   <menuItem  icon="fa fa-file" label="Artigos" path="/listArticles"/>
+                <li/>
+
+                <li>
+                   <menuItem  icon="fa fa-user-o" label="Perfil" path="/profile"/>
+                <li/>
+
                 <li @click="logout">
                     <i class="fa fa-sign-out" aria-hidden="true"></i> Sair
                 </li>
@@ -40,28 +51,6 @@ export default {
     data(){
         return {
             bg : 'background-image: linear-gradient(to right,#085078,#85D8CE);',
-            routes: [
-                {
-                    icon : 'fa fa-area-chart',
-                    label : 'Dashboard',
-                    path : '/dashboard',                    
-                },
-                {
-                    icon : 'fa fa-folder',
-                    label : 'Blogs',
-                    path : '/blog',                    
-                },
-                {
-                    icon : 'fa fa-user-o',
-                    label : 'Perfil',
-                    path : '/profile',                    
-                },
-                {
-                    icon : 'fa fa-cogs',
-                    label : 'Configurações',
-                    path : '/settings',                    
-                }
-            ]
         }
     },
     methods:{

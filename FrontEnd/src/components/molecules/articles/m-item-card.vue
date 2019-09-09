@@ -11,7 +11,7 @@
       </p>
 
       <div class="about">
-        <div>{{ author }}</div>
+        <div>{{ author.name }}</div>
         <div>{{ data }}</div>
       </div>
     </div>
@@ -28,7 +28,7 @@ export default {
         require: true
       },
       author:{
-        type: String,
+        type: Object,
         require: true
       },
       data:{

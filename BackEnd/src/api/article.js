@@ -44,8 +44,8 @@ class Article {
         if( !_id ) return res.status(401).send({ msg: 'Id é um campo obrigatório'})
     
         try {
-    
-            const result = await articleDB.findOne({ _id })
+
+            const result = await articleDB.findOne({ _id }).populate('author')
     
             return result
                 ? res.status(200).send({ result })
@@ -74,8 +74,18 @@ class Article {
             const blogIds = allBlogs.map( blog => blog._id )
             
             const getArticlesByBlogs = { blog: blogIds }
-    
-            const allArticles = await articleDB.find(getArticlesByBlogs)
+
+            const fields = {
+                title: 1,
+                description: 1,
+                photo: 1,
+                author: 1,
+                createdAt: 1
+            }
+
+            const allArticles = await articleDB
+                .find(getArticlesByBlogs, fields)
+                .populate('author', 'name')
     
             if(!allArticles) return err('Artigo não encontrado')
     
@@ -88,7 +98,13 @@ class Article {
 
     async findAll(req, res){
         try {
-            const result = await articleDB.find()
+            const fields = {
+                title: 1,
+                description: 1,
+                photo: 1,
+            }
+
+            const result = await articleDB.find({}, fields)
     
             return result
                 ? res.status(200).send({ result })

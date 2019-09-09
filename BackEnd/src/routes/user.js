@@ -3,11 +3,16 @@ const { userAdmin, validToken } = require('../api/auth')
 
 module.exports = app => {
 
-    const { create, find, updateOne, removeOne, findOne, createAdmin } = User
+    const { create, find, updateOne, removeOne, findOne, createAdmin, findUserLogged, updateLogged } = User
 
     app.route('/user')
         .get( find )
         .post( create )
+
+    app.route('/userLogged')
+        .all( validToken )
+        .get( findUserLogged )
+        .put( updateLogged )
 
     app.route('/user/admin')
         .all( validToken )
@@ -18,5 +23,4 @@ module.exports = app => {
         .put( userAdmin(updateOne) )
         .delete( userAdmin(removeOne) )
         .get( userAdmin(findOne) )
-
 }

@@ -38,7 +38,6 @@ class AuthController {
             return res.status(200).send({ result, token })
     
         }catch(error){
-            console.log(error)
             return  res.status(501).send({ error })
         }
     }

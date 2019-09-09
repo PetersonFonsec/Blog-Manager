@@ -91,6 +91,34 @@ class UserController {
         }
     }
 
+    async findUserLogged(req, res){
+        try {
+            const fields = { name: 1, email: 1 }
+            
+            const result = await UserDB.findById(req.userID, fields)
+            
+            return result
+                ? res.status(200).send({ result })
+                : res.status(404).send({ msg: 'Usuário não encontrado' })
+    
+        }catch(error) {
+            return res.status(501).send({ msg: error })
+        }
+    }
+    async updateLogged(req, res){
+        try {
+
+            const result = await UserDB.findByIdAndUpdate(req.userID, { ...req.body })
+            
+            return result
+                ? res.status(200).send({ result })
+                : res.status(404).send({ msg: 'Usuário não encontrado' })
+    
+        }catch(error) {
+            return res.status(501).send({ msg: error })
+        }
+    }
+    
     async find(req, res){
         try {
 
@@ -124,6 +152,22 @@ class UserController {
         }catch(error){    
             return res.status(501).send({ msg: error })
         }
+    }
+
+    async changePassword(req, res){
+
+        const id = req.userID
+
+        const { password } = req.body
+
+        const isMach = bcripty.compareSync(password, result.password)
+
+        if(!isMach) return res.status(401).send({ msg: "Senha ou Email incorretos" })
+
+        const newPasswordEncripited = bcrypt.hashSync( password, bcrypt.genSaltSync(10) )
+
+        const user = await UserDb.findByIdAndUpdate(id, { password: newPasswordEncripited })
+        
     }
 
     async removeOne(req, res){
