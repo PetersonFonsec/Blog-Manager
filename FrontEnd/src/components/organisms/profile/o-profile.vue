@@ -6,12 +6,10 @@
 
 <script>
 import profileUser from "@/components/molecules/profile/m-data-user"
-import MenuProfile from '@/components/molecules/profile/m-menu'
-import Security from "@/components/molecules/profile/m-security-user"
 
 export default {
     name: 'ProfileScreen',
-    components: { MenuProfile, profileUser, Security },
+    components: { profileUser },
     methods:{
         async loadUser(){
 

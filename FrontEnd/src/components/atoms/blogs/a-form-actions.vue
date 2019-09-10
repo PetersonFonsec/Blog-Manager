@@ -1,9 +1,6 @@
 <template>
     <div class="list-action">
         <ul>
-            <li @click="edit"> Editar </li>
-            <li @click="drop"> exluir </li>
-            <li @click="seeArticles"> ver artigos </li>
             <li @click="addArticles"> adicionar artigos </li>
             <li @click="giveAcess"> adicionar autores </li>
         </ul>
@@ -14,15 +11,6 @@
 export default {
     name: 'blogAction',
     methods: {
-        edit(){
-            this.$emit('editBlog')
-        },
-        drop(){
-            this.$emit('removeBlog')
-        },
-        seeArticles(){
-            this.$emit('seerArticles')
-        },
         giveAcess(){
             this.$emit('giveAcess')
         },

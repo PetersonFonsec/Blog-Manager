@@ -5,6 +5,16 @@ const { createToken } = require('../api/auth')
 class UserController {
 
     constructor(){}
+    
+    async validPassword(password, id){
+        const result = await UserDB.findById(id).select("+password")
+    
+        if(!result) return false
+
+        const isMach = bcripty.compareSync(password, result.password)
+
+        return isMach
+    }
 
     async create(req, res){
         const { name, password, email } = req.body
@@ -105,6 +115,7 @@ class UserController {
             return res.status(501).send({ msg: error })
         }
     }
+
     async updateLogged(req, res){
         try {
 
@@ -160,13 +171,16 @@ class UserController {
 
         const { password } = req.body
 
-        const isMach = bcripty.compareSync(password, result.password)
+        const isValid = await this.validPassword(req.userID)
 
-        if(!isMach) return res.status(401).send({ msg: "Senha ou Email incorretos" })
+        if(isValid){
+            const newPasswordEncripited = bcrypt.hashSync( password, bcrypt.genSaltSync(10) )
 
-        const newPasswordEncripited = bcrypt.hashSync( password, bcrypt.genSaltSync(10) )
-
-        const user = await UserDb.findByIdAndUpdate(id, { password: newPasswordEncripited })
+            await UserDb.findByIdAndUpdate(id, { password: newPasswordEncripited })
+        }else{
+            return res.status(404).send({ msg: 'senha invalida' })
+        }
+        
         
     }
 

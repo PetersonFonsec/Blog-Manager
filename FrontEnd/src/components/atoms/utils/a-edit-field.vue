@@ -8,7 +8,7 @@
                     v-model="newValue"
                     :placeholder="`Alterar seu ${label}`"/>
 
-                <b-button variant="success" @click="editedField" class="ml-3"> 
+                <b-button variant="success" v-b-modal="id" class="ml-3"> 
                     <i class="fa fa-check"></i>
                 </b-button>
 
@@ -34,6 +34,18 @@
             </div>
         </template>
 
+        <b-modal :id="id" title="Você tem certeza ?">
+
+            <p> Você deseja alterar {{ label }} ? </p>
+
+            <p> de "{{ value }}" para "{{ newValue }}" ? </p>
+
+            <template v-slot:modal-footer>
+                <b-button variant="danger">Cancelar</b-button>
+                <b-button variant="primary">Confirmar</b-button>
+            </template>
+        </b-modal>
+
     </div>
 </template>
 
@@ -51,12 +63,16 @@ export default {
     },
     methods:{
         editedField(){
-            const newValue = this.newValue
-            
+
             this.editField = false
 
-            this.$emit('editedField', newValue)
+            this.$emit('editedField',  this.newValue)
 
+        }
+    },
+    computed:{
+        id(){
+            return `confirm-${(Math.random() * 100).toFixed()}`   
         }
     },
     data(){
@@ -64,7 +80,7 @@ export default {
             editField: false,
             newValue: this.value,
         }
-    }
+    },
 }
 </script>
 
@@ -73,9 +89,12 @@ export default {
 .container-edit-field{
     display: flex;
 }   
-.value{
-    display: inline-block;
-    min-width: 320px;
+.value {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    width: 320px;
 }
 
 </style>

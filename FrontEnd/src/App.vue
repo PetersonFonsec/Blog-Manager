@@ -11,17 +11,28 @@ import Header from '@/components/organisms/menu/o-header'
 
 export default {
   components: { Header },
-  created(){
-    const token = localStorage.getItem(userKey)
+  methods:{
+    async validToken(){
 
-    if(!token) return this.$router.push({ path: '/auth' })
-    
-    this.$store.commit( 'login', token )
+      const token = localStorage.getItem(userKey)
+
+      if(!token) return this.$router.push({ path: '/auth' })
+      
+      this.$store.commit( 'login', token )
+
+      const res = await this.$axios.get('/validToken')
+
+      if(!res.data) return this.$store.commit( 'logout' )
+
+    }
+  },
+  mounted(){
+    this.validToken()
   }
 }
 </script>
 
-<style>
+<style scoped>
 body{
   padding: 0px;
   margin:  0px;
