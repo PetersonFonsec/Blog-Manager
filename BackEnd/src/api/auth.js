@@ -70,5 +70,27 @@ class AuthController {
             next()
         })
     }
+
+    async validPasswordUserLogged(req, res){
+
+        try {
+            const { password } = req.body
+
+            const result = await UserDB.findById(req.userID).select("+password")
+    
+            if(!result) return false
+
+            const isMach = bcripty.compareSync(password, result.password)
+
+            return isMach
+                ? res.status(200).send({ msg : 'ok' })
+                : res.status(401).send({ msg : 'Senha incorreta' })
+
+        } catch (error) {
+            console.log(error)
+            return res.status(401).send({ msg : error })
+        }
+        
+    }
 }
 module.exports = new AuthController()

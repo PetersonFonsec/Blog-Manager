@@ -23,8 +23,8 @@ module.exports = app => {
         .get(authorsEachBlog)
 
     app.route('/articlesEachAuthor')
-            .all(validToken)
-            .get(stats.articlesEachAuthor)
+        .all(validToken)
+        .get(stats.articlesEachAuthor)
 
     app.route('/totalizers/admin')
         .all(validToken)

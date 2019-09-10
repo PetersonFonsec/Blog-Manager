@@ -11,7 +11,7 @@ class UserController {
     
         if(!result) return false
 
-        const isMach = bcripty.compareSync(password, result.password)
+        const isMach = bcrypt.compareSync(password, result.password)
 
         return isMach
     }
@@ -147,14 +147,12 @@ class UserController {
     async updateOne(req, res){
         const { id } = req.params
 
-        const { name } = req.body
-
         if(req.body.admin) return res.status(501).send({ msg: 'Não é possivel alterar o campo admin' })
 
-        if( req.body.email ) return res.status(401).send({ msg: 'Campo Email não pode ser alterado'})
+        if( req.body.password ) return res.status(401).send({ msg: 'Campo password não pode ser alterado'})
 
         try {
-            const result = await UserDB.findByIdAndUpdate( id, { name } )
+            const result = await UserDB.findByIdAndUpdate( id, { ...req.body } )
 
             return result 
                 ? res.status(200).send({ result })
@@ -167,20 +165,23 @@ class UserController {
 
     async changePassword(req, res){
 
-        const id = req.userID
+        try {
+            const id = req.userID
 
-        const { password } = req.body
+            const { password } = req.body
 
-        const isValid = await this.validPassword(req.userID)
-
-        if(isValid){
             const newPasswordEncripited = bcrypt.hashSync( password, bcrypt.genSaltSync(10) )
 
-            await UserDb.findByIdAndUpdate(id, { password: newPasswordEncripited })
-        }else{
-            return res.status(404).send({ msg: 'senha invalida' })
+            const result = await UserDB.findByIdAndUpdate(id, { password: newPasswordEncripited })
+                    
+            return result 
+                ? res.status(200).send({ msg: 'ok' })
+                : res.status(401).send({ msg: 'Usuário não encontrado' })   
+    
+        } catch (error) {
+            return res.status(401).send({ msg: error })   
+            
         }
-        
         
     }
 

@@ -79,7 +79,7 @@
                         v-model="confirmPassword"/>
                 </b-form-group>
 
-                <b-button variant="success"> Alterar senha </b-button>
+                <b-button variant="success" @click="changePassword"> Alterar senha </b-button>
             </b-card>
         </b-col>
         
@@ -152,6 +152,43 @@ export default {
         validatePassword(value){
             this.confirm = !!(this.newPassword === value)
         },
+        showToast(title, msg, type){
+            this.$bvToast.toast(msg, {
+                title: title,
+                solid: true,
+                variant: type.toString()
+            })            
+        },
+        showInfo(title, msg){
+            this.showToast(title, msg,'info')
+        },
+        showDanger(title, msg){
+            this.showToast(title, msg,'danger')
+        },
+        showSuccess(title, msg){
+            this.showToast(title, msg,'success')
+        },
+        async changePassword(){
+
+            const { password, confirmPassword, newPassword } = this
+
+            if( !password || !confirmPassword || !newPassword ) 
+                return this.showInfo('Campo invalido', 'Todos os Campos são obrigatórios')
+
+            if( !this.confirm || confirmPassword !== newPassword ) 
+                return this.showDanger('Campo invalido', 'senha não confere')
+
+            const validPassword = await this.$axios.post('/userLogged', { password })
+
+            if( validPassword.status !== 200  ) 
+                return this.showDanger('Senha Incorreta', 'Senha atual está incorreta')
+            
+            const result = await this.$axios.put('/userlogged/changepassword', { newPassword })
+
+            return result.status === 200
+                ? this.showSuccess('Sucesso', 'Senha alterada com sucesso')
+                : this.showDanger('Erro', 'Senha Invalida')
+        }
     }
 }
 </script>
