@@ -27,7 +27,7 @@
         const filterBlog = allFilter.blog
 
         const dateBr = allFilter.date 
-          ? allFilter.date.replace(/\-/g,'/')
+          ? allFilter.date.replace(/-/g,'/')
           : false
 
         const allArticles = await this.loadArticles()
@@ -55,7 +55,7 @@
         this.typeViewList = this.typeViewList === 'bar' ? 'card' : 'bar'
       },
       ajustFormatData(data){
-        return data.split('T')[0].replace(/\-/g,'/')
+        return data.split('T')[0].replace(/-/g,'/')
       },
       async loadArticles(){
 
