@@ -60,8 +60,27 @@ nessa tela é onde criamos um ou mais blog alem de adicionar artigos e ou dar pe
 nessa tela é onde alteramos ou criamos um novo artigo
 ![make-a-artcile](https://user-images.githubusercontent.com/41239234/64657281-15f9d700-d409-11e9-8878-3b6282b6b3a7.gif)
 
+**Observações importantes**
+> Para o projeto funcionar corretamenta você deve ter o banco de dados MongoDb instalado
+
 **Front-end**
+
+Para instalar as dependencias do projeto
+
 > cd FrontEnd && npm i 
 
+Para startar o front-end do projeto
+
+> yarn serve
+
+> npm run serve
+
 **Back-end**
+
+Para instalar as dependencias do projeto
+
 > cd BackEnd && npm i
+
+Para startar o servidor do projeto
+
+> npm run dev
