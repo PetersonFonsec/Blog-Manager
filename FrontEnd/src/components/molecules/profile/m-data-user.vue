@@ -1,7 +1,7 @@
 <template>
-    <div style="display: flex">
+    <b-row>
 
-        <b-col sm="12" md="6">
+        <b-col class="mb-2" xs="12" md="6">
             <b-card>
                 <div class="container-user-data">
                     <h3>Sobre você</h3>
@@ -38,7 +38,7 @@
             </b-card>
         </b-col>
 
-        <b-col sm="12" md="6">
+        <b-col xs="12" md="6">
             <b-card>
 
                 <b-form-group
@@ -83,7 +83,7 @@
             </b-card>
         </b-col>
         
-    </div>
+    </b-row>
 </template>
 
 <script>
@@ -180,14 +180,22 @@ export default {
 
             const validPassword = await this.$axios.post('/userLogged', { password })
 
+            console.log(validPassword)
+
             if( validPassword.status !== 200  ) 
                 return this.showDanger('Senha Incorreta', 'Senha atual está incorreta')
             
             const result = await this.$axios.put('/userlogged/changepassword', { newPassword })
 
-            return result.status === 200
+            result.status === 200
                 ? this.showSuccess('Sucesso', 'Senha alterada com sucesso')
                 : this.showDanger('Erro', 'Senha Invalida')
+
+            this.newName = ''
+            this.confirm = ''
+            this.confirmPassword =''
+            this.password =''
+            this.newPassword = ''
         }
     }
 }

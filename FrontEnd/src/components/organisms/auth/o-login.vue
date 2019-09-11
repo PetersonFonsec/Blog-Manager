@@ -61,7 +61,6 @@ export default {
 .container-Login {
     animation: bornBox .4s linear;
     width: 300px;
-    min-height: 400px;
     height: auto;
     box-shadow: 0 1px 5px #AAA;
     background-color: #fff;
@@ -71,7 +70,7 @@ export default {
     justify-content: center;
     flex-direction: column;
     margin: 50px auto;
-
+    padding-top: 10px;
     font-family: 'Roboto', sans-serif;
 }
 </style>

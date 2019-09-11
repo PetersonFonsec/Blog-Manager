@@ -78,9 +78,12 @@ export default {
     data(){
         return {
             editField: false,
-            newValue: this.value,
+            newValue: '',
         }
     },
+    mounted(){
+        this.newValue = this.value
+    }
 }
 </script>
 

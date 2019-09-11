@@ -25,10 +25,16 @@
 
             <div class="center">
                 <b-button variant="primary" type="submit"> Entrar </b-button>
+                
                 <b-button
                     variant="success"
                     @click="userNotExist"
                     class="ml-2"> Crie uma conta !! </b-button>
+                
+                <b-button
+                    variant="info"
+                    @click="forgetPassword"
+                    class="mt-2 btn-block"> esqueci a minha senha </b-button>
             </div>
         </b-form>
     </div>
@@ -48,7 +54,10 @@ export default {
         },
         userNotExist(){
             this.$emit('userNotExist', true)
-        }
+        },
+        forgetPassword(){
+            this.$emit('ForgetPassword', true)
+        },
     }
 }
 </script>
@@ -63,5 +72,6 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
 }
 </style>

@@ -20,7 +20,7 @@ export default {
       
       this.$store.commit( 'login', token )
 
-      const res = await this.$axios.get('/validToken')
+      const res = await this.$axios.get('/validtoken')
 
       if(!res.data) return this.$store.commit( 'logout' )
 
