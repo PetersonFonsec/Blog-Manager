@@ -87,7 +87,6 @@ class AuthController {
                 : res.status(401).send({ msg : 'Senha incorreta' })
 
         } catch (error) {
-            console.log(error)
             return res.status(401).send({ msg : error })
         }
         

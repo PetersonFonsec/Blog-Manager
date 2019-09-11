@@ -26,11 +26,20 @@
       typeChange(){
         this.typeViewList = this.typeViewList === 'bar' ? 'card' : 'bar'
       },
+      ajustFormatData(data){
+        return data.split('T')[0].replace(/\-/g,'/')
+      },
       async loadArticles(){
 
         const articles = await this.$axios.get('/article')
 
-        this.articles = articles.data.result
+        this.articles = articles.data.result.map(article => {
+      
+          article.createdAt = this.ajustFormatData(article.createdAt) 
+          
+          return article
+      
+        })
 
       },
     },
