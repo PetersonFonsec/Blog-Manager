@@ -54,22 +54,31 @@ router.beforeEach( async (to, from, next) => {
  
   try{
 
+    if(from.path === '/auth') return next()
+
     if(!requiresAuth) return next()
 
     const token = localStorage.getItem(userKey)
 
     if(!token) return next({ path: '/auth'})
 
-    const headers = { authorization: token }
+    const headers = {  authorization: `Bearer ${token}` }
 
     const tokenIsValid = await axios.get(`${baseURL}/validtoken`, { headers })
 
-    if(tokenIsValid.status !== 200) return next({ path: '/auth'})
+    if(tokenIsValid.status !== 200){
+
+      localStorage.removeItem(userKey)
+
+      return next({ path:'/auth'})
+    } 
 
     next()
 
   }catch(error){
-   console.log(error)
+    localStorage.removeItem(userKey)
+
+    return next({ path:'/auth'})
   }
 
  })
