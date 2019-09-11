@@ -34,15 +34,15 @@
             </div>
         </template>
 
-        <b-modal :id="id" title="Você tem certeza ?">
+        <b-modal :id="id" :ref="id" title="Você tem certeza ?">
 
             <p> Você deseja alterar {{ label }} ? </p>
 
             <p> de "{{ value }}" para "{{ newValue }}" ? </p>
 
             <template v-slot:modal-footer>
-                <b-button variant="danger">Cancelar</b-button>
-                <b-button variant="primary">Confirmar</b-button>
+                <b-button variant="danger" @click="hideModal">Cancelar</b-button>
+                <b-button variant="primary" @click="editedField">Confirmar</b-button>
             </template>
         </b-modal>
 
@@ -66,9 +66,18 @@ export default {
 
             this.editField = false
 
+            this.hideModal()
+
             this.$emit('editedField',  this.newValue)
 
-        }
+        },
+        hideModal() {
+            const id = this.id
+
+            console.log(id)
+
+            this.$refs[id].hide()
+        },
     },
     computed:{
         id(){

@@ -86,7 +86,7 @@
     </b-row>
 </template>
 
-<script>
+<script> 
 import editField from '@/components/atoms/utils/a-edit-field'
 export default {
     name: 'DataUser',
