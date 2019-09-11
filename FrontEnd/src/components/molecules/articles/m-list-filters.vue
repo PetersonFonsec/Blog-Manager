@@ -77,11 +77,11 @@ export default {
         },
         async loadBlogs(){
 
-            const blogs = await this.$axios.get('/blog')
+            const blogs = await this.$axios.get('/blog/user/')
 
-            const forma2Select = result => ({ text: result.name, value: result._id})
+            const format2Select = result => ({ text: result.name, value: result._id})
 
-            this.blogs = blogs.data.result.map( forma2Select )
+            this.blogs = blogs.data.result.map( format2Select )
         }
     },
     mounted(){

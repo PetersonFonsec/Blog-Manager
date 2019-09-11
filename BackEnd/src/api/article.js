@@ -80,7 +80,8 @@ class Article {
                 description: 1,
                 photo: 1,
                 author: 1,
-                createdAt: 1
+                createdAt: 1,
+                blog: 1
             }
 
             const allArticles = await articleDB

@@ -20,8 +20,36 @@
       }
     },
     methods:{
-      filters(){
-        this.articles
+      async filters(allFilter){
+
+        const filterTitle = allFilter.title
+
+        const filterBlog = allFilter.blog
+
+        const dateBr = allFilter.date 
+          ? allFilter.date.replace(/\-/g,'/')
+          : false
+
+        const allArticles = await this.loadArticles()
+
+        const articlesFiltred = allArticles.filter( Article => {
+        
+          let validDate = true
+
+          let validTitle = true
+
+          let validBlog = true
+
+          if( dateBr ) validDate = new Date(Article.createdAt) <= new Date(dateBr)
+                  
+          if(filterTitle) validTitle = Article.title.includes(filterTitle)
+
+          if(filterBlog) validBlog = Article.blog === filterBlog
+
+          if( validTitle && validDate && validBlog) return true
+        })
+
+        this.articles = articlesFiltred
       },
       typeChange(){
         this.typeViewList = this.typeViewList === 'bar' ? 'card' : 'bar'
@@ -33,13 +61,17 @@
 
         const articles = await this.$axios.get('/article')
 
-        this.articles = articles.data.result.map(article => {
+        const newsArticles = articles.data.result.map(article => {
       
           article.createdAt = this.ajustFormatData(article.createdAt) 
           
           return article
       
         })
+
+        this.articles = newsArticles
+
+        return newsArticles
 
       },
     },
