@@ -65,9 +65,3 @@ nessa tela é onde alteramos ou criamos um novo artigo
 
 **Back-end**
 > cd BackEnd && npm i
-
-![dashboard](https://user-images.githubusercontent.com/41239234/64657280-15f9d700-d409-11e9-9df0-b3d1e4d9773b.gif)
-
-![make-a-artcile](https://user-images.githubusercontent.com/41239234/64657281-15f9d700-d409-11e9-8878-3b6282b6b3a7.gif)
-
-![make-a-blog](https://user-images.githubusercontent.com/41239234/64657282-16926d80-d409-11e9-801c-4b716bca03ed.gif)
