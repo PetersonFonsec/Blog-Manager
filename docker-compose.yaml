@@ -1,0 +1,22 @@
+version: '3'
+services: 
+  mongodb:
+    image: mongo
+  frontend:
+    image: node:10
+    volumes:
+      - ./FrontEnd:/FrontEnd
+    ports:
+      - 8080:8080
+    depends_on:
+      - backend
+    command: bash ./FrontEnd/frontend.sh
+  backend:
+    image: node:10
+    volumes: 
+      - ./BackEnd:/BackEnd
+    ports: 
+      - 3000:3000
+    depends_on:
+      - mongodb
+    command: bash ./BackEnd/backend.sh
