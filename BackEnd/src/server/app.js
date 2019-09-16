@@ -6,8 +6,9 @@ const express = require('express')
 const bodyParse = require('body-parser')
 const cors = require('cors')
 const consign = require('consign')
+const multer = require('multer')
 
-class AppController{
+class AppController {
 
     constructor(){
         this.express = express()

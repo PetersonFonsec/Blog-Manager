@@ -4,7 +4,7 @@
 
         <template v-slot:left>
             <Form 
-                @tester="mode"
+                @createArticle="mode"
                 :preview="true" />
         </template>
         

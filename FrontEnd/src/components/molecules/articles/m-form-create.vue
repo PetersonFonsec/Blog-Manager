@@ -43,6 +43,7 @@
               <b-form-group id="group-img" label="Imagem" label-for="img">
                 <b-form-file
                   id="img"
+                  @change="uploadImg"
                   v-model="article.img"
                   placeholder="Faça um upload da imagem" />
               </b-form-group>
@@ -122,6 +123,7 @@ export default {
     data(){
       return {
         linkImg: false,
+        imageUploaded: null,
         article: {
           description: '',
           title: '',
@@ -129,12 +131,32 @@ export default {
       }
     },
     methods:{
+      uploadImg(event){
+        const img = event.target.files[0]
+
+        const limit = 2 * 1024 * 1024
+
+        if(img.size > limit){
+          this.$bvToast.toast('Tamanho maximo da imagem é de 2 mb', {
+            title: 'Tamanho maximo exedido',
+            variant: 'danger',
+            solid: true
+          })
+        }
+        
+        this.$axios.post('/upload/coverArticle', { avatar: img })
+
+        this.imageUploaded = img
+
+      },
       _submit(){
         const mode = this._mode === 'save' ? 'save' : 'update'
-        const photo = this.article.linkImg || this.article.img
+        
+        const photo = this.imageUploaded || this.article.linkImg
+
         const article = { mode, photo, ...this.article }
 
-        this.$emit('tester', article)
+        this.$emit('createArticle', article)
       },
       reset(){
         this.article = {}
