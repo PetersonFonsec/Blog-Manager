@@ -10,13 +10,13 @@ module.exports = {
             cb( null ,path.resolve(__dirname, "..", "..", "uploads") )
         },
         
-        fileName: (req, file, cb) => {
+        filename: (req, file, cb) => {
             const idUserLogged = req.userID
             crypto.randomBytes(5, (err, hash) =>{
                 
                 if(err) return cb(err)
 
-                const fileName = `${idUserLogged}-${file.originalname}-${hash.toString('hex')}`
+                const fileName = `${hash.toString('hex')}-${idUserLogged}-${file.originalname}`
                 
                 cb(null, fileName)
             })

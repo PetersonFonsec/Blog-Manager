@@ -3,11 +3,20 @@ const multerConfig = require('../config/multer')
 
 const { validToken } = require('../api/auth')
 
+const mulderMiddleWare = multer(multerConfig).single('avatar')
+
 module.exports = app => {
-    app.post(
-        '/upload/coverArticle',
+
+    app.post( '/upload/coverArticle', 
         validToken,
-        multer(multerConfig).single('avatar'),
-        (req, res) => res.status(200).send({ msg: 'ok' }) 
+        mulderMiddleWare,
+        (req, res) => res.status(200).send({ file: req.file }) 
     )
+
+    app.post( '/upload/avatar',
+         validToken,
+        mulderMiddleWare,
+        (req, res) => res.status(200).send({ file: req.file }) 
+    )
+
 }
