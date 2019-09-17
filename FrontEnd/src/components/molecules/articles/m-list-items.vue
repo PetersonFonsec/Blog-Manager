@@ -9,7 +9,7 @@
                 :author="article.author.name"
                 :data="article.createdAt"
                 :description="article.description"
-                :imagem="article.imagem" />
+                :imagem="article.photo" />
 
         </template>
     </div>
@@ -22,7 +22,7 @@
                 :author="article.author.name"
                 :data="article.createdAt"
                 :description="article.description"
-                :imagem="article.imagem" />
+                :imagem="article.photo" />
 
         </template>
     </div>

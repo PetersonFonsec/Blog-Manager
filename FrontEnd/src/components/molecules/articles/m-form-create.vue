@@ -34,7 +34,7 @@
               <b-form-group id="group-link-img" label="Link da IMG" label-for="linkImg">
                 <b-form-input
                   id="linkImg"
-                  v-model="article.linkImg"
+                  v-model="article.photo"
                   placeholder="Link da image capa do artigo" />
               </b-form-group>
             </template>
@@ -44,7 +44,7 @@
                 <b-form-file
                   id="img"
                   @change="uploadImg"
-                  v-model="article.img"
+                  v-model="fileSelected"
                   placeholder="Faça um upload da imagem" />
               </b-form-group>
             </template>
@@ -96,7 +96,9 @@
 
 <script>
 import '@/css/keyFrames.css'
+import axios from 'axios'
 import { VueEditor } from 'vue2-editor'
+import { userKey, baseURL } from '@/global'
 export default {
     name:'FormArticle',
     components: { VueEditor },
@@ -114,16 +116,16 @@ export default {
         return this.mode || 'save'
       },
       rulesDescription(){ 
-        return this.article.description.length <= 80 ? 'none' : false
+        return this.article.description.length <= 80 ? null : false
       },
       rulesTitle(){
-        return this.article.title.length <= 80 ? 'none' : false
+        return this.article.title.length <= 80 ? null : false
       }
     },
     data(){
       return {
         linkImg: false,
-        imageUploaded: null,
+        fileSelected: null,
         article: {
           description: '',
           title: '',
@@ -131,31 +133,52 @@ export default {
       }
     },
     methods:{
-      uploadImg(event){
+      async uploadImg(event){
         const img = event.target.files[0]
 
         const limit = 2 * 1024 * 1024
 
         if(img.size > limit){
-          this.$bvToast.toast('Tamanho maximo da imagem é de 2 mb', {
+          return this.$bvToast.toast('Tamanho maximo da imagem é de 2 mb', {
             title: 'Tamanho maximo exedido',
             variant: 'danger',
             solid: true
           })
         }
-        
-        this.$axios.post('/upload/coverArticle', { avatar: img })
 
-        this.imageUploaded = img
+        const form = new FormData()
+
+        form.append('avatar', img, img.name)
+
+        const token = localStorage.getItem(userKey)
+
+        var config = {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            'authorization': `Bearer ${token}`
+          }
+        };
+
+        const result = await axios.post(`${baseURL}/upload/coverArticle`, form, config)
+
+        if(result.status === 200){
+
+          this.$bvToast.toast('Upload feito', {
+            title: 'Upload realizado com sucesso',
+            variant: 'success',
+            solid: true
+          })
+
+        }
+
+        this.article.photo = result.data.file.toString()
 
       },
       _submit(){
         const mode = this._mode === 'save' ? 'save' : 'update'
         
-        const photo = this.imageUploaded || this.article.linkImg
-
-        const article = { mode, photo, ...this.article }
-
+        const article = { mode, ...this.article }
+                
         this.$emit('createArticle', article)
       },
       reset(){

@@ -52,9 +52,7 @@ export default {
             }
         },
         async updateArticle(article){
-            console.log('param:', article)
             const result = await this.$axios.post('/article', article)
-            console.log(result)
         }
     },
     data(){

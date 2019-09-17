@@ -10,13 +10,13 @@ module.exports = app => {
     app.post( '/upload/coverArticle', 
         validToken,
         mulderMiddleWare,
-        (req, res) => res.status(200).send({ file: req.file }) 
+        (req, res) => res.status(200).send({ file: req.file.path }) 
     )
 
     app.post( '/upload/avatar',
          validToken,
         mulderMiddleWare,
-        (req, res) => res.status(200).send({ file: req.file }) 
+        (req, res) => res.status(200).send({ file: req.file.path }) 
     )
 
 }

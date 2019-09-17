@@ -2,8 +2,7 @@
   <div class="article-item-bar" >
 
     <div class="image-post">      
-      <img v-if="imagem" :src="imagem" alt="picture" />
-      <img v-else src="@/assets/default-post.png" alt="picture default" />
+      <img :src="src" alt="picture" />
     </div>
 
     <div class="info">
@@ -26,6 +25,7 @@
 
 <script>
 import '@/css/keyFrames.css'
+import { mapState } from 'vuex'
 export default {
     name: 'totalBlog',
     props:{      
@@ -48,6 +48,13 @@ export default {
       imagem:{
         type: String,
         require: true,
+      }
+    },
+    computed: {
+      ...mapState(['defaultImage']),
+      src(){
+        console.log(this.imagem)
+        return this.imagem || this.defaultImage
       }
     }
 }
