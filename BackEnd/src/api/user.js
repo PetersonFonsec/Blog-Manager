@@ -132,7 +132,7 @@ class UserController {
     async find(req, res){
         try {
 
-            const fields = { name: 1, email: 1}
+            const fields = { name: 1, email: 1, avatar: 1 }
 
             const result = await UserDB.find({}, fields)
 

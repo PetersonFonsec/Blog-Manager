@@ -75,35 +75,19 @@ class BlogController {
     async giveAcess(req, res){
         const { id } = req.params
         const { authors } = req.body
-    
+        const _id = req.userID
+
+        authors.push(_id)
+
         try {
     
             const result = await blogDb.findOneAndUpdate({ _id: id }, { $set : { authors } })
-    
-            if(result){
-                return res.status(200).send({ result })
-            }else{
-                return res.status(404).send({ msg: "Usuário não encontrado" })
-            }        
-    
-        }catch(error){
-            return res.status(501).send({ msg: error })
-        }
-    }
-
-    async updateOne(req, res){
-        const { id } = req.params
-    
-        try {
-    
-            const result = await blogDb.findOneAndUpdate({ _id: id }, { ...req.body } )
     
             return result
                 ? res.status(200).send({ result })
                 : res.status(404).send({ msg: "Usuário não encontrado" })
     
         }catch(error){
-    
             return res.status(501).send({ msg: error })
         }
     }

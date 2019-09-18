@@ -14,9 +14,6 @@
 
       <template v-slot:content>
         <actions 
-          @editBlog="editBlog"
-          @removeBlog="removeBlog"
-          @seerArticles="seerArticles"
           @addArticles="addArticles"
           @giveAcess="giveAcess"/>
       </template>
@@ -53,22 +50,10 @@
       }
     },
     methods:{
-      editBlog(){
-        
-        const params = this.idBlog
-        
-        this.$router.push({ path: '/blog/edit', params })
-      },
-      removeBlog(){
-        this.$axios.delete(`/blog/${this.idBlog}`).then( () => this.$emit('actionTaken') )
-      },
-      seerArticles(){        
-        this.$router.push({ path: '/listArticles' })
-      },
       giveAcess(){
-        const params = this.idBlog
+        const idBlog = this.idBlog
         
-        this.$router.push({ path: '/blog/authores', params })
+        this.$router.push({ path: `/blog/${idBlog}/authores` })
       },
       addArticles(){        
         const idBlog = this.idBlog

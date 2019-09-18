@@ -27,25 +27,25 @@ export default {
     name:'OrganismsLogin',
     components: { Form, FormCreateUser },
     methods:{
-        welcome(user){
+        async welcome(user){
             const router = user.newUser ? '/user' : '/auth'
             
-            this.$axios.post(router, user)
-                .then( result => {
+            const result = await this.$axios.post(router, user)
+
+            if(result.status === 200){                    
 
                 this.$store.commit('login', result.data.token )
 
                 this.$router.push({ path: `/dashboard`})
 
-            }).catch(err => {
-
-                this.$bvToast.toast(err.msg, {
+            }else{                
+                this.$bvToast.toast(result.data.msg, {
                     title: 'Opss...',
                     variant: 'danger',
                     solid: true
-                })
+                })                
+            }                
 
-            })
 
         },
     },

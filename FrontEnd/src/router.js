@@ -41,6 +41,12 @@ const router = new Router({
       meta: { requiresAuth: true }
     },
     {
+      name: "ListAuthores",
+      path: "/blog/:id/authores",
+      component: () => import("@/components/organisms/blogs/o-list-authores"),
+      meta: { requiresAuth: true }
+    },
+    {
       name: "ListArticles",
       path: "/listArticles",
       component: () => import("@/components/organisms/articles/o-list"),
