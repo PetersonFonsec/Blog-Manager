@@ -51,8 +51,8 @@ export default {
                 this.$route.push({ path: '/blog' })
             }
         },
-        async updateArticle(article){
-            const result = await this.$axios.post('/article', article)
+        async updateArticle(){
+            // const result = await this.$axios.post('/article', article)
         }
     },
     data(){

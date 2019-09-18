@@ -103,7 +103,7 @@ class UserController {
 
     async findUserLogged(req, res){
         try {
-            const fields = { name: 1, email: 1 }
+            const fields = { name: 1, email: 1, avatar: 1 }
             
             const result = await UserDB.findById(req.userID, fields)
             
@@ -118,7 +118,6 @@ class UserController {
 
     async updateLogged(req, res){
         try {
-
             const result = await UserDB.findByIdAndUpdate(req.userID, { ...req.body })
             
             return result

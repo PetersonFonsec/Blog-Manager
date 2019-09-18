@@ -3,22 +3,6 @@
       <b-form @submit.prevent="_submit" @reset="reset">
 
         <b-row>
-          <b-col sm='12' class="button-img">             
-            <template v-if="linkImg">
-              <b-button variant="primary" @click="linkImg = !linkImg">
-                <i class="fa fa-paperclip" aria-hidden="true"></i> Importar imagem
-              </b-button>
-            </template>
-
-            <template v-else>
-              <b-button variant="primary" @click="linkImg = !linkImg">
-                <i class="fa fa-link" aria-hidden="true"></i> Linkar imagem
-              </b-button>
-            </template>
-          </b-col>
-        </b-row>
-
-        <b-row>
           <b-col sm='12' md=6>
             <b-form-group id="group-title" label="Titulo" label-for="title">
               <b-form-input 
@@ -30,24 +14,13 @@
           </b-col>
           
           <b-col sm='12' md=6>
-            <template v-if="linkImg">
-              <b-form-group id="group-link-img" label="Link da IMG" label-for="linkImg">
-                <b-form-input
-                  id="linkImg"
-                  v-model="article.photo"
-                  placeholder="Link da image capa do artigo" />
-              </b-form-group>
-            </template>
-
-            <template v-else>
-              <b-form-group id="group-img" label="Imagem" label-for="img">
-                <b-form-file
-                  id="img"
-                  @change="uploadImg"
-                  v-model="fileSelected"
-                  placeholder="Faça um upload da imagem" />
-              </b-form-group>
-            </template>
+            <b-form-group id="group-img" label="Imagem" label-for="img">
+              <b-form-file
+                id="img"
+                @change="uploadImg"
+                v-model="fileSelected"
+                placeholder="Faça um upload da imagem" />
+            </b-form-group>
           </b-col>
         </b-row>
 
@@ -90,6 +63,7 @@
 
           </b-col>
         </b-row>
+
       </b-form>
   </div>
 </template>

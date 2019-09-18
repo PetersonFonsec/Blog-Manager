@@ -1,6 +1,11 @@
 <template>
     <div class="container-profile">
-        <profile-user @reload="reload" :email="email" :name="nameUser" :blogs="blogs"/>
+        <profile-user 
+            @reload="reload"
+            :email="email"
+            :name="nameUser"
+            :blogs="blogs"
+            :avatar="avatarUser"/>
     </div>
 </template>
 
@@ -21,6 +26,8 @@ export default {
 
             this.nameUser = user.name
 
+            this.avatarUser = user.avatar
+
         },
         async loadBlog(){
 
@@ -38,6 +45,7 @@ export default {
         return {
             email: '',
             nameUser: '',
+            avatarUser: '',            
             show: 'profile',
             blogs: []
         }

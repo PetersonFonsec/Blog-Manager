@@ -24,7 +24,7 @@ module.exports = app => {
     app.route('/userlogged/changepassword')
         .all( validToken )
         .put( changePassword )
-
+    
     app.route('/user/admin')
         .all( validToken )
         .post( createAdmin )

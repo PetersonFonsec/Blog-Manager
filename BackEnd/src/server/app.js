@@ -16,6 +16,7 @@ class AppController {
     }
 
     middlewares(){
+        this.express.use(express.static('uploads'));
         this.express.use(bodyParse.json())
         this.express.use(cors())
     }

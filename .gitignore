@@ -6,6 +6,7 @@ FrontEnd/src/global.js
 
 BackEnd/node_modules
 BackEnd/.env
+BackEnd/uploads
 
 # local env files
 .env.local

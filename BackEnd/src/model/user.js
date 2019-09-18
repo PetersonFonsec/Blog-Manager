@@ -7,7 +7,7 @@ module.exports = model('User', new Schema({
     },
     avatar: {
         type: String,
-        required: true
+        default: 'avatar-default'
     },
     admin: {
         type: Boolean,

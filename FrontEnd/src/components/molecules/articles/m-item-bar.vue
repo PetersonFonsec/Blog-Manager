@@ -25,6 +25,7 @@
 
 <script>
 import '@/css/keyFrames.css'
+import { baseURL } from '@/global'
 import { mapState } from 'vuex'
 export default {
     name: 'totalBlog',
@@ -53,8 +54,7 @@ export default {
     computed: {
       ...mapState(['defaultImage']),
       src(){
-        console.log(this.imagem)
-        return this.imagem || this.defaultImage
+        return `${baseURL}/${this.imagem}` || this.defaultImage
       }
     }
 }
