@@ -22,8 +22,6 @@
 </template>
 
 <script>
-import { baseURL, userKey } from '@/global'
-import axios from 'axios'
 import author from '@/components/atoms/blogs/a-item-author'
 export default {
     components:{
@@ -50,9 +48,9 @@ export default {
 
             if(!isValid) return
 
-            const result = await this.$axios.post(route, { authors })
+            await this.$axios.post(route, { authors })
 
-            console.log(result)
+            this.$route.push('/blog')
         }
     },
     data(){

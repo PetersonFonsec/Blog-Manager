@@ -1,5 +1,5 @@
 <template>
-  <div class="container-chart-authors">
+  <div class="container-chart">
     <b-card>
         <canvas id="CharAuthorEachBlog"></canvas>
     </b-card>
@@ -42,12 +42,6 @@ export default {
 }
 </script>
 
-<style scoped>
-.container-chart-authors{
-    animation: bornHeder linear .4s;
-    width: 100%;
-    max-width: 550px;
-    height: 300px;
-    margin: 10px;
-}
+<style lang="scss" scoped>
+    @import 'stats';
 </style>

@@ -1,0 +1,34 @@
+@import '../../../scss/utils.scss';
+
+.totalizers-container {
+    animation: bornHeder linear .6s;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+    display: flex;
+    margin: 10px 0px;
+    cursor: pointer;
+    width: 100%;
+    max-width: 300px;
+    
+    .totalizers-icon {
+        margin-right: 20px;
+        padding-right: 20px;
+        border-right: 1px solid #AAA;
+        font-size: 60px;
+        @extend %center-flex;
+    }
+    
+}
+
+.info {
+    margin: auto;
+    text-align: center;
+    @extend %center-flex-column;
+
+    strong {
+        font-size: 20px;
+    }
+}

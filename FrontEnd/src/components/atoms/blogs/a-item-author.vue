@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { baseURL, userKey } from '@/global'
+import { baseURL } from '@/global'
 export default {
     props:{
         author:{

@@ -19,7 +19,6 @@
 </template>
 
 <script>
-import '@/css/keyFrames.css'
 import Form from '@/components/molecules/auth/m-form-login'
 import FormCreateUser from '@/components/molecules/auth/m-form-create'
 
@@ -57,20 +56,6 @@ export default {
 }
 </script>
 
-<style>
-.container-Login {
-    animation: bornBox .4s linear;
-    width: 300px;
-    height: auto;
-    box-shadow: 0 1px 5px #AAA;
-    background-color: #fff;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    margin: 50px auto;
-    padding-top: 10px;
-    font-family: 'Roboto', sans-serif;
-}
+<style lang="scss">
+    @import 'login';
 </style>

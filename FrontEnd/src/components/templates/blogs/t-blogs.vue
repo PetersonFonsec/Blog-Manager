@@ -47,30 +47,6 @@ export default {
 }
 </script>
 
-<style scoped>
-.container-blogs {
-  width: 50%;
-  height: 100%;
-  margin: 10px auto;
-  border-radius: 5px;
-  padding: 10px;
-  box-shadow: 0 0px 5px rgba(49, 49, 49, 0.692);
-  background-color: #fff;
-  text-align: center;
-  transition: linear .4s all;
-}
-.container-blogs.hide{
-  width: 20%;
-  transform: translateX(-100%) ;
-}
-.blogs{    
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-.container-router-chidrens{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
+<style lang="scss" scoped>
+  @import 't-blog';
 </style>

@@ -1,0 +1,13 @@
+@import '../../../scss/utils';
+
+.container-Login {
+    animation: bornBox .4s linear;
+    width: 300px;
+    height: auto;
+    background-color: #fff;
+    margin: 50px auto;
+    padding-top: 10px;
+
+    @extend %box-shadow-pattern;
+    @extend %center-flex-column;
+}

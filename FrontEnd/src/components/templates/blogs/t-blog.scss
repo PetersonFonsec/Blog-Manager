@@ -1,0 +1,23 @@
+@import '../../../scss/utils.scss';
+
+.container-blogs {
+    width: 50%;
+    height: 100%;
+    margin: 10px auto;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #fff;
+    text-align: center;
+    transition: linear .4s all;
+    @extend %box-shadow-pattern;
+
+    .blogs{    
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    @media #{$mq-mobile}{
+        width: 90%;
+    }
+}

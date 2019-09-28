@@ -40,7 +40,6 @@
 </template>
 
 <script>
-import '@/css/keyFrames.css'
 import menuItem from '@/components/atoms/menu/a-item'
 import btnToggle from '@/components/atoms/menu/a-toggle'
 import Header from '@/components/atoms/menu/a-header'
@@ -62,51 +61,6 @@ export default {
 }
 </script>
 
-<style scoped>
-.title{
-    color: #fff;
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, .5)
-}
-.items-menu {
-    list-style: none;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    height: 100%;
-    width: 100%;
-    padding: 0px;
-}
-.items-menu li, .items-menu li a {
-    padding: 5px 15px;
-    border-radius: 5px;
-    transition: .2s all linear;
-     text-decoration: none;
-    color: #fff;
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, .5);
-    font-size: 18px;    
-}
-.items-menu li:hover {
-    transform: translateY(-5px);
-    background-color: rgba(255, 255, 255, .2); 
-    text-decoration: none;
-}
-.born li{
-    animation: bornBox .8s;
-}
-
-@media only screen and ( max-width:  650px) {
-    
-    .items-menu {
-        flex-direction: column;
-        justify-content: center;
-        padding:  0 10px;
-    }
-
-    .items-menu li {
-        text-align: center;
-        width: 100%;
-        padding: 10px 0;
-    }
-}
+<style lang="scss" scoped>
+    @import 'menu';
 </style>

@@ -1,0 +1,13 @@
+@import '../../../scss/utils';
+
+.container-chart {
+    animation: bornHeder linear .4s;
+    max-width: 550px;
+    width: 100%;
+    height: 300px;
+    margin: 10px;
+
+    @media #{$mq-mobile}{
+        margin: 10px auto;
+    }
+}

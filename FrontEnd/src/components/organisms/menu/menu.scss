@@ -1,0 +1,51 @@
+@import '../../../scss/utils';
+
+.title{
+    color: #fff;
+    @extend %text-shadow-pattern;
+}
+
+.items-menu {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 0px;
+
+    @extend %full-width-height;
+
+    li, a{
+        animation: bornBox .8s;
+        padding: 5px 15px;
+        border-radius: 5px;
+        transition: .2s all linear;
+        text-decoration: none;
+        color: #fff;
+        font-size: 18px;
+
+        @extend %text-shadow-pattern;        
+    }
+
+    li{
+        &:hover {
+            transform: translateY(-5px);
+            background-color: rgba(255, 255, 255, .2); 
+            text-decoration: none;
+        }
+    }
+
+    @media #{$mq-mobile}{
+
+        flex-direction: column;
+        justify-content: center;
+        padding:  0 10px;
+    
+        li {
+            text-align: center;
+            width: 100%;
+            padding: 10px 0;
+        }
+    
+    }
+}
