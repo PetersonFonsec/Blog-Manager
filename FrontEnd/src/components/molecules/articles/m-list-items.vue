@@ -48,11 +48,6 @@ export default {
 }
 </script>
 
-<style scoped>
-.container-list-card{
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-}
+<style lang="scss" scoped>
+  @import 'm-article';
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <div class="form-loging">
+    <div class="form-auth">
         <b-form @submit.prevent="loging">
             <b-form-group 
                 id="group-user-email"
@@ -62,16 +62,6 @@ export default {
 }
 </script>
 
-<style>
-.form-loging{
- display: flex;
- flex-direction: column;
- padding: 10px;
-}
-.center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-}
+<style lang="scss">
+    @import 'm-auth';
 </style>

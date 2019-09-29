@@ -46,19 +46,6 @@ export default {
 }
 </script>
 
-<style scoped>
-.container-author {
-    display: flex;
-    border: 1px solid #AAA;
-    padding: 5px;
-    border-radius: 5px;
-    flex-wrap: wrap;
-}
-.container-data{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    margin: 5px 5px 5px 20px;
-}
+<style lang="scss" scoped>
+    @import 'a-blog.scss';
 </style>

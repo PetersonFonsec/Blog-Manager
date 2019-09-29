@@ -1,0 +1,53 @@
+@import '../../../scss/utils.scss';
+
+.container-blogs {
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    h3 {
+        margin: 5px auto;
+    }
+
+    ul {
+        width: 100%;
+    }
+
+    li {
+        list-style: none;
+        margin: 10px 0;
+        transition: .2s linear all;
+
+        &:hover{
+            transform: translateY(-5px)
+        }
+    }
+}
+
+.name-blog {
+    display: inline-block;
+    width: 80%;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    padding: 5px;
+    margin-right: 10px;
+}
+
+.container-user-data {
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+@media #{mq-mobile} {
+    .container-user-data {
+        width:  90%;
+    }
+
+    .container-user-password{
+        margin:  0 10px 10px 10px;
+    }
+}

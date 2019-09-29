@@ -61,25 +61,6 @@ export default {
 }
 </script>
 
-<style scoped>
-.container-list-authores{
-    padding : 0px 40px
-}
-.list-authores {
-    padding: 0px;
-    list-style: none;
-}
-.item-list{
-    transition: linear all .2s;
-}
-.selected{
-    transform: translateX(10px);
-    border-radius: 5px;
-    background: #8c898936;
-}
-@media only screen and ( max-width:  650px) {
-    .list-authores {
-        padding : 0px;
-    }
-}
+<style lang="scss" scoped>
+  @import 'm-blogs';
 </style>

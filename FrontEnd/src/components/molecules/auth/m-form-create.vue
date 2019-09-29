@@ -1,5 +1,5 @@
 <template>
-    <div class="form-create">
+    <div class="form-auth">
         <b-form @submit.prevent="create">
             <b-form-group 
                 id="group-user-email"
@@ -90,15 +90,6 @@ export default {
 }
 </script>
 
-<style>
-.form-create{
- display: flex;
- flex-direction: column;
- padding: 10px;
-}
-.center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+<style lang="scss">
+    @import 'm-auth';
 </style>

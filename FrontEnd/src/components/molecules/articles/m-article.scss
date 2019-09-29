@@ -1,0 +1,91 @@
+@import '../../../scss/utils';
+
+.form-article{
+    animation: bornBox .4s linear;
+    width: 100%;
+    padding: 10px;
+    background: #fff;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    @extend %box-shadow-pattern;
+}
+
+.center{
+    @extend %center-flex;
+}
+
+.preview{
+    @extend %center-flex-column;
+    transition: .5s linear all;
+    padding: 0 25px;
+}
+
+.header {
+    width: 100%;
+    margin-bottom: 20px;
+    @extend %center-flex;
+}
+
+.about{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    strong {
+        margin: 5px auto;
+        font-size: 20px;
+    }
+}
+
+.info{
+    @extend %center-flex-column;
+    flex: 1;
+}
+
+.item-article {
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    display: flex;
+    margin: 10px 0px;
+    cursor: pointer;
+    @extend %box-shadow-pattern;
+}
+
+.article-item-bar {
+    animation: bornHeder linear .2s;
+    display: flex;
+    
+    .image-post {
+        margin-right: 20px;
+        padding-right: 20px;
+        border-right: 1px solid #AAA;
+        
+        img {
+            max-width: 150px;
+            border-radius: 5px;
+        }
+    }
+}
+
+.card-item-article {
+    animation: bornBox linear .6s;
+    width: min-content;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    min-width: 200px;
+    
+    img {
+        max-width: 250px;
+        max-height: 250px;
+        border-radius: 5px;
+    }
+}
+
+.container-list-card{
+    @extend %center-flex;
+}

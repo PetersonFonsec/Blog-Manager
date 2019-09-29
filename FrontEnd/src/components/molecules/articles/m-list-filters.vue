@@ -1,5 +1,5 @@
 <template>
-  <div class="filter-articles">
+  <div class="mb-3">
     <b-form @submit.prevent="filtrate">
         <b-row>
             <b-col xs='12' sm=6 md=4>
@@ -38,7 +38,7 @@
             </b-col>
         </b-row>
         
-        <b-row class="center flooat-right" >
+        <b-row class="flooat-right" >
 
           <b-col xs="12" sm="6" md="3">
             <b-button 
@@ -91,16 +91,7 @@ export default {
 </script>
 
 <style scoped>
-.center {
-    justify-content: center;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-}
 .flooat-right{
     justify-content: flex-end;
-}
-.filter-articles{
-    margin-bottom: 10px;
 }
 </style>

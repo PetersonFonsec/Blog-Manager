@@ -45,20 +45,6 @@ export default {
 }
 </script>
 
-<style scoped>
-.preview{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    transition: .5s linear all;
-    padding: 0 25px;
-}
-.header {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: space-around;
-    margin-bottom: 20px;
-}
+<style lang="scss" scoped>
+    @import 'm-article';
 </style>

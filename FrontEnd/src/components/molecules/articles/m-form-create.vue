@@ -69,7 +69,6 @@
 </template>
 
 <script>
-import '@/css/keyFrames.css'
 import axios from 'axios'
 import { VueEditor } from 'vue2-editor'
 import { userKey, baseURL } from '@/global'
@@ -79,7 +78,7 @@ export default {
     props:['mode', 'preview'],
     watch:{
       article:{
-        handler: function(article){
+        handler(article){
           if(this.preview) this.$store.commit('updatePreview', article)
         },
         deep: true
@@ -162,26 +161,6 @@ export default {
 }
 </script>
 
-<style scoped>
-  .form-article{
-    animation: bornBox .4s linear;
-    width: 100%;
-    padding: 10px;
-    background: #fff;
-    border-radius: 5px;
-    box-shadow: 0 1px 3px rgba( 200, 200, 200, .8 );
-    display: flex;
-    justify-content: center;
-  }
-  .center{
-    display:flex;
-    justify-content: center;
-    align-content: center;
-  }
-  .button-img{
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    margin-bottom: 5px;
-  }
+<style lang="scss" scoped>
+  @import 'm-article';
 </style>

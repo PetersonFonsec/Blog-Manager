@@ -15,7 +15,3 @@ export default {
   props: ['count']
 }
 </script>
-
-<style>
-
-</style>
