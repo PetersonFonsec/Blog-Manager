@@ -6,14 +6,6 @@ const user = mockUser
 
 const app = require("../../src/server/app")
 
-beforeEach( async () => { 
-    await request(app).post("/user").send(user)
-})
-
-afterEach( async () => { 
-    await userDb.findOneAndRemove({ email: user.email }) 
-})
-
 describe("routes Auth", () => {
 
     describe("POST", () => {

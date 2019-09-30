@@ -1,5 +1,6 @@
 <template>
     <Header :bg="bg">
+
         <template v-slot:left>
             <btnToggle bg="#fff"/>
         </template>
@@ -8,27 +9,23 @@
             <h3 class="title">Pet-Mananger</h3>
         </template>
 
-        <template v-slot:left>
-            <btnToggle bg="#fff"/>
-        </template>
-
         <template v-slot:subMenu>
             <ul class="items-menu born">
 
                 <li>
-                    <menuItem  icon="fa fa-area-chart" label="Dashboard" path="/dashboard"/>
+                    <menu-item  icon="fa fa-area-chart" label="Dashboard" path="/dashboard"/>
                 <li/>
 
                 <li>
-                   <menuItem  icon="fa fa-folder" label="Blogs" path="/blog"/>
+                   <menu-item  icon="fa fa-folder" label="Blogs" path="/blog"/>
                 <li/>
 
                 <li>
-                   <menuItem  icon="fa fa-file" label="Artigos" path="/listArticles"/>
+                   <menu-item  icon="fa fa-file" label="Artigos" path="/listArticles"/>
                 <li/>
 
                 <li>
-                   <menuItem  icon="fa fa-user-o" label="Perfil" path="/profile"/>
+                   <menu-item  icon="fa fa-user-o" label="Perfil" path="/profile"/>
                 <li/>
 
                 <li @click="logout">
@@ -36,13 +33,14 @@
                 </li>
             </ul>
         </template>
+
     </Header>
 </template>
 
 <script>
-import menuItem from '@/components/atoms/menu/a-item'
-import btnToggle from '@/components/atoms/menu/a-toggle'
-import Header from '@/components/atoms/menu/a-header'
+import menuItem from '@/components/menu/atoms/a-item'
+import btnToggle from '@/components/menu/atoms/a-toggle'
+import Header from '@/components/menu/atoms/a-header'
 
 export default {
     name: 'O-Header',

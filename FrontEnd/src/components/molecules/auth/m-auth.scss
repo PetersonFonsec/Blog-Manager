@@ -1,9 +1,0 @@
-@import '../../../scss/utils';
-
-.form-auth{
-    @extend %center-flex-column;
-    padding: 10px;
-}
-.center {
-    @extend %center-flex;
-}

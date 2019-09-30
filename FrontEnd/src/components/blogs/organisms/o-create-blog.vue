@@ -21,7 +21,7 @@
 <script>
   import Popover from '@/components/atoms/utils/a-popover'
   import addSomething from '@/components/molecules/utils/m-add-something'
-  import formBlog from '@/components/atoms/blogs/a-form-create'
+  import formBlog from '@/components/blogs/atoms/a-form-create'
 
   export default {
     name: 'CreateBlog',

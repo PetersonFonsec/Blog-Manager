@@ -63,5 +63,5 @@ export default {
 </script>
 
 <style lang="scss">
-    @import 'm-auth';
+    @import 'login';
 </style>

@@ -24,7 +24,6 @@
 </template>
 
 <script>
-import '@/css/keyFrames.css'
 import { mapState } from 'vuex'
 export default {
     name: 'M-Header',

@@ -1,5 +1,5 @@
 .DS_Store
-/dist
+dist
 
 FrontEnd/node_modules
 FrontEnd/src/global.js

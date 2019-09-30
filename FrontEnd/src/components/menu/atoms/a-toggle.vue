@@ -3,7 +3,8 @@
         v-if="userLogged"
         class="btn-toggle"
         :class="{'close': isMenuOpen }"
-         @click="toggle">
+        @click="toggle">
+
 		<span :style="style" class="pipe"></span>
 		<span :style="style" class="pipe"></span>
 		<span :style="style" class="pipe"></span>

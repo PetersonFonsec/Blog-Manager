@@ -7,7 +7,7 @@
 
 <script>
 import { userKey } from './global'
-import Header from '@/components/organisms/menu/o-header'
+import Header from '@/components/menu/o-header'
 
 export default {
   components: { Header },

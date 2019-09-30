@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import Blogs from '@/components/templates/blogs/t-blogs'
+import Blogs from '@/components/blogs/t-blogs'
 export default {
     name: 'Blog',
     components: { Blogs }

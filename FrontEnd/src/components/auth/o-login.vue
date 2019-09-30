@@ -19,8 +19,8 @@
 </template>
 
 <script>
-import Form from '@/components/molecules/auth/m-form-login'
-import FormCreateUser from '@/components/molecules/auth/m-form-create'
+import Form from '@/components/auth/m-form-login'
+import FormCreateUser from '@/components/auth/m-form-create'
 
 export default {
     name:'OrganismsLogin',

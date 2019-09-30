@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import list from '@/components/molecules/blogs/m-list-authores'
+import list from '@/components/blogs/molecules/m-list-authores'
 export default {
     components: { list },
     data(){

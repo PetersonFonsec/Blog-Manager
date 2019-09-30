@@ -1,4 +1,4 @@
-@import '../../../scss/utils';
+@import '../../scss/utils';
 
 .container-Login {
     animation: bornBox .4s linear;
@@ -10,4 +10,13 @@
 
     @extend %box-shadow-pattern;
     @extend %center-flex-column;
+}
+
+.form-auth{
+    @extend %center-flex-column;
+    padding: 10px;
+}
+
+.center {
+    @extend %center-flex;
 }

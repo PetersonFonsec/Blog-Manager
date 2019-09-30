@@ -24,7 +24,7 @@
 
 <script>
   import Popover from '@/components/atoms/utils/a-popover'
-  import blog    from '@/components/molecules/blogs/m-box'
+  import blog    from '@/components/blogs/molecules/m-box'
   import actions from '@/components/atoms/blogs/a-form-actions'
 
   export default {

@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import LoadBlog from '@/components/organisms/blogs/o-load-blog'
-import addBlogs from '@/components/organisms/blogs/o-create-blog'
+import LoadBlog from '@/components/blogs/organisms/o-load-blog'
+import addBlogs from '@/components/blogs/organisms/o-create-blog'
 
 export default {
     name:'ContainerBlogs',
