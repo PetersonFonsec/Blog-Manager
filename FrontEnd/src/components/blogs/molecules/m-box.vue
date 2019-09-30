@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import cSomething from '@/components/atoms/utils/a-conteiner-box'
+import cSomething from '@/components/utils/atoms/a-conteiner-box'
 export default {
     name: 'addSomething',
     props: ['BlogName'],

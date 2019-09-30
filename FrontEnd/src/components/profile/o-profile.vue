@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import profileUser from "@/components/molecules/profile/m-data-user"
+import profileUser from "@/components/profile/molecules/m-data-user"
 
 export default {
     name: 'ProfileScreen',

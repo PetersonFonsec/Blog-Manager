@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import FormAndView from '@/components/atoms/utils/a-form-view'
+import FormAndView from '@/components/utils/atoms/a-form-view'
 import Form from '@/components/articles/molecules/m-form-create'
 import Preview from '@/components/articles/molecules/m-form-preview'
 

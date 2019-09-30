@@ -23,7 +23,7 @@
 </template>
 
 <script>
-  import Popover from '@/components/atoms/utils/a-popover'
+  import Popover from '@/components/utils/atoms/a-popover'
   import blog    from '@/components/blogs/molecules/m-box'
   import actions from '@/components/blogs/atoms/a-form-actions'
 

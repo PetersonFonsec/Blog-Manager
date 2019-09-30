@@ -123,7 +123,7 @@
 <script> 
 import { baseURL, userKey } from '@/global'
 import axios from 'axios'
-import editField from '@/components/atoms/utils/a-edit-field'
+import editField from '@/components/utils/atoms/a-edit-field'
 export default {
     name: 'DataUser',
     components: { editField },

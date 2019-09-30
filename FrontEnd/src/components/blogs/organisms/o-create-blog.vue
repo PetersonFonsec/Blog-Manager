@@ -19,9 +19,9 @@
 </template>
 
 <script>
-  import Popover from '@/components/atoms/utils/a-popover'
-  import addSomething from '@/components/molecules/utils/m-add-something'
+  import Popover from '@/components/utils/atoms/a-popover'
   import formBlog from '@/components/blogs/atoms/a-form-create'
+  import addSomething from '@/components/utils/molecules/m-add-something'
 
   export default {
     name: 'CreateBlog',

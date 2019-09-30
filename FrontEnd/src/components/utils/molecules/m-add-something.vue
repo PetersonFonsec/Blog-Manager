@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import plusIcon from '@/components/atoms/utils/a-pluss-icon'
-import cSomething from '@/components/atoms/utils/a-conteiner-box'
+import plusIcon from '@/components/utils/atoms/a-pluss-icon'
+import cSomething from '@/components/utils/atoms/a-conteiner-box'
 export default {
     name: 'addSomething',
     components:{ plusIcon, cSomething }
