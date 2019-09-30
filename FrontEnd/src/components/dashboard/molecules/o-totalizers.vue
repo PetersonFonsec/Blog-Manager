@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import blogs from '@/components/molecules/stats/m-totalizer-blogs'
-import articles from '@/components/molecules/stats/m-totalizer-articles'
+import blogs from '@/components/dashboard/molecules/m-totalizer-blogs'
+import articles from '@/components/dashboard/molecules/m-totalizer-articles'
 
 export default {
     name: 'totalizers',

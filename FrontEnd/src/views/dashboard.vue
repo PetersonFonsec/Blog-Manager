@@ -21,10 +21,10 @@
 </template>
 
 <script>
-import totalizers from '@/components/organisms/stats/o-totalizers'
-import LikesArticles from '@/components/organisms/stats/o-char-likes'
-import AuthorForBlog from '@/components/organisms/stats/o-char-author-blog'
-import ArticleForAuthor from '@/components/organisms/stats/o-char-article-author'
+import totalizers from '@/components/dashboard/molecules/o-totalizers'
+import LikesArticles from '@/components/dashboard/molecules/o-char-likes'
+import AuthorForBlog from '@/components/dashboard/molecules/o-char-author-blog'
+import ArticleForAuthor from '@/components/dashboard/molecules/o-char-article-author'
 
 export default {
   name: 'DashBoad',

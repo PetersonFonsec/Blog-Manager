@@ -19,7 +19,7 @@ const router = new Router({
     {
       path: "/dashboard",
       name: "dashboard",
-      component: () => import("./components/templates/stats/t-dashboard"),
+      component: () => import("./views/dashboard"),
       meta: { requiresAuth: true }
     },
     {

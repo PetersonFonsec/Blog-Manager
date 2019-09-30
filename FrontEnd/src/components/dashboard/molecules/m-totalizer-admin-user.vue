@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import totalizer from '@/components/atoms/stats/totalizers'
+import totalizer from '@/components/dashboard/atoms/totalizers'
 
 export default {
     name:'TotalizerUser',
