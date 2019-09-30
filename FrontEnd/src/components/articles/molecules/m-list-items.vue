@@ -31,8 +31,8 @@
 </template>
 
 <script>
-import Bar from '@/components/molecules/articles/m-item-bar'
-import Card from '@/components/molecules/articles/m-item-card'
+import Bar from '@/components/articles/molecules/m-item-bar'
+import Card from '@/components/articles/molecules/m-item-card'
 export default {
     name: 'ListItems',
     components: { Bar, Card },

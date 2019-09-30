@@ -24,7 +24,6 @@
 </template>
 
 <script>
-import '@/css/keyFrames.css'
 import { baseURL } from '@/global'
 import { mapState } from 'vuex'
 export default {

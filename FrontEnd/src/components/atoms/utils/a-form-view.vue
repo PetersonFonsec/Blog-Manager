@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import ButtonEye from '@/components/atoms/articles/a-button-eye'
+import ButtonEye from '@/components/atoms/utils/a-button-eye'
 
 export default {
     name: 'FormAndView',

@@ -18,8 +18,8 @@
 
 <script>
 import FormAndView from '@/components/atoms/utils/a-form-view'
-import Form from '@/components/molecules/articles/m-form-create'
-import Preview from '@/components/molecules/articles/m-form-preview'
+import Form from '@/components/articles/molecules/m-form-create'
+import Preview from '@/components/articles/molecules/m-form-preview'
 
 export default {
     name: 'FormArticles',

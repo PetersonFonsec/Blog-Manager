@@ -34,22 +34,22 @@ const router = new Router({
       component: () => import("./views/Blog"),
       meta: { requiresAuth: true }
     },
+      {
+        name: "ListAuthores",
+        path: "/blog/:id/authores",
+        component: () => import("@/components/blogs/organisms/o-list-authores"),
+        meta: { requiresAuth: true }
+      },
     {
       name: "bArticles",
       path: "/blog/:id/articles",
-      component: () => import("@/components/organisms/articles/o-form-view"),
-      meta: { requiresAuth: true }
-    },
-    {
-      name: "ListAuthores",
-      path: "/blog/:id/authores",
-      component: () => import("@/components/organisms/blogs/o-list-authores"),
+      component: () => import("@/components/articles/o-form-view"),
       meta: { requiresAuth: true }
     },
     {
       name: "ListArticles",
       path: "/listArticles",
-      component: () => import("@/components/organisms/articles/o-list"),
+      component: () => import("@/components/articles/o-list"),
       meta: { requiresAuth: true }
     },
   ]

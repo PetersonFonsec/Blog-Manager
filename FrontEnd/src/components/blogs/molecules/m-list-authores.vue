@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import author from '@/components/atoms/blogs/a-item-author'
+import author from '@/components/blogs/atoms/a-item-author'
 export default {
     components:{
         author

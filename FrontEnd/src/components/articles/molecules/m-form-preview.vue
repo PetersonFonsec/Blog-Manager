@@ -28,8 +28,8 @@
 
 <script>
 import { mapState } from 'vuex'
-import Card from '@/components/molecules/articles/m-item-bar'
-import Bar  from '@/components/molecules/articles/m-item-card'
+import Card from '@/components/articles/molecules/m-item-bar'
+import Bar  from '@/components/articles/molecules/m-item-card'
 
 export default {
     name: 'Preview',

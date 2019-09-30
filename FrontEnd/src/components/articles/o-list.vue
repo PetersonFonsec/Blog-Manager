@@ -8,8 +8,8 @@
 </template>
 
 <script>
-  import Filters from '@/components/molecules/articles/m-list-filters'
-  import ListItems from '@/components/molecules/articles/m-list-items'
+  import Filters from '@/components/articles/molecules/m-list-filters'
+  import ListItems from '@/components/articles/molecules/m-list-items'
   export default {
     name: 'ListaArticle',
     components: { Filters, ListItems },
