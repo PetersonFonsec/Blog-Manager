@@ -1,35 +1,64 @@
 <template>
     <Header :bg="bg">
 
-        <template v-slot:left>
+        <template #left>
+            
             <btnToggle bg="#fff"/>
+
         </template>
 
-        <template v-slot:center>
+        <template #center>
+
             <h3 class="title">Pet-Mananger</h3>
+
         </template>
 
-        <template v-slot:subMenu>
+        <template #subMenu>
+
             <ul class="items-menu born">
 
                 <li>
-                    <menu-item  icon="fa fa-area-chart" label="Dashboard" path="/dashboard"/>
+
+                    <menu-item 
+                        icon="fa fa-area-chart"
+                        label="Dashboard"
+                        path="/dashboard"/>
+
                 <li/>
 
                 <li>
-                   <menu-item  icon="fa fa-folder" label="Blogs" path="/blog"/>
+                   
+                   <menu-item
+                        icon="fa fa-folder"
+                        label="Blogs"
+                        path="/blog"/>
+
                 <li/>
 
                 <li>
-                   <menu-item  icon="fa fa-file" label="Artigos" path="/listArticles"/>
+
+                   <menu-item  
+                        icon="fa fa-file"
+                        label="Artigos"
+                        path="/listArticles"/>
+
                 <li/>
 
                 <li>
-                   <menu-item  icon="fa fa-user-o" label="Perfil" path="/profile"/>
+
+                   <menu-item
+                        icon="fa fa-user-o"
+                        label="Perfil"
+                        path="/profile"/>
+
                 <li/>
 
                 <li @click="logout">
-                    <i class="fa fa-sign-out" aria-hidden="true"></i> Sair
+                    
+                    <i class="fa fa-sign-out" aria-hidden="true"></i> 
+                    
+                    Sair
+
                 </li>
             </ul>
         </template>

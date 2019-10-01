@@ -1,5 +1,6 @@
 <template>
   <div class="container-list-authores">
+
         <ul class="list-authores">
             <li class="item-list m-1" 
                 v-for="(author, index) in authores" :key="index"
@@ -10,13 +11,22 @@
 
             </li>
         </ul>
+      
         <b-card>
             <b-button 
                 variant="success"
                 class="mr-3"
-                @click="send">Liberar acesso</b-button>
+                @click="send">
+                
+                Liberar acesso
             
-            <b-button variant="danger">Cancelar</b-button>
+            </b-button>
+            
+            <b-button variant="danger">
+            
+                Cancelar
+            
+            </b-button>
         </b-card>
   </div>
 </template>

@@ -1,5 +1,6 @@
 <template>
   <div class="container-blogs">
+    
     <h3 class="mb-3">Seus Blogs</h3>
 
     <hr/>
@@ -7,15 +8,18 @@
     <div class="blogs">
         
       <template v-for="(blog, index) in blogs ">
+        
         <LoadBlog 
           @actionTaken="refresh"
           :idBlog="blog._id"
           :key="index"
           :BlogName="blog.name"/>
+
       </template>
 
       <addBlogs @blogCreated="refresh"/>
     </div>
+
   </div>
 </template>
 

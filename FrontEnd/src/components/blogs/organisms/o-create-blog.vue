@@ -6,11 +6,11 @@
       :container="container"
       :refTarget="refTarget" >
       
-      <template v-slot:trigger>
+      <template #trigger>
         <addSomething/>
       </template>
 
-      <template v-slot:content>
+      <template #content>
         <formBlog @createBlog="createBlog"/>
       </template>
 

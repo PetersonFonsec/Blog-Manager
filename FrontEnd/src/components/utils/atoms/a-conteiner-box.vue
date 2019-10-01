@@ -1,7 +1,11 @@
 <template>
+
 	<div class="add-something hide" rel="add-something">
+    
         <slot></slot>
-	</div>  
+	
+    </div>  
+
 </template>
 
 <script>

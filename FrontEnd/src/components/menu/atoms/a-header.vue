@@ -1,23 +1,41 @@
 <template>
     <header>
-        <div class="header shadow born" :style="bg" >
+        
+        <div 
+            class="header shadow born"
+            :style="bg" >
+
             <span class="left">
+        
                 <slot name="left"></slot>
+        
             </span>
 
             <span class="center">
+        
                 <slot name="center"></slot>
+        
             </span>
 
             <span class="right">
+        
                 <slot name="right"></slot>
+        
             </span>
+
         </div>
 
         <template v-if="isMenuOpen">
-            <div class="sub-menu" :class="{'close': !isMenuOpen && userLogged }" :style="bg" >
+        
+            <div 
+                class="sub-menu"
+                :class="{'close': !isMenuOpen && userLogged }"
+                :style="bg" >
+        
                 <slot name="subMenu"></slot>            
+        
             </div>
+        
         </template>
 
     </header>
@@ -27,7 +45,12 @@
 import { mapState } from 'vuex'
 export default {
     name: 'M-Header',
-    props: ['bg'],
+    props: {
+        bg:{
+            type: String,
+            require: true
+        }
+    },
     computed: {
         style(){
             return `background-color: ${this.bg}`

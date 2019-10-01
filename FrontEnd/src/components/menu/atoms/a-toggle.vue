@@ -6,8 +6,11 @@
         @click="toggle">
 
 		<span :style="style" class="pipe"></span>
+
 		<span :style="style" class="pipe"></span>
+
 		<span :style="style" class="pipe"></span>
+        
 	</div>  
 </template>
 
@@ -15,7 +18,12 @@
 import { mapState } from 'vuex'
 export default {
     name:'btnToggle',
-    props: ['bg'],
+    props: {
+        bg:{
+            type: String,
+            required: true
+        }
+    },
     computed: {
         style(){
             return `background-color: ${this.bg};`

@@ -1,12 +1,11 @@
 .DS_Store
 dist
 
-FrontEnd/node_modules
-FrontEnd/src/global.js
+global.js
 
-BackEnd/node_modules
-BackEnd/.env
-BackEnd/uploads
+node_modules
+.env
+uploads
 
 # local env files
 .env.local

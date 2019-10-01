@@ -1,6 +1,8 @@
 <template>
     <div class="field">     
+
         <template v-if="editField">
+
             <div class="container-edit-field">
 
                 <b-form-input 
@@ -8,42 +10,69 @@
                     v-model="newValue"
                     :placeholder="`Alterar seu ${label}`"/>
 
-                <b-button variant="success" v-b-modal="id" class="ml-3"> 
+                <b-button 
+                    variant="success"
+                    v-b-modal="id"
+                    class="ml-3"> 
+
                     <i class="fa fa-check"></i>
+
                 </b-button>
 
                 <b-button 
                     class="ml-3"
                     variant="danger"
                     @click="editField = !editField"> 
+
                     <i class="fa fa-close"></i>
+
                 </b-button>
 
             </div>
         </template>
 
         <template v-else>
+            
             <div class="value">
 
-                Seu {{ label }}: <strong class="ml-3"> {{ value }} </strong>
+                Seu {{ label }}: 
+                
+                <strong class="ml-3"> {{ value }} </strong>
 
-                <b-button variant="primary" @click="editField = !editField" class="ml-3"> 
+                <b-button 
+                    class="ml-3"
+                    variant="primary"
+                    @click="editField = !editField"> 
+            
                     <i class="fa fa-pencil"></i>
+            
                 </b-button>
 
             </div>
+
         </template>
 
-        <b-modal :id="id" :ref="id" title="Você tem certeza ?">
+        <b-modal 
+            :id="id" 
+            :ref="id" 
+            title="Você tem certeza ?">
 
             <p> Você deseja alterar {{ label }} ? </p>
 
             <p> de "{{ value }}" para "{{ newValue }}" ? </p>
 
-            <template v-slot:modal-footer>
-                <b-button variant="danger" @click="hideModal">Cancelar</b-button>
-                <b-button variant="primary" @click="editedField">Confirmar</b-button>
+            <template #modal-footer>
+
+                <b-button 
+                    variant="danger"
+                    @click="hideModal">Cancelar</b-button>
+
+                <b-button 
+                    variant="primary" 
+                    @click="editedField">Confirmar</b-button>
+
             </template>
+
         </b-modal>
 
     </div>

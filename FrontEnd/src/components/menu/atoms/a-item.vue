@@ -1,6 +1,10 @@
 <template>
     <router-link :to='path'>
-        <i :class="icon" aria-hidden="true"></i> {{ label }}
+
+        <i :class="icon" aria-hidden="true"></i> 
+        
+        {{ label }}
+
     </router-link>
 </template>
 

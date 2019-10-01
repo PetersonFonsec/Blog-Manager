@@ -10,7 +10,11 @@
             </b-col>
             
             <b-col md="2">
-                <b-button type='submit' variant="primary">Criar</b-button>
+
+                <b-button 
+                    type='submit'
+                    variant="primary">Criar</b-button>
+
             </b-col>
         </b-row>
     </b-form>

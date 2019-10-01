@@ -1,9 +1,12 @@
 <template>
     <div class="container-profile">
+        
         <b-row>
+        
             <b-col xs="12" sm="12" md="6" lg="6">
       
                 <b-col class="mb-2" xs="12">
+        
                     <b-card>
                         <div class="container-user-data">
                             <h3>Foto</h3>
@@ -78,17 +81,30 @@
             </b-col>
 
             <b-col class="mb-2 mt-2" xs="12" md="6" lg="6">
+                
                 <b-card>
                     <div class="container-user-data">
+                
                         <h3>Sobre você</h3>
 
                         <div class="changeField mb-3">
-                            <editField label="nome" :value="name" @editedField="changeName"/>
+                            
+                            <editField 
+                                label="nome"
+                                :value="name"
+                                @editedField="changeName"/>
+
                         </div>
 
                         <div class="changeField">
-                            <editField label="email" :value="email" @editedField="changeEmail"/>
+
+                            <editField 
+                                label="email" 
+                                :value="email" 
+                                @editedField="changeEmail"/>
+                        
                         </div>
+
                     </div>
                 </b-card>
             
@@ -99,15 +115,25 @@
 
                         <ul>
                             <template v-for="(blog,i) in blogs" >
+                                
                                 <li :key="i"> 
+
                                     <span class="name-blog">
+
                                         {{ blog.name }} 
+
                                     </span>
 
-                                    <b-button variant="danger" @click="dropBlog(blog._id)"> 
+                                    <b-button 
+                                        variant="danger" 
+                                        @click="dropBlog(blog._id)"> 
+
                                         <i class="fa fa-trash"></i>
+
                                     </b-button>
+
                                 </li>
+
                             </template>
                         </ul>
                     </div>
@@ -115,8 +141,6 @@
             </b-col>
         </b-row>
 
-        <b-row>
-        </b-row>
     </div>
 </template>
 

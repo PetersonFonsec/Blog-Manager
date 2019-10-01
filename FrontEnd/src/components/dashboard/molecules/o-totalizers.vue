@@ -1,7 +1,10 @@
 <template>
   <div class="totalizer-container">
+
       <blogs :count="blogs"/>
+      
       <articles :count="articles"/>
+
   </div>
 </template>
 
@@ -11,7 +14,10 @@ import articles from '@/components/dashboard/molecules/m-totalizer-articles'
 
 export default {
     name: 'totalizers',
-    components: { blogs, articles },
+    components: { 
+        blogs,
+        articles
+    },
     data(){
         return {
             blogs: 0,

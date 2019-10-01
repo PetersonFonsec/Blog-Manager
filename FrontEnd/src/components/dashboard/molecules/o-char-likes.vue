@@ -1,8 +1,12 @@
 <template>
   <div class="container-chart">
-     <b-card>
+
+    <b-card>
+
         <canvas id="CharLikeArticle"></canvas>
+
     </b-card>
+
   </div>
 </template>
 

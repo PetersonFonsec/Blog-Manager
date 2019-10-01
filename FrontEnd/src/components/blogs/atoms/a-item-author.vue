@@ -1,11 +1,14 @@
 <template>
     <div class="container-author">
         <div class="photo">
-            <b-img :src="src(author.avatar)"
-            v-bind="imgProps"
-            rounded="circle"
-            alt="avatar" />
-        </div>
+            
+            <b-img 
+                :src="src(author.avatar)"
+                v-bind="imgProps"
+                rounded="circle"
+                alt="avatar" />
+
+            </div>
         
         <div class="container-data">
             <div>{{ author.name }}</div>

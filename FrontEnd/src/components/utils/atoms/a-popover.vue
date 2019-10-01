@@ -2,9 +2,17 @@
   <div :id="container">
 
     <div class="my-3">
-      <div :id="target" :disabled="popoverShow" variant="primary" :ref="refTarget">
+      
+      <div 
+        :id="target"
+        :disabled="popoverShow" 
+        variant="primary" 
+        :ref="refTarget">
+      
         <slot name="trigger"></slot>
+      
       </div>
+
     </div>
 
     <b-popover
@@ -17,18 +25,35 @@
 
       <template slot="title">
         
-        <b-button @click="onClose" class="close" aria-label="Close">
-          <span class="d-inline-block" aria-hidden="true">&times;</span>
+        <b-button 
+          @click="onClose" 
+          class="close" 
+          aria-label="Close">
+        
+          <span 
+            class="d-inline-block" 
+            aria-hidden="true"> &times;
+          
+          </span>
+
         </b-button>
 
-        <span class="mr-3">{{ title }}</span>
+        <span class="mr-3"> 
+        
+          {{ title }} 
+        
+        </span>
+
       </template>
 
       <div>
+        
         <slot name="content"></slot>
+      
       </div>
 
     </b-popover>
+
   </div>
 </template>
 

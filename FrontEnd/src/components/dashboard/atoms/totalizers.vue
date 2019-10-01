@@ -1,8 +1,12 @@
 <template>
   <div class="totalizers-container" >
 
-    <div class="totalizers-icon" :style="{ 'color' : color }">
+    <div 
+      class="totalizers-icon" 
+      :style="{ 'color' : color }">
+    
       <i :class="icon"></i>
+    
     </div>
 
     <div class="info">
@@ -11,7 +15,9 @@
         {{ title }}
       </p>
 
-      <strong>{{ count }}</strong>
+      <strong>
+        {{ count }}
+      </strong>
       
     </div>
 

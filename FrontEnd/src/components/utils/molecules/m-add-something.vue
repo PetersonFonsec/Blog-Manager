@@ -1,17 +1,25 @@
 <template>
+
 	<cSomething>
 		<div class="btn">
+
 			<plusIcon/>
+
 		</div>
-	</cSomething>  
+    </cSomething>
+
 </template>
 
 <script>
 import plusIcon from '@/components/utils/atoms/a-pluss-icon'
 import cSomething from '@/components/utils/atoms/a-conteiner-box'
+
 export default {
     name: 'addSomething',
-    components:{ plusIcon, cSomething }
+    components:{ 
+        plusIcon, 
+        cSomething
+    }
 }
 </script>
 

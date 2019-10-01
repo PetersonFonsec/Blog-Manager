@@ -1,17 +1,28 @@
 <template>
   <div class="FormAndView">
 
-      <div class="left-side" :class="{ 'show' : showRightSide, 'hide' : !showRightSide }">
+      <div 
+        class="left-side"
+        :class="{ 'show' : showRightSide, 'hide' : !showRightSide }">
+        
         <slot name="left"></slot>
+      
       </div>
 
-      <div class="right-side" :class="{ 'show' : showRightSide, 'hide' : !showRightSide }">
+      <div 
+        class="right-side"
+        :class="{ 'show' : showRightSide, 'hide' : !showRightSide }">
 
-        <div class="centralizar" @click="showRightSide = !showRightSide">
+        <div 
+            class="centralizar" 
+            @click="showRightSide = !showRightSide">
+      
             <ButtonEye :show="showRightSide"/>
+      
         </div>
 
         <slot name="right"></slot>
+
       </div>
 
   </div>

@@ -2,13 +2,13 @@
   <div class="Form-article">
     <FormAndView>
 
-        <template v-slot:left>
+        <template #left>
             <Form 
                 @createArticle="mode"
                 :preview="true" />
         </template>
         
-        <template v-slot:right>
+        <template #right>
             <Preview />
         </template>
 

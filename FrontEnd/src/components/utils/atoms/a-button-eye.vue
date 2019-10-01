@@ -1,8 +1,17 @@
 <template>
+
    <div class="showEye">
-        <i v-if="show" class="fa fa-eye-slash"  aria-hidden="true"></i>
-        <i v-else class="fa fa-eye"  aria-hidden="true"></i>
+
+        <i v-if="show"
+           class="fa fa-eye-slash"
+           aria-hidden="true"></i>
+             
+        <i v-else
+            class="fa fa-eye"
+            aria-hidden="true"></i>
+
     </div>
+
 </template>
 
 <script>
@@ -17,7 +26,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .showEye {        
     background-color:#007bff;
     width: 50px;

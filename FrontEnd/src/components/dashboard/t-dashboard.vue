@@ -1,22 +1,26 @@
 <template>
   <div class="container-dashboad">
-    <b-row>
-    </b-row>
 
     <b-row>
+
       <b-col sm="12" md="4" lg="4" class="center">
+
         <totalizers/>
+
       </b-col> 
 
       <b-col sm="12" md="6" lg="6" class="center">
+
         <LikesArticles/>
 
         <AuthorForBlog/>
 
         <ArticleForAuthor/>
+
       </b-col>
 
     </b-row>
+    
   </div>
 </template>
 
@@ -28,7 +32,12 @@ import ArticleForAuthor from '@/components/dashboard/molecules/o-char-article-au
 
 export default {
   name: 'DashBoad',
-  components: { totalizers, LikesArticles, AuthorForBlog, ArticleForAuthor }
+  components: { 
+    totalizers,
+    LikesArticles,
+    AuthorForBlog,
+    ArticleForAuthor
+  }
 }
 </script>
 

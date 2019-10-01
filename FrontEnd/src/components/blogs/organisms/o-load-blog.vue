@@ -8,14 +8,18 @@
       :refTarget="refTarget"
       >
 
-      <template v-slot:trigger>
+      <template #trigger>
+
         <blog :BlogName="BlogName" />
+
       </template>
 
-      <template v-slot:content>
+      <template #content>
+
         <actions 
           @addArticles="addArticles"
           @giveAcess="giveAcess"/>
+
       </template>
 
     </Popover>

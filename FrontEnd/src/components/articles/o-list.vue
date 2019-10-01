@@ -1,8 +1,15 @@
 <template>
   <div class="list-articles">
     <b-card>
-      <Filters @filtrate="filters" @toggleView="typeChange"/>
-      <ListItems :articles="articles" :type="typeViewList"/>
+      
+      <Filters 
+        @filtrate="filters" 
+        @toggleView="typeChange"/>
+
+      <ListItems 
+        :articles="articles" 
+        :type="typeViewList"/>
+      
     </b-card>
   </div>
 </template>
