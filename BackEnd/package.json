@@ -6,7 +6,7 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "NODE_ENV=test jest",
+    "test": "NODE_ENV=test jest --detectOpenHandles",
     "dev": "nodemon src/index --ignore tests",
     "start": "node src/index"
   },

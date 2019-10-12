@@ -15,15 +15,28 @@ const adminParams = {
     password: "123456"
 }
 
+const invalidUser = {
+    name: user.name,
+    password: user.password
+}
+
+const newUser = {
+    email: "newUser@mock.com",
+    password: "123456",
+    name: "User Fulano"
+}
+
 let userAdmin, userLogged = false
 
 beforeEach( async () => { 
+    
     userLogged = await request(app).post("/user").send(user)
+    
     token = `Bearer ${userLogged.body.token}`  
 
     userAdmin = await request(app)
         .post("/user/admin")
-        .set({ authorization: `Bearer ${userLogged.body.token}` })
+        .set({ authorization: token })
         .send(adminParams)
 
     tokenAdmin = `Bearer ${userAdmin.body.token}` 
@@ -31,8 +44,11 @@ beforeEach( async () => {
 })
 
 afterEach( async () => {
-    await userDb.findOneAndRemove({ email: user.email }) 
-    await userDb.findOneAndRemove({ email: adminParams.email }) 
+    
+    const users = await userDb.find({})
+    
+    users.forEach( async user => await userDb.findByIdAndDelete(user._id) )
+
 })
 
 describe("route /user", () => {
@@ -40,12 +56,7 @@ describe("route /user", () => {
     describe("POST", () => {
     
         it("should return stats 401 when params is invalid", async () => {
-            
-            const invalidUser = {
-                name: user.name,
-                password: user.password
-            }
-    
+           
             const res = await request(app).post("/user").send(invalidUser)
     
             expect(res.status).toBe(401)
@@ -53,12 +64,6 @@ describe("route /user", () => {
     
         it("should return stats 200 when params is valid", async () => {
             
-            const newUser = {
-                email: "newUser@mock.com",
-                password: "123456",
-                name: "User Fulano"
-            }
-
             const res = await request(app).post("/user").send(newUser)
 
             await userDb.findByIdAndRemove(res.body.result._id)
@@ -75,26 +80,12 @@ describe("route /user", () => {
     
         it("should return token", async () => {
 
-            const newUser = {
-                email: "newUser@mock.com",
-                password: "123456",
-                name: "User Fulano"
-            }
-
             const res = await request(app).post("/user").send(newUser)
-    
-            await userDb.findOneAndRemove({ email : newUser.email})
 
             expect(res.body.token).not.toBeUndefined()
         })
 
         it("password saved should encripted", async () => {
-
-            const newUser = {
-                email: "newUser@mock.com",
-                password: "123456",
-                name: "User Fulano"
-            }
 
             const userInsered = await request(app).post("/user").send(newUser)
 
@@ -104,12 +95,9 @@ describe("route /user", () => {
             
             const passwordEncripited = bcrypt.hashSync( user.password , bcrypt.genSaltSync(10)) 
 
-            await userDb.findOneAndRemove({ email : newUser.email})
-
             expect(userSaved.password).not.toEqual(passwordEncripited)
         })
     })
-
 
     describe("GET", () => {
 

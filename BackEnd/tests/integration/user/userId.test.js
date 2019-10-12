@@ -8,22 +8,35 @@ const user = {
     password: "123456"
 }
 
+const userFake = {
+    name: "Peterson F. Fake",
+    email: "Peterson@fake.com",
+    password: "123456"
+}
+
 const adminParams = {
     name: "Peterson Admin",
     email: "Peterson@admin.com",
     password: "123456"
 }
 
+const invalidUser = {
+    name: user.name,
+    password: user.password,
+    email: "Fake@Gmail.com"
+}
 
 let userAdmin, userLogged, token, tokenAdmin = false
 
 beforeEach( async () => { 
+        
     userLogged = await request(app).post("/user").send(user)
+    
     token = `Bearer ${userLogged.body.token}`  
 
     userAdmin = await request(app)
         .post("/user/admin")
-        .set({ authorization: `Bearer ${userLogged.body.token}` })
+        .set({ authorization: token })
         .send(adminParams)
 
     tokenAdmin = `Bearer ${userAdmin.body.token}` 
@@ -31,8 +44,11 @@ beforeEach( async () => {
 })
 
 afterEach( async () => {
-    await userDb.findOneAndRemove({ email: user.email }) 
-    await userDb.findOneAndRemove({ email: adminParams.email }) 
+
+    const users = await userDb.find({})
+    
+    users.forEach( async user => await userDb.findByIdAndDelete(user._id) )
+
 })
 
 describe("route /user/:id", () => {
@@ -41,26 +57,14 @@ describe("route /user/:id", () => {
 
         it("should return stats 401 when header without authorization ", async () => {
 
-            const invalidUser = {
-                name: user.name,
-                password: user.password,
-                email: "Fake@Gmail.com"
-            }
+            const { _id } = userAdmin.body.result
 
-            const {id} = userAdmin.body.result
-
-            const res = await request(app).put(`/user/${id}`).send(invalidUser)
+            const res = await request(app).put(`/user/${_id}`).send(invalidUser)
 
             expect(res.status).toBe(401)
         })
 
         it("should return stats 401 when user logged not is a admin", async () => {
-
-            const userFake = {
-                name: "Peterson F. Fake",
-                email: "Peterson@fake.com",
-                password: "123456"
-            }
 
             const result = await request(app).post("/user").send(userFake)
             
@@ -83,12 +87,6 @@ describe("route /user/:id", () => {
 
         it("No change the value field admin", async () => {
 
-            const userFake = {
-                name: "Peterson F. Fake",
-                email: "Peterson@fake.com",
-                password: "123456"
-            }
-
             const result = await request(app).post("/user").send(userFake)
             
             const tokenFake = `Bearer ${result.body.token}`
@@ -109,12 +107,6 @@ describe("route /user/:id", () => {
         })
 
         it("should change field sended", async () => {
-
-            const userFake = {
-                name: "Peterson F. Fake",
-                email: "Peterson@fake.com",
-                password: "123456"
-            }
 
             const result = await request(app).post("/user").send(userFake)
 
@@ -142,19 +134,19 @@ describe("route /user/:id", () => {
 
         it("should return stats 401 when header without authorization ", async () => {
 
-            const { id } = userAdmin.body.result
+            const { _id } = userAdmin.body.result
 
-            const res = await request(app).get(`/user/${id}`).send()
+            const res = await request(app).get(`/user/${_id}`).send()
 
             expect(res.status).toBe(401)
         })
 
         it("should return stats 401 when user logged not is a admin", async () => {
 
-            const { id } = userAdmin.body.result
+            const { _id } = userAdmin.body.result
 
             const res = await request(app)
-                                .put(`/user/${id}`)
+                                .put(`/user/${_id}`)
                                 .set({ authorization: token })
                                 .send()
 
@@ -163,12 +155,6 @@ describe("route /user/:id", () => {
         })
 
         it("should return status 200 when user id exist", async () => {
-
-            const userFake = {
-                name: "Peterson F. Fake",
-                email: "Peterson@fake.com",
-                password: "123456"
-            }
 
             const result = await request(app).post("/user").send(userFake)
             
@@ -201,19 +187,19 @@ describe("route /user/:id", () => {
 
         it("should return stats 501 when header without authorization ", async () => {
 
-            const { id } = userAdmin.body.result
+            const { _id } = userAdmin.body.result
 
-            const res = await request(app).delete(`/user/${id}`).send()
+            const res = await request(app).delete(`/user/${_id}`).send()
 
-            expect(res.status).toBe(501)
+            expect(res.status).toBe(401)
         })
 
         it("should return stats 401 when user logged not is a admin", async () => {
 
-            const { id } = userAdmin.body.result
+            const { _id } = userAdmin.body.result
 
             const res = await request(app)
-                                .delete(`/user/${id}`)
+                                .delete(`/user/${_id}`)
                                 .set({ authorization: token })
                                 .send()
 
@@ -222,12 +208,6 @@ describe("route /user/:id", () => {
         })
 
         it("should return status 200 when user id exist", async () => {
-
-            const userFake = {
-                name: "Peterson F. Fake",
-                email: "Peterson@fake.com",
-                password: "123456"
-            }
 
             const result = await request(app).post("/user").send(userFake)
             
@@ -245,7 +225,7 @@ describe("route /user/:id", () => {
 
         it("should return status 404 when user id not exist", async () => {
 
-            const idNotExist = "5d71e6dd98412f71d2a68ef4"
+            const idNotExist = "petersonCrazyId"
 
             const res = await request(app)
                 .delete(`/user/${idNotExist}`)

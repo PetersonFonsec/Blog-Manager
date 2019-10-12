@@ -21,8 +21,6 @@ describe("routes Blog", () => {
                 email: "newUserFail@mock.com",
             })
 
-            await blogDb.findOneAndRemove({ email : newUser.email})
-
             expect(res.status).toBe(401)
         })
 
@@ -41,11 +39,8 @@ describe("routes Blog", () => {
                 email: newUser.email,
             })
 
-            await blogDb.findOneAndRemove({ email : newUser.email})
-
             expect(res.status).toBe(200)
         })
-
        
     })
 

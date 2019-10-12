@@ -23,10 +23,11 @@ class UserController {
             return res.status(401).send({ msg: 'Campo Name, Password ou Email estão inválidos'})
     
         try {
-    
+            
             const emailExist = await UserDB.findOne({ email })
-    
-            if(emailExist) return res.status(401).send({ msg: 'Email já existente'})
+                
+            if( emailExist ) 
+                return res.status(401).send({ msg: 'Email já existente'})
     
             const passwordEncripited = bcrypt.hashSync( req.body.password , bcrypt.genSaltSync(10)) 
     
@@ -44,7 +45,6 @@ class UserController {
             return res.status(200).send({ result, token })
     
         } catch (error) {
-    
             return res.status(501).send({ msg: error })
         }
     
@@ -60,7 +60,7 @@ class UserController {
 
             const emailExist = await UserDB.findOne({ email })
 
-            if(emailExist) return res.status(401).send({ msg: 'Email já existente'})
+            if( emailExist ) return res.status(401).send({ msg: 'Email já existente'})
 
             const passwordEncripited = bcrypt.hashSync( req.body.password , bcrypt.genSaltSync(10)) 
 
@@ -195,9 +195,8 @@ class UserController {
                 ? res.status(200).send({ result })
                 : res.status(404).send({ msg: 'Usuário não encontrado' })
     
-        }catch(error){
-    
-            return res.status(501).send({ msg: error })
+        }catch(error){ 
+            return res.status(404).send({ msg: error })
         }
     }
     
