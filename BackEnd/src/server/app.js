@@ -23,7 +23,7 @@ class AppController {
 
     routes(){                
         const self = this.express
-        consign()
+        consign({ verbose: process.env.NODE_ENV !== 'test' })
             .then('./src/server/db.js')
             .then('./src/api')
             .then('./src/routes')

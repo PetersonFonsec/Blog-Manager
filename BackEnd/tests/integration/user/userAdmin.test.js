@@ -1,16 +1,20 @@
 const request = require("supertest")
 const userDb = require("../../../src/model/user") 
-const mockUser = require("../../../mock/user") 
 const app = require("../../../src/server/app")
 const bcrypt = require("bcrypt-nodejs")
 
-const user = mockUser
+const user = {
+    name: "Peterson Comum",
+    email: "Peterson@comum.com",
+    password: "123456"
+}
 
 const adminParams = {
     name: "Peterson Admin",
     email: "Peterson@admin.com",
     password: "123456"
 }
+
 
 let userAdmin, userLogged, tokenAdmin = false
 

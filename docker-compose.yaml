@@ -1,9 +1,18 @@
-version: '3'
+version: '3.1'
+networks: 
+  banco:
 services: 
   mongodb:
-    image: mongo
+    image: mongo:latest
+    restart: always
+    volumes:
+      - ./BlogDB:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: petManange
     ports:
       - 27017:27017
+    networks:
+      - banco
   backend:
     image: node:10
     volumes: 
@@ -14,6 +23,8 @@ services:
       - mongodb
     links:
       - mongodb
+    networks:
+      - banco
     command: bash ./BackEnd/backend.sh
   frontend:
     image: node:10
