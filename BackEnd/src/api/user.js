@@ -120,6 +120,10 @@ class UserController {
 
     async updateLogged(req, res){
         try {
+            
+            if(req.body.admin)
+                return res.status(501).send({ msg: 'Não é possivel alterar o campo admin' })
+
             const result = await UserDB.findByIdAndUpdate(req.userID, { ...req.body })
             
             return result

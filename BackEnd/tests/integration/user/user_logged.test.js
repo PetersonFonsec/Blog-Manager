@@ -55,7 +55,7 @@ describe('route /userLogged', () => {
             const { email, name, avatar } = user
 
             expect(email).not.toBeUndefined()
-            expect(name).not.toBeUndefined()
+            expect(name ).not.toBeUndefined()
             expect(avatar).not.toBeUndefined()
 
         })
@@ -125,19 +125,46 @@ describe('route /userLogged', () => {
 
         it("should return stats 401 when header without authorization ", async () => {
             
-            const response = await request(app).post("/userLogged").send({})
+            const response = await request(app).put("/userLogged").send({})
 
             expect(response.status).toBe(401)
         })
 
         it('should return a error when not send header authorization', async () =>{
             
-            const response = await request(app).post("/userLogged").send({})
+            const response = await request(app).put("/userLogged").send({})
 
             const menssageError = response.body.error
 
             expect(menssageError).not.toBeUndefined()
         })
+
+        it(" should return a error when triend update the field admin", async () => {
+
+            const fieldAltered = { admin: true }
+
+            const result = await request(app)
+                    .put("/userLogged")
+                    .set({ authorization: token})
+                    .send(fieldAltered)
+
+            expect(result.status).toBe(501)
+
+        })
+
+        it("should change field sended", async () => {
+
+            const fieldAltered = { name: 'other name' }
+
+            const result = await request(app)
+                    .put("/userLogged")
+                    .set({ authorization: token})
+                    .send(fieldAltered)
+
+            expect(result.status).toBe(200)
+
+        })
+
 
     })
 })

@@ -96,11 +96,9 @@ describe("route /user/:id", () => {
             const { _id } = result.body.result
 
             const res = await request(app)
-                .put(`/user/${_id}`)
-                .set({ authorization: tokenFake })                
-                .send(fieldAltered)
-
-            await userDb.findOneAndDelete({ email: userFake.email })
+                    .put(`/user/${_id}`)
+                    .set({ authorization: tokenFake })                
+                    .send(fieldAltered)
 
             expect(res.status).toBe(401)
 
