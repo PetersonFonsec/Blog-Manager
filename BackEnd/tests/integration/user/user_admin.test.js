@@ -74,7 +74,7 @@ describe("route /user/admin", () => {
 
         })
 
-        it("should return stats 200 when params is valid", async () => {
+        it("should return stats 200 when all params is valid", async () => {
 
             const res = await request(app)
                 .post("/user/admin")

@@ -49,6 +49,7 @@ class AuthController {
     }
 
     validToken(req, res, next){
+
         const { authorization } = req.headers
 
         if(!authorization) return res.status(401).send({ error: "Token não enviado"})
@@ -74,11 +75,16 @@ class AuthController {
     async validPasswordUserLogged(req, res){
 
         try {
+
             const { password } = req.body
+            
+            if(!password) return res.status(401).send({ msg : 'Senha não informada' })
+
+            if(!req.userID) return res.status(401).send({ msg : 'Usuario não logado' })
 
             const result = await UserDB.findById(req.userID).select("+password")
     
-            if(!result) return false
+            if(!result) return res.status(401).send({ msg : 'Usuario não logado' })
 
             const isMach = bcripty.compareSync(password, result.password)
 

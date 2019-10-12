@@ -102,7 +102,9 @@ class UserController {
     }
 
     async findUserLogged(req, res){
+
         try {
+
             const fields = { name: 1, email: 1, avatar: 1 }
             
             const result = await UserDB.findById(req.userID, fields)
@@ -112,7 +114,7 @@ class UserController {
                 : res.status(404).send({ msg: 'Usuário não encontrado' })
     
         }catch(error) {
-            return res.status(501).send({ msg: error })
+            return res.status(401).send({ msg: error })
         }
     }
 

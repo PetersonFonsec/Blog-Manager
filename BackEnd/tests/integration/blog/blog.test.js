@@ -1,7 +1,7 @@
 const request = require("supertest")
-const blogDb = require("../../src/model/blog") 
+const blogDb = require("../../../src/model/blog") 
 
-const app = require("../../src/server/app")
+const app = require("../../../src/server/app")
 
 describe("routes Blog", () => {
 
