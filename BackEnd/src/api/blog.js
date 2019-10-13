@@ -22,7 +22,7 @@ class BlogController {
     
             const result = await blogDb.create({ name, creator, authors })
     
-            return res.status(200).send({ msg: result })
+            return res.status(200).send({ result })
     
         } catch (error) {    
             return res.status(501).send({ msg: error })
@@ -33,18 +33,19 @@ class BlogController {
     async findOne(req, res){
         
         try {
+
             const { id:_id } = req.params
-    
+
+            if(!_id) return res.status(401).send({ msg: "ID do blog não informado" })
+
             const result = await blogDb.findOne({ _id })
-    
-            if(result){
-                return res.status(200).send({ result })
-            }else{
-                return res.status(404).send({ msg: "Blog não encontrado" })
-            }
+
+            return result
+                ? res.status(200).send({ result })
+                : res.status(404).send({ msg: "Blog não encontrado" })
     
         }catch(error) {
-            return res.status(501).send({ msg: error })
+            return res.status(404).send({ msg: error })
         }
     }
 
@@ -69,10 +70,8 @@ class BlogController {
             const _id = req.userID
     
             if(!_id) return res.status(401).send({ msg: "Id é obrigatório" })
-    
-            const query = {  authors : { $in: [ _id ] } }
-    
-            const result = await blogDb.find(query)
+        
+            const result = await blogDb.find({  authors : { $in: [ _id ] } })
     
             return res.status(200).send({ result })
     

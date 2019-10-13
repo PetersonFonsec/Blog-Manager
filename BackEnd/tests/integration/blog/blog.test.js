@@ -61,9 +61,7 @@ describe("routes /blog", () => {
             const res = await request(app)
                 .post("/blog")
                 .set({ authorization: token })
-                .send({
-                name: validBlog.name
-            })
+                .send({ name: validBlog.name })
 
             expect(res.status).toBe(200)
         })
