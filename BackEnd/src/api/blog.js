@@ -82,19 +82,28 @@ class BlogController {
 
     async giveAcess(req, res){
        
-        const { id } = req.params
-        const { authors } = req.body
-        const _id = req.userID
+        const { id: _id } = req.params
 
-        authors.push(_id)
+        const { authors } = req.body
+
+        const idUserLogged = req.userID
+
+        if( !authors || !authors[0] ) 
+            return res.status(401).send({ msg: 'Id do novos authores não forão enviados' }) 
+
+        authors.push(idUserLogged)
 
         try {
     
-            const result = await blogDb.findOneAndUpdate({ _id: id }, { $set : { authors } })
+            const fieldUpdated = { $set : { authors } }
+
+            const updated = await blogDb.findOneAndUpdate({ _id }, fieldUpdated)
     
-            return result
-                ? res.status(200).send({ result })
-                : res.status(404).send({ msg: "Usuário não encontrado" })
+            if(!updated) return res.status(404).send({ msg: "Usuário não encontrado" })
+
+            const result = await await blogDb.findById(_id)
+                
+            res.status(200).send({ result })
     
         }catch(error){
             return res.status(501).send({ msg: error })
@@ -106,12 +115,17 @@ class BlogController {
         const { id } = req.params
     
         try {
+
+            if(req.body.creator) 
+                return res.status(401).send({ msg: "Não é permitido auterar o criado do blog" })
     
-            const result = await blogDb.findOneAndUpdate({ _id: id }, { ...req.body } )
+            const updated = await blogDb.findOneAndUpdate({ _id: id }, { ...req.body } )
     
-            return result
-                ? res.status(200).send({ result })
-                : res.status(404).send({ msg: "Usuário não encontrado" })
+            if(!updated) return res.status(404).send({ msg: "Blog não encontrado" })
+
+            const result = await blogDb.findById(id)
+
+            return res.status(200).send({ result })
     
         }catch(error){
     
@@ -135,6 +149,7 @@ class BlogController {
             return res.status(501).send({ msg: error })
         }
     }
+
 }
 
 module.exports = new BlogController()

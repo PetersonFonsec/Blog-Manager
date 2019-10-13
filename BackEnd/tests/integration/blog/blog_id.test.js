@@ -13,6 +13,18 @@ const user = {
 
 let userLogged, token, blogCreated = null
 
+beforeAll(async () => {
+
+    const users = await userDb.find({})
+    
+    users.forEach( async user => await userDb.findByIdAndDelete(user._id) )
+
+    const blogs = await blogDb.find({})
+    
+    blogs.forEach( async blog => await blogDb.findByIdAndDelete(blog._id) )
+
+})
+
 beforeEach( async () => {
 
     userLogged = await request(app).post("/user").send(user)
@@ -88,5 +100,136 @@ describe('route /blog/:id', ()=>{
             expect(response.status).toEqual(404)
 
         })
+
     })
+
+    describe('POST', () => {
+
+        it("should return stats 401 when header without authorization ", async () => {
+
+            const response = await request(app)
+                    .post(`/blog/${blogCreated._id}`)
+                    .send()
+
+            expect(response.status).toBe(401)
+
+        })
+
+        it("should return a object updated with news authors", async () => {
+
+            const newEmail = user => {
+                user.email = `${user.email}-${ Math.random() * 10 }`
+                
+                return user
+            }
+
+            author_one = await request(app).post("/user").send( newEmail(user) )
+            author_two = await request(app).post("/user").send( newEmail(user) )
+            author_thr = await request(app).post("/user").send( newEmail(user) )
+
+            const returnIDs  = res => res.body.result._id
+
+            const newAuthores = [ 
+                returnIDs(author_one),
+                returnIDs(author_two),
+                returnIDs(author_thr)
+            ]
+
+            const response = await request(app)
+                    .post(`/blog/${blogCreated._id}`)
+                    .set({ authorization: token })
+                    .send({ authors: newAuthores })
+
+            const { authors } = response.body.result
+
+            expect(authors.length).toBe(4)
+
+        })
+
+        it("should return status 200 when all params is valid", async () => {
+
+            const newEmail = user => {
+                user.email = `${user.email}-${ Math.random() * 10 }`
+                
+                return user
+            }
+
+            author_one = await request(app).post("/user").send( newEmail(user) )
+
+            const newAuthor = [ author_one.body.result._id ]
+
+            const response = await request(app)
+                    .post(`/blog/${blogCreated._id}`)
+                    .set({ authorization: token })
+                    .send({ authors: newAuthor })
+
+            expect(response.status).toBe(200)
+
+        })
+
+        it("should return status 401 when the fields authors not sended", async () => {
+
+            const response = await request(app)
+                    .post(`/blog/${blogCreated._id}`)
+                    .set({ authorization: token })
+                    .send()
+
+            expect(response.status).toBe(401)
+
+        })
+
+    })
+
+    describe('PUT', () => {
+
+        it("should return stats 401 when header without authorization ", async () => {
+
+            const response = await request(app)
+                    .put(`/blog/${blogCreated._id}`)
+                    .send()
+
+            expect(response.status).toBe(401)
+
+        })
+
+        it("should return stats 401 when tried updated field creator", async () => {
+
+            const response = await request(app)
+                    .put(`/blog/${blogCreated._id}`)
+                    .set({ authorization: token })
+                    .send({ creator: 'my id' })
+
+            expect(response.status).toBe(401)
+
+        })
+
+        it("should return status 200 when all params is valid", async () => {
+
+            const newName = 'newNameBlog'
+
+            const response = await request(app)
+                    .put(`/blog/${blogCreated._id}`)
+                    .set({ authorization: token })
+                    .send({ name: newName })
+
+            expect(response.status).toBe(200)
+
+        })
+
+        it("should return an object with fields updated", async () => {
+            
+            const newName = 'newNameBlog'
+
+            const response = await request(app)
+                    .put(`/blog/${blogCreated._id}`)
+                    .set({ authorization: token })
+                    .send({ name: newName })
+
+            const { name } = response.body.result
+
+            expect(name).toEqual(newName)
+        })
+
+    })
+
 })
