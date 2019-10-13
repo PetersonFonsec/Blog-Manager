@@ -232,4 +232,42 @@ describe('route /blog/:id', ()=>{
 
     })
 
+    describe('DELETE', () => {
+
+        it("should return stats 401 when header without authorization ", async () => {
+
+            const response = await request(app)
+                    .delete(`/blog/${blogCreated._id}`)
+                    .send()
+
+            expect(response.status).toBe(401)
+
+        })
+
+        it("should return stats 501 when id param is invalid", async () => {
+
+            const idInvalid = 'id invalid'
+
+            const response = await request(app)
+                    .delete(`/blog/${idInvalid}`)
+                    .set({ authorization: token })
+                    .send()
+
+            expect(response.status).toBe(501)
+
+        })
+
+        it("should return status 200 when all params is valid", async () => {
+
+            const response = await request(app)
+                    .delete(`/blog/${blogCreated._id}`)
+                    .set({ authorization: token })
+                    .send()
+
+            expect(response.status).toBe(200)
+
+        })
+
+    })
+
 })
