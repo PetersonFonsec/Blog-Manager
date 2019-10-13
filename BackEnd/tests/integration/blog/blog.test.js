@@ -84,39 +84,40 @@ describe("routes /blog", () => {
 
             expect(res.status).toBe(401)
         })
+
     })
 
     describe("GET", () => {
 
-        it("should return stats 401 when header without authorization ", async () => {
+        it("should return an array with all blogs created ", async () => {
             
             const response = await request(app)
-                    .post("/blog")
+                    .get("/blog")
+                    .set({ authorization: token })
+                    .send({})
+
+            const allBlogs = response.body.result
+
+            expect( Array.isArray(allBlogs) ).toBe(true)
+        })
+
+        it("should return stats 200", async () => {
+            
+            const response = await request(app)
+                    .get("/blog")
+                    .set({ authorization: token })
+                    .send()
+
+            expect(response.status).toBe(200)
+        })
+
+        it("should return stats 401 when sended without token ", async () => {
+            
+            const response = await request(app)
+                    .get("/blog")
                     .send({})
 
             expect(response.status).toBe(401)
-        })
-
-        it("should return stats 401 when field name not sended", async () => {
-            
-            const response = await request(app)
-                    .post("/blog")
-                    .set({ authorization: token })
-                    .send( invalidBlog )
-
-            expect(response.status).toBe(401)
-        })
-
-        it("should return stats 200 all params is correct", async () => {
-
-            const res = await request(app)
-                .post("/blog")
-                .set({ authorization: token })
-                .send({
-                    name: validBlog.name
-                })
-            
-            expect(res.status).toBe(200)
         })
        
     })

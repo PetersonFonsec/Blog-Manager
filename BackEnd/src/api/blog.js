@@ -59,6 +59,7 @@ class BlogController {
         }catch(error) {
             return res.status(501).send({ msg: error })
         }
+
     }
 
     async findByIdUser(req, res){
