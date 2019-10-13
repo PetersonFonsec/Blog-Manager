@@ -28,5 +28,4 @@ const newUser = {
     name: "User Fulano"
 }
 
-
 module.exports = { userValid, userFake, userAdmin, invalidUser, newUser}

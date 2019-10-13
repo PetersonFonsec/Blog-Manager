@@ -1,44 +1,121 @@
 const request = require("supertest")
-const blogDb = require("../../../src/model/blog") 
+const blogDb  = require("../../../src/model/blog")
+const userDb  = require("../../../src/model/user")
+const { validBlog, invalidBlog } = require('./blog_mock')
 
 const app = require("../../../src/server/app")
 
-describe("routes Blog", () => {
+const user = {
+    email: "newUserAuth@mock.com",
+    password: "123456",
+    name: "User Fulano"
+}
+
+let userLogged, token = null
+
+beforeEach( async () => {
+
+    userLogged = await request(app).post("/user").send(user)
+        
+    token = `Bearer ${userLogged.body.token}`  
+
+})
+
+afterEach( async () => {
+
+    const users = await userDb.find({})
+    
+    users.forEach( async user => await userDb.findByIdAndDelete(user._id) )
+
+    const blogs = await blogDb.find({})
+    
+    blogs.forEach( async blog => await blogDb.findByIdAndDelete(blog._id) )
+
+})
+
+describe("routes /blog", () => {
 
     describe("POST", () => {
 
-        it("should return stats 401 when user not exist", async () => {
-            const newUser = {
-                email: "newUserAuth@mock.com",
-                password: "123456",
-                name: "User Fulano"
-            }
+        it("should return stats 401 when header without authorization ", async () => {
+            
+            const response = await request(app)
+                    .post("/blog")
+                    .send({})
 
-            await request(app).post("/user").send(newUser)
+            expect(response.status).toBe(401)
+        })
 
-            const res = await request(app).post("/auth").send({
-                password: newUser.password,
-                email: "newUserFail@mock.com",
+        it("should return stats 401 when field name not sended", async () => {
+            
+            const response = await request(app)
+                    .post("/blog")
+                    .set({ authorization: token })
+                    .send( invalidBlog )
+
+            expect(response.status).toBe(401)
+        })
+
+        it("should return stats 200 all params is correct", async () => {
+       
+            const res = await request(app)
+                .post("/blog")
+                .set({ authorization: token })
+                .send({
+                name: validBlog.name
             })
+
+            expect(res.status).toBe(200)
+        })
+       
+        it("should return a error when blog exist with same name", async () => {
+           
+            const { name } = validBlog
+
+            await request(app)
+                    .post("/blog")
+                    .set({ authorization: token })
+                    .send({ name })
+
+            const res = await request(app)
+                    .post("/blog")
+                    .set({ authorization: token })
+                    .send({ name })
 
             expect(res.status).toBe(401)
         })
+    })
 
-        it("should return stats 200 when user exist", async () => {
+    describe("GET", () => {
 
-            const newUser = {
-                email: "newUserAuth@mock.com",
-                password: "123456",
-                name: "User Fulano"
-            }
+        it("should return stats 401 when header without authorization ", async () => {
+            
+            const response = await request(app)
+                    .post("/blog")
+                    .send({})
 
-            await request(app).post("/user").send(newUser)
+            expect(response.status).toBe(401)
+        })
 
-            const res = await request(app).post("/auth").send({
-                password: newUser.password,
-                email: newUser.email,
-            })
+        it("should return stats 401 when field name not sended", async () => {
+            
+            const response = await request(app)
+                    .post("/blog")
+                    .set({ authorization: token })
+                    .send( invalidBlog )
 
+            expect(response.status).toBe(401)
+        })
+
+        it("should return stats 200 all params is correct", async () => {
+
+            const res = await request(app)
+                .post("/blog")
+                .set({ authorization: token })
+                .send({
+                    name: validBlog.name
+                })
+            
             expect(res.status).toBe(200)
         })
        
