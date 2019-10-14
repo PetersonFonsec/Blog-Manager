@@ -121,18 +121,29 @@ class Article {
     }
 
     async updateOne(req, res){
+
         const _id = req.params.id
-    
+
         if( !_id ) return res.status(401).send({ msg: 'Id é um campo obrigatório'})
-    
+
         try {
-    
-            const result = await articleDB.findByIdAndUpdate( _id, { ...req.params } )
-    
-            return result
-                ? res.status(200).send({ result })
-                : res.status(401).send({ msg: 'Artigo não encontrado' })
-    
+
+            const { blog, author } = req.body
+
+            if( blog ) 
+                return res.status(401).send({ msg: 'Não é permitido auterar o blog'})
+
+            if( author ) 
+                return res.status(401).send({ msg: 'Não é permitido auterar o autor'})
+
+            const result = await articleDB.findByIdAndUpdate( _id, { ...req.body } )
+
+            if( !result ) return res.status(401).send({ msg: 'Artigo não encontrado' })
+            
+            const articleUpdated =  await articleDB.findById( _id )
+            
+            return res.status(200).send({ result: articleUpdated })
+
         } catch (error) {
             return res.status(501).send({ msg: error })
         }
