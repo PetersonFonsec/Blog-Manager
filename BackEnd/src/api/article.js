@@ -21,6 +21,10 @@ class Article {
 
         try {
 
+            const validatinTile = await articleDB.findOne({ title })
+
+            if(validatinTile) return res.status(501).send({ msg: 'artigo com o titulo já criado' })
+            
             const result = await articleDB.create({ 
                 title,
                 blog,
@@ -30,7 +34,7 @@ class Article {
                 photo
             })
 
-            if(!result) return res.status(404).send({ msg : 'usuario não encontrado' })
+            if(!result) return res.status(401).send({ msg : 'usuario não encontrado' })
 
             const articleCreated = await articleDB.findOne({ title })
 

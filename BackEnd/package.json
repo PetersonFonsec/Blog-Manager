@@ -7,6 +7,7 @@
   },
   "scripts": {
     "test": "NODE_ENV=test jest --detectOpenHandles",
+    "coverage": "NODE_ENV=test jest --detectOpenHandles --collectCoverage",
     "dev": "nodemon src/index --ignore tests",
     "start": "node src/index"
   },

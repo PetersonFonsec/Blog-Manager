@@ -3,7 +3,8 @@ const { model, Schema } = require('mongoose')
 module.exports = model('Article', new Schema({
     title: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     blog:{
         type: Schema.Types.ObjectId,
