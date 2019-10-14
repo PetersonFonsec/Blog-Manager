@@ -258,4 +258,41 @@ describe('route /article/:id', ()=>{
 
     })
 
+    describe('DELETE', () => {
+
+        it("should return stats 401 when header without authorization ", async () => {
+
+            const response = await request(app)
+                    .delete(`/article/${articleCreated._id}`)
+                    .send()
+
+            expect(response.status).toBe(401)
+
+        })
+
+        it("should return status 200 when id is valid and token sended", async () => {
+
+            const response = await request(app)
+                    .delete(`/article/${articleCreated._id}`)
+                    .set({ authorization: token })
+                    .send()
+
+            expect(response.status).toEqual(200)
+
+        })
+
+        it("should return status 501 when id is invalid", async () => {
+
+            const idInvalid = 'id is invalid'
+
+            const response = await request(app)
+                    .delete(`/article/${idInvalid}`)
+                    .set({ authorization: token })
+                    .send()
+
+            expect(response.status).toEqual(501)
+
+        })
+
+    })
 })
