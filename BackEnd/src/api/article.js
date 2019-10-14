@@ -30,7 +30,11 @@ class Article {
                 photo
             })
 
-            if(result) return res.status(200).send({ msg : 'ok' })
+            if(!result) return res.status(404).send({ msg : 'usuario não encontrado' })
+
+            const articleCreated = await articleDB.findOne({ title })
+
+            return res.status(200).send({ result : articleCreated })
 
         } catch (error) {
             return res.status(501).send({ msg: error })
@@ -47,9 +51,9 @@ class Article {
 
             const result = await articleDB.findOne({ _id }).populate('author')
     
-            return result
-                ? res.status(200).send({ result })
-                : res.status(401).send({ msg: 'Artigo não encontrado' })
+            if(!result) return res.status(501).send({ msg: 'Artigo não encontrado' })
+
+            return res.status(200).send({ result })
     
         } catch (error) {
             return res.status(501).send({ msg: error })
@@ -153,6 +157,7 @@ class Article {
     }
 
     async addLike(req, res){
+
         const _id = req.params.id
     
         if( !_id ) return res.status(401).send({ msg: 'Id é um campo obrigatório'})
@@ -167,7 +172,7 @@ class Article {
     
                 article.save()
              
-                return res.status(200).send({ result: 'ok' })
+                return res.status(200).send({ result: article })
     
             }else{
                 return res.status(401).send({ msg: 'Artigo não encontrado' })
