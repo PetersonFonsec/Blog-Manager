@@ -6,6 +6,7 @@ const express = require('express')
 const bodyParse = require('body-parser')
 const cors = require('cors')
 const consign = require('consign')
+const morgan = require('morgan')
 
 class AppController {
 
@@ -16,8 +17,9 @@ class AppController {
     }
 
     middlewares(){
-        this.express.use(express.static('uploads'));
-        this.express.use(express.static('public'));
+        this.express.use(morgan("common"))
+        this.express.use(express.static('uploads'))
+        this.express.use(express.static('public'))
         this.express.use(bodyParse.json())
         this.express.use(cors())
     }
