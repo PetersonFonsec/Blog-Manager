@@ -1,5 +1,7 @@
 ## Pet Blog Manage
 
+[Documentação das Rotas](https://petersonfonsec.github.io/Blog-Manager/BackEnd/public/apidoc/)
+
 **Back-End**
 
 O back-end é uma simples Api REST mas bem completa onde conta com 
