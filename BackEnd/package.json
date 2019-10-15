@@ -1,5 +1,5 @@
 {
-  "name": "blog-manager-back-end",
+  "name": "pet_blog_namager",
   "version": "1.0.0",
   "main": "src/index.js",
   "directories": {
@@ -8,16 +8,18 @@
   "scripts": {
     "test": "NODE_ENV=test jest --detectOpenHandles",
     "coverage": "NODE_ENV=test jest --detectOpenHandles --collectCoverage",
-    "dev": "nodemon src/index --ignore tests",
-    "start": "node src/index"
+    "dev": "npm run apidoc && nodemon src/index --ignore tests",
+    "start": "node src/index",
+    "apidoc": "apidoc -i src/routes/ -o public/apidoc"
   },
   "keywords": [],
   "author": "Peterson Fonseca",
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "apidoc": "^0.17.7",
     "jest": "^24.9.0",
-    "nodemon": "^1.19.1",
+    "nodemon": "^1.19.3",
     "supertest": "^4.0.2"
   },
   "dependencies": {

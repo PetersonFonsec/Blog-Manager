@@ -11,6 +11,16 @@ module.exports = app => {
 
     const { findOne, createAdmin, findUserLogged, updateLogged } = User
 
+
+    /**
+     * @api {get} / API Status
+     * @apiGroup Status
+     * @apiSuccess {String} Status Managem de status da API
+     * @apiSuccessExample {json} Sucesso
+     *      HTTP/1.1 200 OK
+     *      {"status":"NTASK"}
+     */
+
     app.route('/user')
         .get( find )
         .post( create )
