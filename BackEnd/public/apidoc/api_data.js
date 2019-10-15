@@ -917,6 +917,142 @@ define({ "api": [
     "name": "PostUser"
   },
   {
+    "type": "delete",
+    "url": "/user/:id",
+    "title": "delete anyone user",
+    "group": "User_Admin",
+    "permission": [
+      {
+        "name": "admin access rights needed."
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "id",
+            "optional": false,
+            "field": "id",
+            "description": "<p>for User will update</p>"
+          }
+        ]
+      }
+    },
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>with Token for user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Authorization",
+          "content": "{ \n \"Authorization\" : \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGE1YmJkMmViMDI4MDI2YjZlZmVhZWQiLCJhZG1pbiI6ZmFsc2UsImlhdCI6MTU3MTE0MjYxMCwiZXhwIjoxNTcxMTQ4NjEwfQ.zhvS6bcxd-ov-B5Ky_7YkfYlKCfA2xIIvbe_hveJYiw\" \n}",
+          "type": "Json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "return",
+            "description": "<p>a String</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Sucesso",
+          "content": "HTTP/1.1 200 OK\n{\n               \"msg\": \"ok\"\n           }",
+          "type": "Json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/routes/user.js",
+    "groupTitle": "User_Admin",
+    "name": "DeleteUserId"
+  },
+  {
+    "type": "get",
+    "url": "/user/:id",
+    "title": "Read data for anyone user",
+    "group": "User_Admin",
+    "permission": [
+      {
+        "name": "admin access rights needed."
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "id",
+            "optional": false,
+            "field": "id",
+            "description": "<p>for User will update</p>"
+          }
+        ]
+      }
+    },
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>with Token for user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Authorization",
+          "content": "{ \n \"Authorization\" : \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGE1YmJkMmViMDI4MDI2YjZlZmVhZWQiLCJhZG1pbiI6ZmFsc2UsImlhdCI6MTU3MTE0MjYxMCwiZXhwIjoxNTcxMTQ4NjEwfQ.zhvS6bcxd-ov-B5Ky_7YkfYlKCfA2xIIvbe_hveJYiw\" \n}",
+          "type": "Json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "return",
+            "description": "<p>a String</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Sucesso",
+          "content": "HTTP/1.1 200 OK\n{\n               \"msg\": \"ok\"\n           }",
+          "type": "Json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/routes/user.js",
+    "groupTitle": "User_Admin",
+    "name": "GetUserId"
+  },
+  {
     "type": "post",
     "url": "/user/admin",
     "title": "Create new user admin",
@@ -985,5 +1121,101 @@ define({ "api": [
     "filename": "src/routes/user.js",
     "groupTitle": "User_Admin",
     "name": "PostUserAdmin"
+  },
+  {
+    "type": "put",
+    "url": "/user/:id",
+    "title": "Update anyone user",
+    "group": "User_Admin",
+    "permission": [
+      {
+        "name": "admin access rights needed."
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "id",
+            "optional": false,
+            "field": "id",
+            "description": "<p>for User will update</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "avatar",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "email",
+            "description": ""
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "{",
+          "content": "{\n  \"name\" : \"peterson fonseca\"\n}",
+          "type": "Json"
+        }
+      ]
+    },
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>with Token for user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Authorization",
+          "content": "{ \n \"Authorization\" : \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGE1YmJkMmViMDI4MDI2YjZlZmVhZWQiLCJhZG1pbiI6ZmFsc2UsImlhdCI6MTU3MTE0MjYxMCwiZXhwIjoxNTcxMTQ4NjEwfQ.zhvS6bcxd-ov-B5Ky_7YkfYlKCfA2xIIvbe_hveJYiw\" \n}",
+          "type": "Json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "return",
+            "description": "<p>a String</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Sucesso",
+          "content": "HTTP/1.1 200 OK\n{\n               \"msg\": \"ok\"\n           }",
+          "type": "Json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/routes/user.js",
+    "groupTitle": "User_Admin",
+    "name": "PutUserId"
   }
 ] });

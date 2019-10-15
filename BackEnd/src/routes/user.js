@@ -192,7 +192,65 @@ module.exports = app => {
 
     app.route('/user/:id')
         .all( validToken )
+        /**
+            * @api {put} /user/:id Update anyone user
+            * @apiGroup User Admin
+            * @apiPermission admin access rights needed.
+            * @apiParam { id } id for User will update
+            * @apiParam { String } avatar
+            * @apiParam { String } name
+            * @apiParam { String } email
+            * @apiParamExample { Json } 
+            * {
+            *   "name" : "peterson fonseca"
+            * }
+            * @apiHeader { String } Authorization with Token for user
+            * @apiHeaderExample { Json } Authorization
+            * { 
+            *  "Authorization" : "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGE1YmJkMmViMDI4MDI2YjZlZmVhZWQiLCJhZG1pbiI6ZmFsc2UsImlhdCI6MTU3MTE0MjYxMCwiZXhwIjoxNTcxMTQ4NjEwfQ.zhvS6bcxd-ov-B5Ky_7YkfYlKCfA2xIIvbe_hveJYiw" 
+            * }
+            * @apiSuccess { String } return a String
+            * @apiSuccessExample { Json } Sucesso
+            *      HTTP/1.1 200 OK
+            *      {
+                    "msg": "ok"
+                }
+        */
         .put( userAdmin(updateOne) )
+        /**
+            * @api {delete} /user/:id delete anyone user
+            * @apiGroup User Admin
+            * @apiPermission admin access rights needed.
+            * @apiParam { id } id for User will update
+            * @apiHeader { String } Authorization with Token for user
+            * @apiHeaderExample { Json } Authorization
+            * { 
+            *  "Authorization" : "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGE1YmJkMmViMDI4MDI2YjZlZmVhZWQiLCJhZG1pbiI6ZmFsc2UsImlhdCI6MTU3MTE0MjYxMCwiZXhwIjoxNTcxMTQ4NjEwfQ.zhvS6bcxd-ov-B5Ky_7YkfYlKCfA2xIIvbe_hveJYiw" 
+            * }
+            * @apiSuccess { String } return a String
+            * @apiSuccessExample { Json } Sucesso
+            *      HTTP/1.1 200 OK
+            *      {
+                    "msg": "ok"
+                }
+        */
         .delete( userAdmin(removeOne) )
+        /**
+            * @api {get} /user/:id Read data for anyone user
+            * @apiGroup User Admin
+            * @apiPermission admin access rights needed.
+            * @apiParam { id } id for User will update
+            * @apiHeader { String } Authorization with Token for user
+            * @apiHeaderExample { Json } Authorization
+            * { 
+            *  "Authorization" : "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGE1YmJkMmViMDI4MDI2YjZlZmVhZWQiLCJhZG1pbiI6ZmFsc2UsImlhdCI6MTU3MTE0MjYxMCwiZXhwIjoxNTcxMTQ4NjEwfQ.zhvS6bcxd-ov-B5Ky_7YkfYlKCfA2xIIvbe_hveJYiw" 
+            * }
+            * @apiSuccess { String } return a String
+            * @apiSuccessExample { Json } Sucesso
+            *      HTTP/1.1 200 OK
+            *      {
+                    "msg": "ok"
+                }
+        */
         .get( userAdmin(findOne) )
 }
