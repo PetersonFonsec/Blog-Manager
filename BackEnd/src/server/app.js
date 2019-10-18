@@ -7,6 +7,7 @@ const bodyParse = require('body-parser')
 const consign = require('consign')
 const morgan  = require('morgan')
 const logger  = require('../config/logger')
+const helmet = require('helmet')
 const cors = require('cors')
 
 class AppController {
@@ -21,10 +22,11 @@ class AppController {
 
     middlewares(){
 
-        this.express.use(morgan("combined", { stream: logger.stream }))
+        this.express.use(bodyParse.json())
         this.express.use(express.static('uploads'))
         this.express.use(express.static('public'))
-        this.express.use(bodyParse.json())
+        this.express.use(morgan("combined", { stream: logger.stream }))
+        this.express.use(helmet())
         this.express.use(cors())
 
     }

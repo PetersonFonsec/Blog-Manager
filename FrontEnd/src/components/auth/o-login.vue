@@ -21,6 +21,7 @@
 <script>
 import Form from '@/components/auth/m-form-login'
 import FormCreateUser from '@/components/auth/m-form-create'
+import Auth from '@/controller/auth'
 
 export default {
     name:'OrganismsLogin',
@@ -29,7 +30,11 @@ export default {
         async welcome(user){
             const router = user.newUser ? '/user' : '/auth'
             
-            const result = await this.$axios.post(router, user)
+            const { email, password } = user
+
+            const result = new Auth.login(email, password)
+
+            console.table('result',result)
 
             if(result.status === 200){                    
 
