@@ -31,7 +31,7 @@ import AuthorForBlog from '@/components/dashboard/molecules/o-char-author-blog'
 import ArticleForAuthor from '@/components/dashboard/molecules/o-char-article-author'
 
 export default {
-  name: 'DashBoad',
+  name: 'TDashBoad',
   components: { 
     totalizers,
     LikesArticles,

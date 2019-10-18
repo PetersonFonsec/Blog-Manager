@@ -21,35 +21,31 @@
 <script>
 import Form from '@/components/auth/m-form-login'
 import FormCreateUser from '@/components/auth/m-form-create'
+import Alerts from '../../mixins/alert'
 import Auth from '@/controller/auth'
+import User from '@/controller/user'
 
 export default {
     name:'OrganismsLogin',
+    mixins: [Alerts],
     components: { Form, FormCreateUser },
     methods:{
         async welcome(user){
-            const router = user.newUser ? '/user' : '/auth'
-            
-            const { email, password } = user
 
-            const result = new Auth.login(email, password)
+            const result = user.newUser 
+                ? await User.create(user)
+                : await Auth.login(user)
 
-            console.table('result',result)
-
-            if(result.status === 200){                    
-
+            if(result.success){                    
+                
                 this.$store.commit('login', result.data.token )
 
-                this.$router.push({ path: `/dashboard`})
+                this.$router.push({ path: '/blog' })
 
-            }else{                
-                this.$bvToast.toast(result.data.msg, {
-                    title: 'Opss...',
-                    variant: 'danger',
-                    solid: true
-                })                
+            }else{
+
+                this.alertError(result.msg)
             }                
-
 
         },
     },

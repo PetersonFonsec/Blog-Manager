@@ -39,7 +39,6 @@ class AppController {
 
         consign({ verbose: process.env.NODE_ENV !== 'test' })
             .then('./src/server/db.js')
-            .then('./src/api')
             .then('./src/routes')
             .into(self)
 

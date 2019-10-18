@@ -25,13 +25,15 @@ export default new Vuex.Store({
         : state.isMenuOpen = value   
     },
     login(state, token){
+
       state.userLogged = true
 
       const tokenFormated = `Bearer ${token}`
 
       axios.defaults.headers.common['authorization'] = tokenFormated
 
-      localStorage.setItem(userKey, token)
+      localStorage.setItem(userKey, tokenFormated)
+
     },
     logout(state){
       state.userLogged = false

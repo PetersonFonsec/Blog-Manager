@@ -34,12 +34,12 @@ const router = new Router({
       component: () => import("./views/Blog"),
       meta: { requiresAuth: true }
     },
-      {
-        name: "ListAuthores",
-        path: "/blog/:id/authores",
-        component: () => import("@/components/blogs/organisms/o-list-authores"),
-        meta: { requiresAuth: true }
-      },
+    {
+      name: "ListAuthores",
+      path: "/blog/:id/authores",
+      component: () => import("@/components/blogs/organisms/o-list-authores"),
+      meta: { requiresAuth: true }
+    },
     {
       name: "bArticles",
       path: "/blog/:id/articles",
@@ -56,11 +56,10 @@ const router = new Router({
 })
 
 router.beforeEach( async (to, from, next) => {
+  
   const requiresAuth = to.meta.requiresAuth
  
   try{
-
-    if(from.path === '/auth') return next()
 
     if(!requiresAuth) return next()
 
@@ -68,10 +67,10 @@ router.beforeEach( async (to, from, next) => {
 
     if(!token) return next({ path: '/auth'})
 
-    const headers = {  authorization: `Bearer ${token}` }
+    const headers = {  authorization: token }
 
     const tokenIsValid = await axios.get(`${baseURL}/validtoken`, { headers })
-
+    
     if(tokenIsValid.status !== 200){
 
       localStorage.removeItem(userKey)
@@ -82,6 +81,7 @@ router.beforeEach( async (to, from, next) => {
     next()
 
   }catch(error){
+
     localStorage.removeItem(userKey)
 
     return next({ path:'/auth'})
