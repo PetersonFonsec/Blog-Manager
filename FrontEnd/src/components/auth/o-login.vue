@@ -40,7 +40,7 @@ export default {
                 
                 this.$store.commit('login', result.data.token )
 
-                this.$router.push({ path: '/blog' })
+                this.$router.push({ path: '/dashboard' })
 
             }else{
 

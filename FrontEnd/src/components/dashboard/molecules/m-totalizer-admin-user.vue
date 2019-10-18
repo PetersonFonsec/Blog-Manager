@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import totalizer from '@/components/dashboard/atoms/totalizers'
+import totalizer from '../atoms/totalizers'
 
 export default {
     name:'TotalizerUser',

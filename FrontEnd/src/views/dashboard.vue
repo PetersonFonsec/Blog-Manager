@@ -1,12 +1,14 @@
 <template>
-  <DashBoad/>
+  <div>
+    <TemplateDashBoad/>
+  </div>
 </template>
 
 <script>
-import DashBoad from '@/components/dashboard/t-dashboard'
+import TemplateDashBoad from '@/components/dashboard/t-dashboard'
 
 export default {
   name: 'DashBoad',
-  components: { DashBoad }
+  components: { TemplateDashBoad }
 }
 </script>

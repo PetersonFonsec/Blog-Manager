@@ -1,10 +1,8 @@
 <template>
   <div class="container-chart">
 
-    <b-card>
-        
+    <b-card>        
         <canvas id="CharAuthorEachBlog"></canvas>
-
     </b-card>
 
   </div>

@@ -2,9 +2,7 @@
   <div class="container-chart">
 
     <b-card>
-
         <canvas id="CharArticleForAuthor"></canvas>
-
     </b-card>
 
   </div>

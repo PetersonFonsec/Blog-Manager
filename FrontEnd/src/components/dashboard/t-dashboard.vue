@@ -25,13 +25,13 @@
 </template>
 
 <script>
-import totalizers from '@/components/dashboard/molecules/o-totalizers'
-import LikesArticles from '@/components/dashboard/molecules/o-char-likes'
-import AuthorForBlog from '@/components/dashboard/molecules/o-char-author-blog'
-import ArticleForAuthor from '@/components/dashboard/molecules/o-char-article-author'
+import totalizers from './organisms/o-totalizers'
+import LikesArticles from './organisms/o-char-likes'
+import AuthorForBlog from './organisms/o-char-author-blog'
+import ArticleForAuthor from './organisms/o-char-article-author'
 
 export default {
-  name: 'TDashBoad',
+  name: 'TemplateDashBoad',
   components: { 
     totalizers,
     LikesArticles,

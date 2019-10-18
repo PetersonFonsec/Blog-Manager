@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import blogs from '@/components/dashboard/molecules/m-totalizer-blogs'
-import articles from '@/components/dashboard/molecules/m-totalizer-articles'
+import blogs from '../molecules/m-totalizer-blogs'
+import articles from '../molecules/m-totalizer-articles'
 
 export default {
     name: 'totalizers',
