@@ -1,17 +1,26 @@
 import { baseURL, userKey } from '@/global'
+import { mapState } from 'vuex'
 import axios from 'axios'
 import alertMixins from "./alert"
 
 export default {
     mixins: [ alertMixins ],
     computed:{
+        ...mapState(['defaultImage']),
         src(){
-            const images = require.context('@/assets', false, /\.jpg$/)
+            const images = require.context('@/assets', false, /\.(jpg|png)$/)
      
-            return  this.avatar 
+            return  this.avatar
                 ? `${baseURL}/${this.avatar}`
                 : images('./avatar-default.jpg')
-        }
+        },
+        srcCoverArticle(){
+            const images = require.context('@/assets', false, /\.(jpg|png)$/)
+
+            return  this.imagem !== this.defaultImage
+                ? `${baseURL}/${this.imagem}`
+                : images(`./${this.defaultImage}`)
+        },
     },
     data(){
         return {
@@ -36,10 +45,10 @@ export default {
 
         },
         uploadAvatar(event){
-            this.uploadImg(event, '/upload/avatar', 'avatar')
+            return this.uploadImg(event, '/upload/avatar', 'avatar')
         },
         uploadCoverArticle(event){
-            this.uploadImg(event, '/upload/coverArticle`', 'avatar')
+          return this.uploadImg(event, '/upload/coverArticle', 'avatar')
         },
         async uploadImg(event, url, fieldName){
 
@@ -62,6 +71,8 @@ export default {
 
                 if(result.status === 200){
                     this.alertSuccess('Upload realizado com sucesso')
+
+                    return result
                 }   
 
             } catch (error) {

@@ -78,6 +78,23 @@ class User {
         }
 
     }
+
+    async listAll(){
+
+        try {
+
+            const res = await axios(this.router)
+
+            return {
+                success: true,
+                data: res.data
+            }
+
+        } catch (error) {
+            return this.newError(error.response.data.msg)
+        }
+
+    }
 }
 
 export default new User()

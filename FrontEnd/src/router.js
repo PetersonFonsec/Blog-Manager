@@ -1,8 +1,8 @@
 import Vue from "vue"
 import Router from "vue-router"
 import auth from "./views/login.vue"
-import axios from "axios"
-import { baseURL, userKey } from './global'
+import Auth from './controller/auth'
+import { userKey } from './global'
 
 Vue.use(Router)
 
@@ -57,35 +57,17 @@ const router = new Router({
 
 router.beforeEach( async (to, from, next) => {
   
-  const requiresAuth = to.meta.requiresAuth
- 
-  try{
+  const { requiresAuth } = to.meta
 
-    if(!requiresAuth) return next()
+  if(!requiresAuth) return next()
 
-    const token = localStorage.getItem(userKey)
+  const res = await Auth.validToken()
+  
+  if(res.success) return next()
 
-    if(!token) return next({ path: '/auth'})
+  localStorage.removeItem(userKey)
 
-    const headers = {  authorization: token }
-
-    const tokenIsValid = await axios.get(`${baseURL}/validtoken`, { headers })
-    
-    if(tokenIsValid.status !== 200){
-
-      localStorage.removeItem(userKey)
-
-      return next({ path:'/auth'})
-    } 
-
-    next()
-
-  }catch(error){
-
-    localStorage.removeItem(userKey)
-
-    return next({ path:'/auth'})
-  }
+  return next({ path:'/auth'})
 
  })
 

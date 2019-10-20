@@ -13,14 +13,16 @@
             <Card :title="ArticlePreview.title" 
                 :description="ArticlePreview.description" 
                 :data="ArticlePreview.data" 
-                :author="ArticlePreview.author"/>
+                :author="ArticlePreview.author"
+                :imagem="ArticlePreview.imagem"/>
         </template>
             
         <template v-else>
             <Bar :title="ArticlePreview.title" 
                 :description="ArticlePreview.description" 
                 :data="ArticlePreview.data" 
-                :author="ArticlePreview.author"/>
+                :author="ArticlePreview.author"
+                :imagem="ArticlePreview.imagem"/>
         </template>
 
     </div>

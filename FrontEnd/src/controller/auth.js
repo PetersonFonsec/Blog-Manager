@@ -1,4 +1,5 @@
 import axios from './axios'
+import { userKey } from '@/global'
 
 class Auth {
     
@@ -37,6 +38,28 @@ class Auth {
 
     }
 
+    async validToken(){
+        
+        const token = localStorage.getItem(userKey)
+
+        if(!token) return this.newError('Sem o Token no localStorage')
+
+        const headers = {  authorization: token }
+
+        try {
+        
+            const res = await axios.get('/validtoken', { headers })
+        
+            return {
+                success:  true,
+                data: res.data
+            }
+
+        } catch (error) {
+            return this.newError(error.response.data.msg)
+        }
+        
+    }
 
 }
 

@@ -22,9 +22,12 @@
   import Popover from '@/components/utils/atoms/a-popover'
   import formBlog from '@/components/blogs/atoms/a-form-create'
   import addSomething from '@/components/utils/molecules/m-add-something'
+  import Blog from '@/controller/blog'
+  import Alert from '@/mixins/alert'
 
   export default {
     name: 'CreateBlog',
+    mixins: [ Alert ],
     components: { Popover, addSomething, formBlog },
     data(){
       return {
@@ -37,11 +40,20 @@
     methods:{
       async createBlog(blogName){
         
-        const result = await this.$axios.post('/blog', blogName)
-
-        if(result.status === 200){
+        const result = await Blog.create(blogName)
+        
+        if(result.success){
+          
+          this.alertSuccess('Blog Criado Com sucesso')
+          
           this.$emit('blogCreated', true)
+        
+        }else{
+        
+          this.alertError(result.msg)
+        
         }
+
       }
     }
   }

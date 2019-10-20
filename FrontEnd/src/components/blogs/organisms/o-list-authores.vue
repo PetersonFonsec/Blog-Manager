@@ -4,6 +4,8 @@
 
 <script>
 import list from '@/components/blogs/molecules/m-list-authores'
+import User from '@/controller/user'
+
 export default {
     components: { list },
     data(){
@@ -14,7 +16,7 @@ export default {
     methods:{
         async loadAuthores(){
 
-            const allAuthores = await this.$axios('/user')
+            const allAuthores = await User.listAll()
 
             this.authores = allAuthores.data.result
 

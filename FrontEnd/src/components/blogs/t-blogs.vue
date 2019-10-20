@@ -26,6 +26,7 @@
 <script>
 import LoadBlog from '@/components/blogs/organisms/o-load-blog'
 import addBlogs from '@/components/blogs/organisms/o-create-blog'
+import Blog from '@/controller/blog'
 
 export default {
     name:'ContainerBlogs',
@@ -37,9 +38,11 @@ export default {
     },
     methods:{
       async loadBlogs(){
-        const blogs = await this.$axios.get('/blog/user/')        
+
+        const blogs = await Blog.loadUserBlogs()
         
         this.blogs = blogs.data.result
+
       },
       refresh(){
         this.loadBlogs()

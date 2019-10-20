@@ -2,7 +2,7 @@
   <div class="item-article card-item-article">
 
     <div class="image-post">      
-      <img :src="src" alt="picture" />
+      <img :src="srcCoverArticle" alt="picture" />
     </div>
 
     <div class="info">
@@ -21,11 +21,11 @@
 </template>
 
 <script>
-import { baseURL } from '@/global'
-import { mapState } from 'vuex'
+import ImageMixins from '@/mixins/image'
 
 export default {
     name: 'BoxPost',
+    mixins: [ ImageMixins ],
     props:{
       title: {
         type: String,
@@ -46,12 +46,6 @@ export default {
       imagem:{
         type: String,
         require: true,
-      }
-    },
-    computed: {
-      ...mapState(['defaultImage']),
-      src(){
-        return `${baseURL}/${this.imagem}` || this.defaultImage
       }
     }
 }

@@ -16,9 +16,11 @@ export default {
 
       const token = localStorage.getItem(userKey)
 
-      if(!token) return this.$router.push({ path: '/auth' })
-      
-      this.$store.commit( 'login', token )
+      if(token) return this.$store.commit( 'login', token )
+
+      this.$store.commit( 'logout')
+
+      this.$router.push({ path: '/auth' })
 
     }
   },

@@ -17,7 +17,7 @@
             <b-form-group id="group-img" label="Imagem" label-for="img">
               <b-form-file
                 id="img"
-                @change="uploadImg"
+                @change="CoverArticle"
                 v-model="fileSelected"
                 placeholder="Faça um upload da imagem" />
             </b-form-group>
@@ -69,13 +69,24 @@
 </template>
 
 <script>
-import axios from 'axios'
 import { VueEditor } from 'vue2-editor'
-import { userKey, baseURL } from '@/global'
+import ImagemMixin from '@/mixins/image'
+import { mapState } from 'vuex'
+
 export default {
     name:'FormArticle',
     components: { VueEditor },
-    props:['mode', 'preview'],
+    mixins: [ ImagemMixin ],
+    props: {
+      mode: {
+        type: String,
+        default: 'save'
+      },
+      preview:{
+        type: Boolean,
+        default: true
+      }
+    },
     watch:{
       article:{
         handler(article){
@@ -85,6 +96,9 @@ export default {
       }
     },
     computed:{
+
+      ...mapState(['defaultImage']),
+
       _mode(){
         return this.mode || 'save'
       },
@@ -93,63 +107,32 @@ export default {
       },
       rulesTitle(){
         return this.article.title.length <= 80 ? null : false
-      }
+      },
+
     },
     data(){
       return {
-        linkImg: false,
         fileSelected: null,
         article: {
           description: '',
           title: '',
+          content: '',
+          photo: '',
         },
       }
     },
     methods:{
-      async uploadImg(event){
-        const img = event.target.files[0]
-
-        const limit = 2 * 1024 * 1024
-
-        if(img.size > limit){
-          return this.$bvToast.toast('Tamanho maximo da imagem é de 2 mb', {
-            title: 'Tamanho maximo exedido',
-            variant: 'danger',
-            solid: true
-          })
-        }
-
-        const form = new FormData()
-
-        form.append('avatar', img, img.name)
-
-        const token = localStorage.getItem(userKey)
-
-        var config = {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            'authorization': `Bearer ${token}`
-          }
-        };
-
-        const result = await axios.post(`${baseURL}/upload/coverArticle`, form, config)
-
-        if(result.status === 200){
-
-          this.$bvToast.toast('Upload feito', {
-            title: 'Upload realizado com sucesso',
-            variant: 'success',
-            solid: true
-          })
-
-        }
-
-        this.article.photo = result.data.file.toString()
+      async CoverArticle(event){
+        const res = await this.uploadCoverArticle(event)
+        
+        this.article.photo = res.data.file
 
       },
       _submit(){
         const mode = this._mode === 'save' ? 'save' : 'update'
         
+        this.article.photo = this.article.photo || this.defaultImage
+
         const article = { mode, ...this.article }
                 
         this.$emit('createArticle', article)

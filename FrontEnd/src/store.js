@@ -9,11 +9,11 @@ export default new Vuex.Store({
   state: {
     isMenuOpen: false,
     userLogged: false,
-    defaultImage: '@/assets/default-post.png',
+    defaultImage: 'default-post.png',
     ArticlePreview: {
       title: 'title default',
       description: 'description default',
-      imagem: '@/assets/default-post.png',
+      imagem: 'default-post.png',
       author: 'Pet',
       data: new Date().toLocaleDateString()
     }
@@ -50,7 +50,7 @@ export default new Vuex.Store({
       for( let prop in article ){
         if( article[prop] !== undefined ) preview[prop] = article[prop]
       }
-
+      console.log(preview)
       state.ArticlePreview = { ...preview }
     }    
   },
