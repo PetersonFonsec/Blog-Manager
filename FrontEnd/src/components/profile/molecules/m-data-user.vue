@@ -24,7 +24,7 @@
 
                                 <b-form-file
                                     id="img"
-                                    @change="uploadImg"
+                                    @change="uploadAvatar"
                                     placeholder="Faça um upload da imagem" />
 
                             </b-form-group>
@@ -145,19 +145,16 @@
 </template>
 
 <script> 
-import { baseURL, userKey } from '@/global'
-import axios from 'axios'
 import editField from '@/components/utils/atoms/a-edit-field'
+import User from '@/controller/user'
+import Blog from '@/controller/blog'
+import Alert from '@/mixins/alert'
+import Image from '@/mixins/image'
+
 export default {
     name: 'DataUser',
+    mixins: [ Alert, Image ],
     components: { editField },
-    computed:{
-        src(){
-            const images = require.context('@/assets', false, /\.jpg$/)
-     
-            return  `${baseURL}/${this.avatar}` || images('./avatar-default.jpg')
-        }
-    },
     props:{
         name:{
             type: String,
@@ -193,124 +190,66 @@ export default {
         }
     },
     methods:{
-        async uploadImg(event){
-            const img = event.target.files[0]
-
-            const limit = 2 * 1024 * 1024
-
-            if(img.size > limit){
-                return this.$bvToast.toast('Tamanho maximo da imagem é de 2 mb', {
-                    title: 'Tamanho maximo exedido',
-                    variant: 'danger',
-                    solid: true
-                })
-            }
-
-            const form = new FormData()
-
-            form.append('avatar', img, img.name)
-
-            const token = localStorage.getItem(userKey)
-
-            var config = {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    'authorization': `Bearer ${token}`
-                }
-            };
-
-            const result = await axios.post(`${baseURL}/upload/avatar`, form, config)
-
-            if(result.status === 200){
-
-                this.$bvToast.toast('Upload feito', {
-                    title: 'Upload realizado com sucesso',
-                    variant: 'success',
-                    solid: true
-                })
-
-            }
-
-            this.article.photo = result.data.file.toString()
-
+        changeName(newName){
+            this.updateUser('name', newName)
         },
-        async changeName(newName){
-            
-            const result = await this.$axios.put('/userLogged', { name: newName })
+        changeEmail(newEmail){
+            this.updateUser('email', newEmail)
+        },
+        async updateUser(field, newValue){
 
-            if(result.status === 200){
+            let newField = {}
+
+            newField[field] = newValue
+
+            const result = await User.update(newField)
+
+            if(result.success){
                 this.editName = false
-                this.$emit('reload')
-            } 
-        },
-        async changeEmail(newEmail){
-            
-            const result = await this.$axios.put('/userLogged', { email: newEmail })
-
-            if(result.status === 200){
-                this.editName = false
-                this.$emit('reload')
-            }
-        },
-        async dropBlog(id){
-            const result = await this.$axios.delete(`/blog/${id}`)
-
-            if(result.status === 200) {
                 
-                this.$bvToast.toast('Blog escluido com sucesso', {
-                    title: 'Sucesso',
-                    variant: 'success',
-                    solid: true
-                })
-
+                this.alertSuccess(`${field} alterado com sucesso`)
+                
                 this.$emit('reload')
+            }else{
+                this.alertError(result.msg)
             }
+
         },
         async changePassword(){
 
             const { password, confirmPassword, newPassword } = this
 
-            if( !password || !confirmPassword || !newPassword ) 
-                return this.showInfo('Campo invalido', 'Todos os Campos são obrigatórios')
+            if( !this.confirm ) return this.alertError('Senhas não conferem')
 
-            if( !this.confirm || confirmPassword !== newPassword ) 
-                return this.showDanger('Campo invalido', 'senha não confere')
+            const result = await User.changePassword(password, confirmPassword, newPassword)
 
-            const validPassword = await this.$axios.post('/userLogged', { password })
+            result.success
+                ? this.alertSuccess('Senha alterada com Sucesso')
+                : this.alertError(result.msg)
 
-            if( validPassword.status !== 200  ) 
-                return this.showDanger('Senha Incorreta', 'Senha atual está incorreta')
-            
-            const result = await this.$axios.put('/userlogged/changepassword', { newPassword })
+            this.resetFields()
 
-            result.status === 200
-                ? this.showSuccess('Sucesso', 'Senha alterada com sucesso')
-                : this.showDanger('Erro', 'Senha Invalida')
+        },
+        async dropBlog(id){
 
-            this.newName = ''
+            const result = await Blog.drop(id)
+
+            result.success
+                ? this.alertSuccess('Blog excluido com sucesso')
+                : this.alertError(result.msg)
+
+            this.$emit('reload')
+
+        },
+        resetFields(){
             this.confirm = ''
             this.confirmPassword =''
-            this.password =''
             this.newPassword = ''
+            this.password =''
+            this.newName = ''
         },
         validatePassword(value){
             this.confirm = !!(this.newPassword === value)
-        },
-        showToast(title, msg, type){
-            this.$bvToast.toast(msg, {
-                title: title,
-                solid: true,
-                variant: type.toString()
-            })            
-        },
-        showInfo(title, msg){
-            this.showToast(title, msg,'info')
-        },
-        showDanger(title, msg){
-            this.showToast(title, msg,'danger')
-        },
-        showSuccess(title, msg){
-            this.showToast(title, msg,'success')
         },
     }
 }

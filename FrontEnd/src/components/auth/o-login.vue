@@ -27,7 +27,7 @@ import User from '@/controller/user'
 
 export default {
     name:'OrganismsLogin',
-    mixins: [Alerts],
+    mixins: [ Alerts ],
     components: { Form, FormCreateUser },
     methods:{
         async welcome(user){

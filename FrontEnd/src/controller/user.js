@@ -34,6 +34,50 @@ class User {
             return this.newError(error.response.data.msg)
         }
     }
+
+    async update(fieldUpdate){
+        
+        try {
+
+            const res = await axios.put('/userLogged', { ...fieldUpdate })
+
+            return {
+                success:  true,
+                data: res.data
+            }
+    
+        }catch(error) {
+            return this.newError(error.response.data.msg)
+        }
+        
+    }
+
+    async changePassword(password, confirmPassword, newPassword){
+
+        if( !password || !confirmPassword || !newPassword ) 
+            return this.newError('Todos os Campos são obrigatórios')
+
+        if( confirmPassword !== newPassword ) 
+            return this.newError('as senhas não conferem')
+
+        try {
+
+            const validPassword = await axios.post('/userLogged', { password })
+
+            if( validPassword.status !== 200  ) return this.newError('Senha Incorreta')
+
+            const res = await axios.put('/userlogged/changepassword', { newPassword })
+
+            return {
+                success:  true,
+                data: res.data
+            }
+
+        } catch (error) {
+            return this.newError(error.response.data.msg)
+        }
+
+    }
 }
 
 export default new User()
