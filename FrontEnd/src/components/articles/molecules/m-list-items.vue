@@ -3,13 +3,16 @@
 
     <div class="container-list-bar" v-if=" type === 'bar' ">
         <template v-for="(article, index) in articles">
+            
+            <span @click="updateArticle(article._id)" :key="index">
 
-            <Bar :key="index"
-                :title="article.title"
-                :author="article.author.name"
-                :data="article.createdAt"
-                :description="article.description"
-                :imagem="article.photo" />
+                <Bar :title="article.title"
+                     :author="article.author.name"
+                     :data="article.createdAt"
+                     :description="article.description"
+                     :imagem="article.photo" />
+
+            </span>
 
         </template>
     </div>
@@ -17,12 +20,15 @@
     <div class="container-list-card" v-else>
         <template v-for="(article, index) in articles">
 
-            <Card :key="index"
-                :title="article.title"
-                :author="article.author.name"
-                :data="article.createdAt"
-                :description="article.description"
-                :imagem="article.photo" />
+            <span @click="updateArticle(article._id)" :key="index">
+                
+                <Card :title="article.title"
+                    :author="article.author.name"
+                    :data="article.createdAt"
+                    :description="article.description"
+                    :imagem="article.photo" />
+
+            </span>
 
         </template>
     </div>
@@ -44,6 +50,11 @@ export default {
             type: String,
             required: true
         },
+    },
+    methods:{
+        updateArticle(id){
+            this.$router.push( { path: 'UpdateArticles', query: { id } } )
+        }
     }
 }
 </script>

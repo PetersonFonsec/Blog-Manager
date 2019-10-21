@@ -15,7 +15,7 @@ export default {
     components: { totalizer },
     props: {
       count:{
-        type: String,
+        type: Number,
         require: true
       }
     }

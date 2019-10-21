@@ -4,7 +4,8 @@
 
         <template #left>
             <Form 
-                @createArticle="mode"
+                @submit="midleware"
+                :mode="mode"
                 :preview="true" />
         </template>
         
@@ -28,7 +29,7 @@ export default {
     components: { Form, Preview, FormAndView },
     mixins: [ AlertMixin ],
     methods:{
-        mode(article){
+        midleware(article){
             article.mode === 'save' 
                 ? this.createArticle(article)
                 : this.updateArticle(article)
@@ -50,14 +51,36 @@ export default {
             }
 
         },
-        async updateArticle(){
-            // const result = await this.$axios.post('/article', article)
+        async updateArticle(article){
+            
+            if(!article._id) return this.alertError('Id do artigo não informado')
+
+            const res = await Article.update(article)
+
+            if(res.success){
+
+                this.alertSuccess('Article alterado com sucesso')
+
+                this.$router.push({ path: '/blog' })
+
+            }else{                
+                this.alertError(res.msg)
+            }
+
         }
     },
     data(){
         return {
-            showRightSide: false
+            showRightSide: false,
+            mode: 'save'
         }
+    },
+    created(){
+
+        const { id } = this.$route.query
+
+        if( id ) this.mode = 'update'
+
     }
 }
 </script>

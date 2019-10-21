@@ -24,7 +24,7 @@ class User {
         
         try {
             
-            const res = await axios.post(this.router)
+            const res = await axios.post(this.router, { email, name, password })
             
             return {
                 success:  true,

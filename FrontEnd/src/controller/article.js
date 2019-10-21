@@ -38,8 +38,55 @@ class Article {
     }
 
     async update(article){
-        const a = article
-        a
+
+        const { _id } = article
+
+        try{
+            const res = await axios.put(`${this.router}/${_id}`, article)
+
+            return {
+                success: true,
+                data: res.data
+            }
+
+        }catch(error){
+            return this.newError(error.response.data.msg)
+        }
+    }
+
+    async findOne(id){
+        
+        if( !id ) return this.newError('Id Não encontrado')
+
+        try{
+
+            const res = await axios(`${this.router}/${id}`)
+            
+            return {
+                success: true,
+                data: res.data
+            }
+
+        }catch(error){
+            return this.newError(error.response.data.msg)
+        }
+
+    }
+
+    async listAll(){
+
+        try {
+
+            const res = await axios.get(this.router)
+            
+            return {
+                success: true,
+                data: res.data,
+            }
+
+        } catch (error) {
+            return this.newError(error.response.data.msg)
+        }
     }
 }
 

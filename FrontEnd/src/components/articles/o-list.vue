@@ -17,6 +17,8 @@
 <script>
   import Filters from '@/components/articles/molecules/m-list-filters'
   import ListItems from '@/components/articles/molecules/m-list-items'
+  import Article from '@/controller/article'
+
   export default {
     name: 'ListaArticle',
     components: { Filters, ListItems },
@@ -41,11 +43,7 @@
 
         const articlesFiltred = allArticles.filter( Article => {
         
-          let validDate = true
-
-          let validTitle = true
-
-          let validBlog = true
+          let validDate, validTitle, validBlog = true
 
           if( dateBr ) validDate = new Date(Article.createdAt) <= new Date(dateBr)
                   
@@ -66,7 +64,7 @@
       },
       async loadArticles(){
 
-        const articles = await this.$axios.get('/article')
+        const articles = await Article.listAll()
 
         const newsArticles = articles.data.result.map(article => {
       

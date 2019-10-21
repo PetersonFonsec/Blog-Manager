@@ -135,10 +135,10 @@ class Article {
             const { blog, author } = req.body
 
             if( blog ) 
-                return res.status(401).send({ msg: 'Não é permitido auterar o blog'})
+                return res.status(401).send({ msg: 'Não é permitido alterar o blog'})
 
             if( author ) 
-                return res.status(401).send({ msg: 'Não é permitido auterar o autor'})
+                return res.status(401).send({ msg: 'Não é permitido alterar o autor'})
 
             const result = await articleDB.findByIdAndUpdate( _id, { ...req.body } )
 

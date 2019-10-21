@@ -40,7 +40,7 @@
                    <menu-item  
                         icon="fa fa-file"
                         label="Artigos"
-                        path="/listArticles"/>
+                        path="/articles"/>
 
                 <li/>
 

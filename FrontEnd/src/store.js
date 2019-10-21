@@ -50,7 +50,7 @@ export default new Vuex.Store({
       for( let prop in article ){
         if( article[prop] !== undefined ) preview[prop] = article[prop]
       }
-      console.log(preview)
+
       state.ArticlePreview = { ...preview }
     }    
   },

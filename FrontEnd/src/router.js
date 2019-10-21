@@ -11,26 +11,26 @@ const router = new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: "/auth",
       name: "auth",
+      path: "/auth",
       component: auth,
       meta: { requiresAuth: false }
     },
     {
-      path: "/dashboard",
       name: "dashboard",
+      path: "/dashboard",
       component: () => import("./views/dashboard"),
       meta: { requiresAuth: true }
     },
     {
-      path: "/profile",
       name: "profile",
+      path: "/profile",
       component: () => import("./views/Profile"),
       meta: { requiresAuth: true }
     },
     {
-      path: "/blog",
       name: "blog",
+      path: "/blog",
       component: () => import("./views/Blog"),
       meta: { requiresAuth: true }
     },
@@ -41,16 +41,22 @@ const router = new Router({
       meta: { requiresAuth: true }
     },
     {
-      name: "bArticles",
+      name: "CreateArticles",
       path: "/blog/:id/articles",
       component: () => import("@/components/articles/o-form-view"),
+      meta: { requiresAuth: true },
+    },
+    {
+      name: "articles",
+      path: "/articles",
+      component: () => import("@/components/articles/o-list"),
       meta: { requiresAuth: true }
     },
     {
-      name: "ListArticles",
-      path: "/listArticles",
-      component: () => import("@/components/articles/o-list"),
-      meta: { requiresAuth: true }
+      name: "UpdateArticles",
+      path: "/UpdateArticles",
+      component: () => import("@/components/articles/o-form-view"),
+      meta: { requiresAuth: true },
     },
   ]
 })
