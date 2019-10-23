@@ -95,6 +95,23 @@ class User {
         }
 
     }
+
+    async getUserLogged(){
+
+        try {
+
+            const res = await axios('/userLogged')
+
+            return {
+                success: true,
+                data: res.data
+            }
+
+        } catch (error) {
+            return this.newError(error.response.data.msg)
+        }
+
+    }
 }
 
 export default new User()

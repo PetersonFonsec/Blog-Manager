@@ -11,14 +11,20 @@
 
 <script>
 import profileUser from "@/components/profile/molecules/m-data-user"
+import User from '@/controller/user'
+import Blog from '@/controller/blog'
+import Alert from '@/mixins/alert'
 
 export default {
     name: 'ProfileScreen',
     components: { profileUser },
+    mixins: [ Alert ],
     methods:{
-        async loadUser(){
+        async loadUser(){  
 
-            const res = await this.$axios('/userLogged')
+            const res = await User.getUserLogged()
+
+            if(!res.success) return this.alertError(res.msg)
 
             const user = res.data.result
 
@@ -31,7 +37,9 @@ export default {
         },
         async loadBlog(){
 
-            const res = await this.$axios('/blog/user/')
+            const res = await Blog.loadUserBlogs()
+
+            if(!res.success) return this.alertError(res.msg)
 
             this.blogs = res.data.result
 
@@ -51,8 +59,7 @@ export default {
         }
     },
     mounted(){
-        this.loadUser()
-        this.loadBlog()
+        this.reload()
     }
 }
 </script>

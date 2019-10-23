@@ -33,10 +33,10 @@
 
 <script>
 import author from '@/components/blogs/atoms/a-item-author'
+import Blog from '@/controller/blog'
+
 export default {
-    components:{
-        author
-    },
+    components:{ author },
     props:{
         authores: {
             type: Array,
@@ -52,13 +52,11 @@ export default {
         async send(){
             const isValid = this.selected[0]
 
-            const route = `/blog/${this.$route.params.id}`
+            if(!isValid) return null
 
-            const authors = this.selected
+            const res = await Blog.giveAcess(this.$route.params.id, this.selected)
 
-            if(!isValid) return
-
-            await this.$axios.post(route, { authors })
+            if(!res.success) return this.alertError(res.msg)
 
             this.$route.push('/blog')
         }

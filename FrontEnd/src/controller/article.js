@@ -88,6 +88,7 @@ class Article {
             return this.newError(error.response.data.msg)
         }
     }
+
 }
 
 export default new Article()

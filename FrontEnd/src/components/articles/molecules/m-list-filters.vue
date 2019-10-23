@@ -60,6 +60,7 @@
 </template>
 
 <script>
+import Blog from '../../../controller/blog'
 export default {
     name: 'FilterArticles',
     data(){
@@ -75,9 +76,9 @@ export default {
         toggleView(){
             this.$emit('toggleView')
         },
-        async loadBlogs(){
+        async loadBlogs(){ 
 
-            const blogs = await this.$axios.get('/blog/user/')
+            const blogs = await Blog.loadUserBlogs()
 
             const format2Select = result => ({ text: result.name, value: result._id})
 
